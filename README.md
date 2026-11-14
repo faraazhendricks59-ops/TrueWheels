@@ -1,17 +1,16 @@
 # TrueWheels
 
-## Frontend Phase 18 of 50
+## Frontend Phase 21 of 50
 
-Live auction room and bidding interface.
+Dealer inventory management and bulk actions.
 
 ### Delivered
 
-- Responsive auction room with vehicle showcase and bidding panel
-- Live countdown timer with anti-snipe urgency state
-- Quick bid increments and maximum proxy bid input
-- Local bid-processing feedback and disabled ended-auction controls
-- Live bid history feed with auto-bid markers
-- Auction vehicle specs and collector-car description
-- Dynamic `/auctions/[id]` route with not-found handling
+- High-density dealer inventory table with status, pricing, views, leads, and listing age
+- Select-all and per-vehicle selection states
+- Floating bulk-actions bar for pause, boost, export, delete, and clearing selection
+- Three-step Quick Add Vehicle modal for identity, media, and pricing
+- Inventory management integrated into the dealer dashboard route
+- ZAR-oriented pricing and South African dealership workflow
 
-Backend auction authority, realtime bid transport, anti-sniping enforcement, payment authorization, bid persistence, and auction settlement remain future work.
+Authentication and dealer authorization, persistent inventory mutations, file uploads, bulk-action APIs, confirmations, inventory synchronization, and billing remain future work.
