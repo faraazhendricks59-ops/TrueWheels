@@ -1,15 +1,16 @@
 # TrueWheels
 
-## Frontend Phase 6 of 50
+## Frontend Phase 7 of 50
 
-Live auctions preview and community feed.
+Marketplace page and advanced filtering.
 
 ### Delivered
 
-- Live auction cards with client-side countdown timers
-- Current bid, bidder count, watcher count, and live status
-- Community post cards with authors, media, engagement actions, and profile links
-- Homepage integration for auctions and community content
-- Accessible labels for interactive controls
+- Desktop filter sidebar with price, make, body type, and fuel filters
+- URL-synchronized filters using Next.js search parameters
+- Mobile slide-up filter drawer with keyboard and dialog accessibility
+- Marketplace results header with sorting and active filter chips
+- Responsive marketplace route using the vehicle card and listing grid
+- Pagination placeholder for future data-backed pagination
 
 Backend work remains separate from this frontend phase.
