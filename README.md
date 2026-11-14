@@ -1,16 +1,16 @@
 # TrueWheels
 
-## Frontend Phase 22 of 50
+## Frontend Phase 23 of 50
 
-Social feed and community engagement.
+Notifications center and activity hub.
 
 ### Delivered
 
-- Rich community post composer with text, photo selection, tags, emoji, and linked vehicle preview
-- Interactive posts with likes, saves, comments, share controls, and vehicle previews
-- Responsive three-column community layout
-- Community navigation, automotive trending topics, and suggested groups
-- South African automotive community examples and ZAR-linked vehicle content
-- `/community` route integration
+- Filterable notification center for all, unread, auctions, messages, and social activity
+- Context-aware notification cards with type icons, thumbnails, actions, and read state
+- Mark-one-read and mark-all-read interactions
+- Granular in-app, email, and push preference controls
+- Responsive notifications route at `/notifications`
+- Auction, messaging, marketplace, and community examples using ZAR-oriented content
 
-Backend post persistence, media upload processing, comments, shares, moderation, notifications, group membership, and realtime feed updates remain future work.
+Backend notification persistence, realtime delivery, email and push providers, preference storage, and read-state synchronization remain future work.
