@@ -10,4 +10,11 @@
   button, a { -webkit-tap-highlight-color: transparent; }
 }
 
+.profile-banner-mask {
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%), linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%), linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-composite: intersect;
+}
+
 @media (max-width: 767px) { body { padding-bottom: calc(4rem + env(safe-area-inset-bottom)); } }
