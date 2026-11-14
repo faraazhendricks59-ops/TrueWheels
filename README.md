@@ -1,19 +1,17 @@
 # TrueWheels
 
-## Frontend Phase 32 of 50
+## Frontend Phase 33 of 50
 
-Parts and accessories marketplace.
+Part detail page and fitment verification.
 
 ### Delivered
 
-- Parts-specific cards with condition grade, part number, seller type, warranty, and ZAR pricing
-- Fitment confidence badges for compatible, incompatible, and unchecked parts
-- Vehicle fitment selector for make, model, year, and engine
-- Fitment verification loading and confirmed states
-- Category navigation for engines, brakes, suspension, body, electrical, lighting, wheels, and interior parts
-- Condition filters for OEM, aftermarket, refurbished, and used parts
-- Compatibility-first sorting after a vehicle is selected
-- South African parts examples from verified suppliers and scrap yards
-- `/parts` route integration
+- Part detail page with responsive gallery, thumbnails, carousel controls, and condition badge
+- Part identity, part number, description, specifications, price, warranty, shipping, and collection details
+- Seller trust card with verification, rating, sales, and response-time metrics
+- Buy, message, save, share, and seller-profile action surfaces
+- Fitment compatibility matrix with confirmed, incompatible, and possible-fit states
+- Expandable compatibility notes for special requirements and warnings
+- Dynamic `/parts/[id]` route with SEO metadata
 
-VIN decoding, catalogue-backed fitment rules, parts persistence, seller inventory APIs, search indexing, checkout, shipping, and category-specific filtering remain future work.
+Catalogue-backed fitment rules, live part data, checkout, seller messaging, image management, and route-level record validation remain future work.
