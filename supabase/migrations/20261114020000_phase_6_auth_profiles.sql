@@ -1,0 +1,13 @@
+alter table profiles add column if not exists username text unique;
+alter table profiles add column if not exists display_name text;
+alter table profiles add column if not exists avatar_url text;
+alter table profiles add column if not exists cover_image_url text;
+alter table profiles add column if not exists intents jsonb not null default '[]'::jsonb;
+alter table profiles add column if not exists is_admin boolean not null default false;
+alter table profiles add column if not exists is_owner boolean not null default false;
+create index if not exists profiles_username_idx on profiles(lower(username));
+create or replace function public.handle_new_user() returns trigger language plpgsql security definer set search_path = public as $$ begin insert into public.profiles (id, username, display_name, intents) values (new.id, coalesce(nullif(new.raw_user_meta_data->>'username', ''), 'user_' || substring(new.id::text, 1, 8)), coalesce(new.raw_user_meta_data->>'full_name', split_part(coalesce(new.email, 'TrueWheels user'), '@', 1)), coalesce(new.raw_user_meta_data->'intents', '[]'::jsonb)) on conflict (id) do update set display_name = excluded.display_name, intents = excluded.intents; return new; end; $$;
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created after insert on auth.users for each row execute procedure public.handle_new_user();
+create policy "public profiles are readable" on profiles for select using (true);
+create policy "users update own profile" on profiles for update using (id = auth.uid()) with check (id = auth.uid());
