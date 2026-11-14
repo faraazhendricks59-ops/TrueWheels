@@ -1,16 +1,16 @@
 # TrueWheels
 
-## Frontend Phase 11 of 50
+## Frontend Phase 12 of 50
 
-Digital garage and profile tab system.
+Create Listing wizard steps 1 and 2.
 
 ### Delivered
 
-- Premium dark-themed garage vehicle cards
-- Current, past, and dream vehicle groupings
-- Ownership periods and modification tags
-- State-driven profile tabs for listings, garage, posts, and reviews
-- Responsive tab navigation with accessible tab semantics
-- Profile route integration with the digital garage view
+- Five-step listing progress indicator
+- Vehicle identity step with VIN validation and simulated auto-fill
+- Manual make, model, and year fallbacks
+- Vehicle specifications step for mileage, fuel, transmission, condition, and colour
+- Shared typed listing form state across wizard steps
+- Sell route navigation with Phase 3–5 placeholders
 
-Backend garage persistence, tab URL state, and real profile content remain future work.
+Backend VIN decoding, image uploads, pricing, review, and listing persistence remain future work.
