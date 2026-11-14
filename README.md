@@ -1,16 +1,17 @@
 # TrueWheels
 
-## Frontend Phase 14 of 50
+## Frontend Phase 15 of 50
 
-Create Listing wizard review and success state.
+Onboarding flow and intent matrix.
 
 ### Delivered
 
-- Read-only review summary for vehicle identity and specifications
-- Pricing, negotiability, location, and media preview sections
-- Mandatory Terms of Service and POPIA consent checkbox
-- Simulated publish loading state with disabled navigation
-- Listing Published success screen with next-step actions
-- List Another reset flow and marketplace navigation placeholder
+- Full-screen cinematic brand introduction
+- Intent selection matrix for buying, selling, auctions, parts, community, and dealer tools
+- Select-all intent shortcut with validation
+- Email onboarding form with simulated Cloudflare Turnstile state
+- Six-digit OTP entry with focus progression
+- Multi-step onboarding state machine
+- Completion screen with entry into the TrueWheels experience
 
-Backend publishing, listing persistence, seller dashboard routing, authentication, and compliance records remain future work.
+Authentication, real Turnstile verification, OTP delivery, account persistence, and intent-based personalization remain future work.
