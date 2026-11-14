@@ -1,17 +1,19 @@
 # TrueWheels
 
-## Frontend Phase 34 of 50
+## Frontend Phase 35 of 50
 
-Events and car meets calendar.
+Settings and account management with POPIA controls.
 
 ### Delivered
 
-- Event cards with date blocks, type badges, venues, attendance, entry pricing, save, and RSVP actions
-- Track day, meet, show, and cruise event types
-- Monthly calendar with highlighted event dates and month navigation
-- Event filtering by type and selected calendar date
-- Responsive event grid and empty-state messaging
-- South African event locations including Kyalami, Sandton, Cape Town, Durban, Pretoria, and Johannesburg
-- `/events` route with SEO metadata
+- Responsive settings navigation shell with profile, security, privacy, notifications, devices, and appearance sections
+- Public profile editor for display name, username, bio, location, avatar, and banner surfaces
+- Save-state feedback for profile changes
+- Password-management interface
+- Two-factor authentication toggle
+- Active-session list with individual and bulk sign-out controls
+- POPIA data-export request state and access-right messaging
+- POPIA account-deletion danger zone with explicit DELETE confirmation
+- Safe query-section fallback and `/settings` route integration
 
-Persistent event hosting, RSVP storage, ticketing, capacity enforcement, event detail pages, map integration, reminders, and community notifications remain future work.
+Authentication APIs, real profile/media persistence, 2FA enrollment and recovery, session revocation, export-job delivery, deletion workflows, audit logs, retention schedules, and legal review remain future work.
