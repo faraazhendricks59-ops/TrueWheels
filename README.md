@@ -1,18 +1,17 @@
 # TrueWheels
 
-## Frontend Phase 17 of 50
+## Frontend Phase 18 of 50
 
-Messaging and inbox interface.
+Live auction room and bidding interface.
 
 ### Delivered
 
-- Responsive three-column inbox shell
-- Desktop conversations, active chat, and listing context layout
-- Mobile conversation-list and chat-view transitions
-- Searchable conversation list with unread badges
-- Sent and received message bubbles
-- Client-side message composer with immediate sent-message feedback
-- Safety warning encouraging on-platform payments and communication
-- Listing context card with price and vehicle link
+- Responsive auction room with vehicle showcase and bidding panel
+- Live countdown timer with anti-snipe urgency state
+- Quick bid increments and maximum proxy bid input
+- Local bid-processing feedback and disabled ended-auction controls
+- Live bid history feed with auto-bid markers
+- Auction vehicle specs and collector-car description
+- Dynamic `/auctions/[id]` route with not-found handling
 
-Backend messaging persistence, real-time transport, attachments, moderation, reporting, and unread synchronization remain future work.
+Backend auction authority, realtime bid transport, anti-sniping enforcement, payment authorization, bid persistence, and auction settlement remain future work.
