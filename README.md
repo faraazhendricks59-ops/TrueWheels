@@ -1,18 +1,18 @@
 # TrueWheels
 
-## Frontend Phase 27 of 50
+## Frontend Phase 28 of 50
 
-Saved searches and alerts management.
+Vehicle history reports and VIN verification.
 
 ### Delivered
 
-- Saved-search cards with filter chips, ZAR price criteria, match counts, and alert states
-- Active and paused alert filtering
-- Create and edit saved-search modal with criteria preview
-- Email alert enablement and frequency selection
-- Delete, rename, alert-toggle, and matching-vehicle actions
-- Empty states for all, active, and paused searches
-- South African search examples for Gauteng and ZAR budgets
-- `/saved-searches` route integration
+- VIN lookup entry point with uppercase validation and loading state
+- Vehicle history report with clean, caution, and issue status states
+- Ownership timeline with locations, odometer readings, and event details
+- Service and maintenance records table
+- Accident-record section for reported damage
+- Premium full-report upsell priced in ZAR
+- Report preview card for compact history summaries
+- Dynamic `/vehicle-history/[vin]` route
 
-Backend saved-search persistence, filter-builder integration, alert scheduling, notification delivery, account limits, and server-side matching remain future work.
+External vehicle-history providers, VIN decoding, registration lookup, payment processing, paid report generation, PDF export, and authoritative record verification remain future work.
