@@ -1,16 +1,16 @@
 # TrueWheels
 
-## Frontend Phase 21 of 50
+## Frontend Phase 22 of 50
 
-Dealer inventory management and bulk actions.
+Social feed and community engagement.
 
 ### Delivered
 
-- High-density dealer inventory table with status, pricing, views, leads, and listing age
-- Select-all and per-vehicle selection states
-- Floating bulk-actions bar for pause, boost, export, delete, and clearing selection
-- Three-step Quick Add Vehicle modal for identity, media, and pricing
-- Inventory management integrated into the dealer dashboard route
-- ZAR-oriented pricing and South African dealership workflow
+- Rich community post composer with text, photo selection, tags, emoji, and linked vehicle preview
+- Interactive posts with likes, saves, comments, share controls, and vehicle previews
+- Responsive three-column community layout
+- Community navigation, automotive trending topics, and suggested groups
+- South African automotive community examples and ZAR-linked vehicle content
+- `/community` route integration
 
-Authentication and dealer authorization, persistent inventory mutations, file uploads, bulk-action APIs, confirmations, inventory synchronization, and billing remain future work.
+Backend post persistence, media upload processing, comments, shares, moderation, notifications, group membership, and realtime feed updates remain future work.
