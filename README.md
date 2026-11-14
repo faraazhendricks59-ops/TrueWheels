@@ -1,17 +1,18 @@
 # TrueWheels
 
-## Frontend Phase 26 of 50
+## Frontend Phase 27 of 50
 
-Vehicle comparison tool.
+Saved searches and alerts management.
 
 ### Delivered
 
-- Side-by-side comparison table for up to three vehicles
-- Sticky specification column for horizontal mobile scrolling
-- Sticky comparison vehicle headers with remove actions
-- Best-value highlighting for price, year, mileage, power, torque, acceleration, and boot space
-- Empty comparison slots with add and remove controls
-- ZAR-formatted comparison pricing and South African vehicle examples
-- `/compare` route integration
+- Saved-search cards with filter chips, ZAR price criteria, match counts, and alert states
+- Active and paused alert filtering
+- Create and edit saved-search modal with criteria preview
+- Email alert enablement and frequency selection
+- Delete, rename, alert-toggle, and matching-vehicle actions
+- Empty states for all, active, and paused searches
+- South African search examples for Gauteng and ZAR budgets
+- `/saved-searches` route integration
 
-Persistent comparison state, vehicle search selection, saved comparisons, backend vehicle specifications, and analytics remain future work.
+Backend saved-search persistence, filter-builder integration, alert scheduling, notification delivery, account limits, and server-side matching remain future work.
