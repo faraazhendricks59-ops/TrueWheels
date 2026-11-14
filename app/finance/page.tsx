@@ -1,0 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { FinanceComparison } from "@/components/finance/FinanceComparison";
+import { InsuranceComparison } from "@/components/finance/InsuranceComparison";
+import { LeadCaptureForm } from "@/components/finance/LeadCaptureForm";
+
+export default function FinancePage() { const [formType, setFormType] = useState<"finance" | "insurance">("finance"); const [formOpen, setFormOpen] = useState(false); const openForm = (type: "finance" | "insurance") => { setFormType(type); setFormOpen(true); }; const vehiclePrice = 649000; const vehicleYear = 2021; return <div className="min-h-screen bg-surface-grey"><main className="mx-auto max-w-5xl px-4 py-8"><header className="mb-8 text-center"><h1 className="mb-2 text-3xl font-bold text-brand-graphite">Finance &amp; Insurance Hub</h1><p className="text-gray-500">Compare indicative quotes from South Africa's top providers and apply instantly.</p></header><section className="mb-8"><FinanceComparison vehiclePrice={vehiclePrice} onApply={() => openForm("finance")} /><div className="mt-4 text-center"><button type="button" onClick={() => openForm("finance")} className="text-sm font-semibold text-brand-red hover:underline">Apply for Finance Now →</button></div></section><section><InsuranceComparison vehicleValue={vehiclePrice} vehicleYear={vehicleYear} onQuote={() => openForm("insurance")} /><div className="mt-4 text-center"><button type="button" onClick={() => openForm("insurance")} className="text-sm font-semibold text-brand-red hover:underline">Get Insurance Quote →</button></div></section></main>{formOpen && <LeadCaptureForm type={formType} vehicleId="mock-vehicle-id" onClose={() => setFormOpen(false)} />}</div>; }
