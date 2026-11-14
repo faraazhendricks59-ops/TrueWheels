@@ -1,16 +1,14 @@
 # TrueWheels
 
-## Frontend Phase 4 of 50
+## Frontend Phase 5 of 50
 
-Homepage hero and global vehicle search.
+Vehicle listing cards and marketplace grid.
 
 ### Delivered
 
-- Cinematic responsive homepage hero
-- Vehicle search by make, model, maximum price, and location
-- Accessible labels and form submission handling
-- Marketplace query-string navigation
-- Platform trust signals
-- Phase 5 placeholder for trending vehicles, auctions, and community content
+- Reusable optimized `VehicleCard` with pricing, mileage, fuel, location, badges, and save action
+- Responsive `ListingGrid` supporting two, three, or four columns
+- Mock-data `TrendingSection` with Featured and Live Auction indicators
+- Homepage integration below the hero
 
 Backend work remains separate from this frontend phase.
