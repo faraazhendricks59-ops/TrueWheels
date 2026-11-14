@@ -1,15 +1,16 @@
 # TrueWheels
 
-## Frontend Phase 9 of 50
+## Frontend Phase 10 of 50
 
-Finance calculator and action modals.
+Public profile header and fade banner.
 
 ### Delivered
 
-- Client-side amortization calculator with deposit, interest-rate, and term sliders
-- Real-time monthly repayment estimates in ZAR
-- Credit-approval disclaimer and pre-approval CTA placeholder
-- Accessible Make an Offer modal with validation, keyboard dismissal, and focus handling
-- Vehicle detail page integration for finance and offer actions
+- Soft-edge profile banner using directional gradients and CSS masks
+- Overlapping avatar with gradient glow and online status indicator
+- Profile identity hierarchy: display name, username, bio, location, and join date
+- Verification indicator and social-link pills
+- Dynamic `/[username]` public profile route
+- Placeholder profile tabs for listings, garage, posts, and reviews
 
-Backend submission, authentication, lead persistence, and lender integration remain separate future work.
+Backend profile data, active tab state, and user content queries remain future work.
