@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Header } from "@/components/layout/Header";
+import { MobileNav } from "@/components/layout/MobileNav";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -12,7 +14,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="bg-surface-grey text-brand-graphite antialiased font-sans">{children}</body>
+      <body className="bg-surface-grey text-brand-graphite antialiased font-sans">
+        <Header />
+        {children}
+        <MobileNav />
+      </body>
     </html>
   );
 }
