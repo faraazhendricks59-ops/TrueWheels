@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Loader2, Scan } from "lucide-react";
 
-export interface ListingFormData { vin: string; make: string; model: string; year: string; mileage: string; fuelType: string; transmission: string; condition: string; color: string; }
+export interface ListingFormData { vin: string; make: string; model: string; year: string; mileage: string; fuelType: string; transmission: string; condition: string; color: string; images: string[]; price: string; negotiable: boolean; province: string; city: string; }
 interface StepVehicleIdentityProps { formData: ListingFormData; updateFormData: (data: Partial<ListingFormData>) => void; }
 
 export function StepVehicleIdentity({ formData, updateFormData }: StepVehicleIdentityProps) {
