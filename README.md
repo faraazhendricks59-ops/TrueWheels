@@ -1,17 +1,18 @@
 # TrueWheels
 
-## Frontend Phase 16 of 50
+## Frontend Phase 17 of 50
 
-User dashboard and account management.
+Messaging and inbox interface.
 
 ### Delivered
 
-- Responsive dashboard shell with desktop sidebar and mobile navigation tabs
-- Overview metrics for listings, views, messages, and saved searches
-- Quick actions for selling, inbox access, and profile settings
-- Recent activity feed
-- Interactive listings manager with pause/resume and delete controls
-- Listing status badges, pricing, views, expiry dates, and thumbnails
-- URL-driven dashboard section routing with fallback tab validation
+- Responsive three-column inbox shell
+- Desktop conversations, active chat, and listing context layout
+- Mobile conversation-list and chat-view transitions
+- Searchable conversation list with unread badges
+- Sent and received message bubbles
+- Client-side message composer with immediate sent-message feedback
+- Safety warning encouraging on-platform payments and communication
+- Listing context card with price and vehicle link
 
-Backend listing persistence, authorization, messaging, analytics, boosts, and destructive-action confirmation remain future work.
+Backend messaging persistence, real-time transport, attachments, moderation, reporting, and unread synchronization remain future work.
