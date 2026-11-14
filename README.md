@@ -1,18 +1,18 @@
 # TrueWheels
 
-## Frontend Phase 28 of 50
+## Frontend Phase 29 of 50
 
-Vehicle history reports and VIN verification.
+Finance and insurance comparison hub.
 
 ### Delivered
 
-- VIN lookup entry point with uppercase validation and loading state
-- Vehicle history report with clean, caution, and issue status states
-- Ownership timeline with locations, odometer readings, and event details
-- Service and maintenance records table
-- Accident-record section for reported damage
-- Premium full-report upsell priced in ZAR
-- Report preview card for compact history summaries
-- Dynamic `/vehicle-history/[vin]` route
+- Multi-lender finance repayment calculator with deposit and term controls
+- Indicative monthly repayment, interest, and total-cost comparisons in ZAR
+- Insurance provider comparison with premiums, excesses, ratings, and coverage details
+- Comprehensive and third-party coverage toggle
+- Two-step finance and insurance lead-capture form
+- Personal, contact, SA ID, employment, and income fields
+- Partner application success state and loading feedback
+- `/finance` route integration
 
-External vehicle-history providers, VIN decoding, registration lookup, payment processing, paid report generation, PDF export, and authoritative record verification remain future work.
+Rates, premiums, credit decisions, insurance underwriting, partner lead delivery, consent storage, and regulated financial-service disclosures remain future work.
