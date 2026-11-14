@@ -1,17 +1,15 @@
 # TrueWheels
 
-## Frontend Phase 8 of 50
+## Frontend Phase 9 of 50
 
-Vehicle detail page gallery and identity.
+Finance calculator and action modals.
 
 ### Delivered
 
-- Interactive vehicle gallery with thumbnails, navigation, counter, and lightbox
-- Keyboard controls and accessible gallery labels
-- Vehicle identity header with price, location, and status badges
-- Key specifications grid for mileage, fuel, transmission, and year
-- Trusted seller contact card with verification and dealer state
-- Dynamic `/vehicles/[id]` route with not-found handling
-- Finance calculator placeholder reserved for Phase 9
+- Client-side amortization calculator with deposit, interest-rate, and term sliders
+- Real-time monthly repayment estimates in ZAR
+- Credit-approval disclaimer and pre-approval CTA placeholder
+- Accessible Make an Offer modal with validation, keyboard dismissal, and focus handling
+- Vehicle detail page integration for finance and offer actions
 
-Backend work remains separate from this frontend phase.
+Backend submission, authentication, lead persistence, and lender integration remain separate future work.
