@@ -1,18 +1,16 @@
 # TrueWheels
 
-## Frontend Phase 13 of 50
+## Frontend Phase 14 of 50
 
-Create Listing wizard steps 3 and 4.
+Create Listing wizard review and success state.
 
 ### Delivered
 
-- Drag-and-drop media uploader with local image previews
-- Cover-image selection and image removal controls
-- Twenty-image upload cap with image-type filtering
-- Pricing and location step with negotiable toggle
-- Mock TrueWheels market-value insight panel
-- Province and city/suburb fields
-- Sell route integration for Photos and Pricing steps
-- Shared typed form state extended for media, price, and location fields
+- Read-only review summary for vehicle identity and specifications
+- Pricing, negotiability, location, and media preview sections
+- Mandatory Terms of Service and POPIA consent checkbox
+- Simulated publish loading state with disabled navigation
+- Listing Published success screen with next-step actions
+- List Another reset flow and marketplace navigation placeholder
 
-Backend media storage, market-value services, pricing validation, and listing persistence remain future work.
+Backend publishing, listing persistence, seller dashboard routing, authentication, and compliance records remain future work.
