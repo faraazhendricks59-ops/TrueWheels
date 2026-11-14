@@ -1,18 +1,18 @@
 # TrueWheels
 
-## Frontend Phase 24 of 50
+## Frontend Phase 25 of 50
 
-Advanced search and interactive map view.
+Admin command centre and moderation queue.
 
 ### Delivered
 
-- Advanced slide-out filters with ZAR price and model-year ranges
-- Feature and vehicle-condition controls
-- Leaflet and OpenStreetMap map integration with no Google Maps API dependency
-- Custom ZAR price-bubble vehicle markers
-- Map popups with vehicle summaries and listing links
-- Responsive grid/map view toggle
-- South African search coverage across Gauteng, Western Cape, and KwaZulu-Natal
-- `/search` route integration
+- Enterprise admin navigation shell with governance-focused modules
+- Moderation queue for pending and flagged vehicle listings
+- Approve, reject, and shadowban moderation controls
+- ZAR-formatted listing review data and seller verification badges
+- Searchable and filterable user management table
+- User role and account-status visibility
+- Dealer verification and suspend/unsuspend controls
+- Protected-style `/admin` route shell with validated tab fallback
 
-Backend search indexing, persisted filter state, geolocation permissions, map clustering, live inventory coordinates, and production image-host configuration remain future work.
+Real authentication and authorization, audit logging, moderation API mutations, FICA verification workflows, reports handling, role permissions, and production security controls remain future work.
