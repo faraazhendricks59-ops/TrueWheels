@@ -17,4 +17,7 @@
   mask-composite: intersect;
 }
 
+.map-price-pin { border: 1px solid rgb(255 255 255 / 0.2); border-radius: 0.5rem; background: #171B24; color: white; padding: 0.25rem 0.625rem; white-space: nowrap; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2); font-size: 0.75rem; font-weight: 700; }
+.custom-price-pin { background: transparent !important; border: 0 !important; }
+
 @media (max-width: 767px) { body { padding-bottom: calc(4rem + env(safe-area-inset-bottom)); } }
