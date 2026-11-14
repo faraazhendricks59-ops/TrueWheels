@@ -1,16 +1,18 @@
 # TrueWheels
 
-## Frontend Phase 12 of 50
+## Frontend Phase 13 of 50
 
-Create Listing wizard steps 1 and 2.
+Create Listing wizard steps 3 and 4.
 
 ### Delivered
 
-- Five-step listing progress indicator
-- Vehicle identity step with VIN validation and simulated auto-fill
-- Manual make, model, and year fallbacks
-- Vehicle specifications step for mileage, fuel, transmission, condition, and colour
-- Shared typed listing form state across wizard steps
-- Sell route navigation with Phase 3–5 placeholders
+- Drag-and-drop media uploader with local image previews
+- Cover-image selection and image removal controls
+- Twenty-image upload cap with image-type filtering
+- Pricing and location step with negotiable toggle
+- Mock TrueWheels market-value insight panel
+- Province and city/suburb fields
+- Sell route integration for Photos and Pricing steps
+- Shared typed form state extended for media, price, and location fields
 
-Backend VIN decoding, image uploads, pricing, review, and listing persistence remain future work.
+Backend media storage, market-value services, pricing validation, and listing persistence remain future work.
