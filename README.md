@@ -1,18 +1,18 @@
 # TrueWheels
 
-## Frontend Phase 29 of 50
+## Frontend Phase 30 of 50
 
-Finance and insurance comparison hub.
+Progressive Web App and offline capabilities.
 
 ### Delivered
 
-- Multi-lender finance repayment calculator with deposit and term controls
-- Indicative monthly repayment, interest, and total-cost comparisons in ZAR
-- Insurance provider comparison with premiums, excesses, ratings, and coverage details
-- Comprehensive and third-party coverage toggle
-- Two-step finance and insurance lead-capture form
-- Personal, contact, SA ID, employment, and income fields
-- Partner application success state and loading feedback
-- `/finance` route integration
+- Installable PWA manifest with standalone display and automotive app metadata
+- Global online/offline context with last-online tracking
+- Non-intrusive offline status banner for load-shedding and connectivity interruptions
+- Smart install prompt with dismissal cooldown and standalone detection
+- Local action queue for offline messages, likes, bids, and listing updates
+- Automatic queue sync when connectivity returns
+- Offline-aware message input example
+- Root layout integration for PWA metadata, offline provider, banner, and install prompt
 
-Rates, premiums, credit decisions, insurance underwriting, partner lead delivery, consent storage, and regulated financial-service disclosures remain future work.
+Service worker caching, offline page strategies, background sync APIs, push notifications, icon/screenshot assets, server-side queue processing, conflict resolution, and durable encrypted storage remain future work.
