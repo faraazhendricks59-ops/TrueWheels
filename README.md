@@ -1,17 +1,17 @@
 # TrueWheels
 
-## Frontend Phase 15 of 50
+## Frontend Phase 16 of 50
 
-Onboarding flow and intent matrix.
+User dashboard and account management.
 
 ### Delivered
 
-- Full-screen cinematic brand introduction
-- Intent selection matrix for buying, selling, auctions, parts, community, and dealer tools
-- Select-all intent shortcut with validation
-- Email onboarding form with simulated Cloudflare Turnstile state
-- Six-digit OTP entry with focus progression
-- Multi-step onboarding state machine
-- Completion screen with entry into the TrueWheels experience
+- Responsive dashboard shell with desktop sidebar and mobile navigation tabs
+- Overview metrics for listings, views, messages, and saved searches
+- Quick actions for selling, inbox access, and profile settings
+- Recent activity feed
+- Interactive listings manager with pause/resume and delete controls
+- Listing status badges, pricing, views, expiry dates, and thumbnails
+- URL-driven dashboard section routing with fallback tab validation
 
-Authentication, real Turnstile verification, OTP delivery, account persistence, and intent-based personalization remain future work.
+Backend listing persistence, authorization, messaging, analytics, boosts, and destructive-action confirmation remain future work.
