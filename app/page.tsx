@@ -1,35 +1,26 @@
-const pillars = [
-  { title: "Discover", text: "Find the right vehicle with structured, trusted data." },
-  { title: "Buy & Sell", text: "Connect through safer listings and transparent tools." },
-  { title: "Own", text: "Build your digital garage and manage the full lifecycle." },
+import Link from "next/link";
+import { Search, ShieldCheck, Sparkles, Timer } from "lucide-react";
+import { VehicleCard } from "@/components/cards/VehicleCard";
+
+const vehicles = [
+  { title: "2021 VW Golf 8 GTI", price: 549000, mileage: 34000, location: "Sandton, Gauteng", imageUrl: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80", isBoosted: true },
+  { title: "2020 BMW M340i", price: 719000, mileage: 42000, location: "Cape Town, Western Cape", imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80", isBoosted: true },
+  { title: "2022 Toyota Hilux Legend", price: 639000, mileage: 28000, location: "Pretoria, Gauteng", imageUrl: "https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=1200&q=80" },
+  { title: "2019 Ford Mustang GT", price: 899000, mileage: 51000, location: "Cape Town, Western Cape", imageUrl: "https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&w=1200&q=80" },
+];
+
+const auctions = [
+  ["2018 Porsche 718 Cayman", "R 845 000", "00:14:22", "18", "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80"],
+  ["2021 Mercedes-AMG A45", "R 780 000", "00:28:07", "11", "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=900&q=80"],
+  ["2020 Toyota Supra GR", "R 699 000", "01:05:43", "9", "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=900&q=80"],
 ];
 
 export default function HomePage() {
-  return (
-    <main className="min-h-screen">
-      <section className="mx-auto flex min-h-[80vh] max-w-6xl flex-col justify-center px-6 py-16 lg:px-8">
-        <div className="max-w-3xl">
-          <p className="mb-5 text-sm font-semibold uppercase tracking-[0.18em] text-brand-red">South Africa&apos;s digital garage</p>
-          <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-brand-graphite sm:text-6xl">
-            The Automotive <span className="text-brand-red">Operating System.</span>
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 sm:text-xl">
-            A modern, trusted ecosystem to discover, buy, sell, and own vehicles with confidence.
-          </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <button className="rounded-lg bg-brand-red px-6 py-3 font-semibold text-white shadow-card transition hover:bg-brand-red-dark">Explore vehicles</button>
-            <button className="rounded-lg border border-brand-silver bg-white px-6 py-3 font-semibold text-brand-graphite shadow-card transition hover:shadow-card-hover">List your vehicle</button>
-          </div>
-        </div>
-        <div className="mt-20 grid gap-4 sm:grid-cols-3">
-          {pillars.map((pillar) => (
-            <article key={pillar.title} className="rounded-xl bg-white p-6 shadow-card">
-              <h2 className="text-xl font-bold tracking-tight">{pillar.title}</h2>
-              <p className="mt-2 leading-relaxed text-slate-600">{pillar.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-    </main>
-  );
+  return <main className="min-h-screen">
+    <section className="relative overflow-hidden bg-brand-graphite"><div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=2200&q=85')] bg-cover bg-center opacity-45" /><div className="absolute inset-0 bg-gradient-to-t from-brand-graphite via-brand-graphite/75 to-brand-graphite/20" /><div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8"><p className="mb-5 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-red-200"><Sparkles size={16} /> South Africa&apos;s digital garage</p><h1 className="max-w-3xl text-5xl font-extrabold leading-tight tracking-tight text-white sm:text-7xl">The Automotive <span className="text-brand-red">Operating System.</span></h1><p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-200 sm:text-xl">Discover, buy, sell, and bid on South Africa&apos;s most trusted vehicle ecosystem.</p><div className="mt-10 rounded-2xl bg-white p-3 shadow-2xl sm:p-4"><div className="grid gap-3 md:grid-cols-[1fr_1fr_1fr_auto]">{["Select Make", "Select Model", "Max Price"].map((label) => <button key={label} type="button" className="flex h-12 items-center justify-between rounded-lg border border-brand-silver px-4 text-left text-sm font-medium text-gray-500 hover:border-brand-red">{label}<Search size={17} /></button>)}<Link href="/marketplace" className="flex h-12 items-center justify-center gap-2 rounded-lg bg-brand-red px-6 font-semibold text-white hover:bg-brand-red-dark"><Search size={18} />Search</Link></div></div></div></section>
+    <section className="border-b border-brand-silver bg-white"><div className="mx-auto grid max-w-7xl gap-4 px-4 py-6 text-center sm:grid-cols-3 sm:px-6 lg:px-8">{[["12,450+", "Active Listings"], ["850+", "Verified Dealers"], ["R 4.2M", "Auction value this week"]].map(([value, label]) => <div key={label}><p className="text-2xl font-extrabold tabular-nums text-brand-graphite">{value}</p><p className="text-sm text-gray-500">{label}</p></div>)}</div></section>
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"><div className="mb-6 flex items-end justify-between"><div><p className="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-red">Bid with confidence</p><h2 className="text-3xl font-extrabold tracking-tight">Live Auctions Ending Soon</h2></div><Link href="/auctions" className="hidden text-sm font-semibold text-brand-red sm:block">View all auctions →</Link></div><div className="grid gap-4 md:grid-cols-3">{auctions.map(([title, bid, time, bidders, image]) => <article key={title} className="overflow-hidden rounded-xl border border-brand-silver bg-white shadow-card"><div className="relative aspect-[16/9]"><img src={image} alt={title} className="h-full w-full object-cover" /><span className="absolute left-3 top-3 flex items-center gap-1 rounded-md bg-brand-red px-2 py-1 text-xs font-semibold text-white"><Timer size={13} /> LIVE</span></div><div className="p-4"><h3 className="font-bold">{title}</h3><div className="mt-3 flex items-end justify-between"><div><p className="text-xs text-gray-500">Current bid</p><p className="font-extrabold">{bid}</p></div><div className="text-right"><p className="font-bold text-brand-red">{time}</p><p className="text-xs text-gray-500">{bidders} bidders</p></div></div></div></article>)}</div></section>
+    <section className="bg-surface-grey"><div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"><div className="mb-6 flex items-end justify-between"><div><p className="mb-2 text-sm font-semibold uppercase tracking-wider text-brand-red">Curated for you</p><h2 className="text-3xl font-extrabold tracking-tight">Trending Near You</h2></div><Link href="/marketplace" className="hidden text-sm font-semibold text-brand-red sm:block">Browse marketplace →</Link></div><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{vehicles.map((vehicle) => <VehicleCard key={vehicle.title} {...vehicle} />)}</div></div></section>
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"><div className="rounded-2xl bg-brand-graphite p-8 text-white sm:p-12"><div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center"><div><div className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-red-200"><ShieldCheck size={17} /> Built around trust</div><h2 className="text-3xl font-extrabold tracking-tight">More than a marketplace.</h2><p className="mt-3 max-w-xl text-gray-300">Build your digital garage, follow enthusiast builds, and buy or sell with confidence.</p></div><Link href="/community" className="rounded-lg bg-white px-5 py-3 text-center font-semibold text-brand-graphite hover:bg-gray-100">Explore community</Link></div></div></section>
+  </main>;
 }
