@@ -1,16 +1,17 @@
 # TrueWheels
 
-## Frontend Phase 7 of 50
+## Frontend Phase 8 of 50
 
-Marketplace page and advanced filtering.
+Vehicle detail page gallery and identity.
 
 ### Delivered
 
-- Desktop filter sidebar with price, make, body type, and fuel filters
-- URL-synchronized filters using Next.js search parameters
-- Mobile slide-up filter drawer with keyboard and dialog accessibility
-- Marketplace results header with sorting and active filter chips
-- Responsive marketplace route using the vehicle card and listing grid
-- Pagination placeholder for future data-backed pagination
+- Interactive vehicle gallery with thumbnails, navigation, counter, and lightbox
+- Keyboard controls and accessible gallery labels
+- Vehicle identity header with price, location, and status badges
+- Key specifications grid for mileage, fuel, transmission, and year
+- Trusted seller contact card with verification and dealer state
+- Dynamic `/vehicles/[id]` route with not-found handling
+- Finance calculator placeholder reserved for Phase 9
 
 Backend work remains separate from this frontend phase.
