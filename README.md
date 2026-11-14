@@ -1,17 +1,17 @@
 # TrueWheels
 
-## Frontend Phase 33 of 50
+## Frontend Phase 34 of 50
 
-Part detail page and fitment verification.
+Events and car meets calendar.
 
 ### Delivered
 
-- Part detail page with responsive gallery, thumbnails, carousel controls, and condition badge
-- Part identity, part number, description, specifications, price, warranty, shipping, and collection details
-- Seller trust card with verification, rating, sales, and response-time metrics
-- Buy, message, save, share, and seller-profile action surfaces
-- Fitment compatibility matrix with confirmed, incompatible, and possible-fit states
-- Expandable compatibility notes for special requirements and warnings
-- Dynamic `/parts/[id]` route with SEO metadata
+- Event cards with date blocks, type badges, venues, attendance, entry pricing, save, and RSVP actions
+- Track day, meet, show, and cruise event types
+- Monthly calendar with highlighted event dates and month navigation
+- Event filtering by type and selected calendar date
+- Responsive event grid and empty-state messaging
+- South African event locations including Kyalami, Sandton, Cape Town, Durban, Pretoria, and Johannesburg
+- `/events` route with SEO metadata
 
-Catalogue-backed fitment rules, live part data, checkout, seller messaging, image management, and route-level record validation remain future work.
+Persistent event hosting, RSVP storage, ticketing, capacity enforcement, event detail pages, map integration, reminders, and community notifications remain future work.
