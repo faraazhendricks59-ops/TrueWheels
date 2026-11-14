@@ -1,14 +1,15 @@
 # TrueWheels
 
-## Frontend Phase 5 of 50
+## Frontend Phase 6 of 50
 
-Vehicle listing cards and marketplace grid.
+Live auctions preview and community feed.
 
 ### Delivered
 
-- Reusable optimized `VehicleCard` with pricing, mileage, fuel, location, badges, and save action
-- Responsive `ListingGrid` supporting two, three, or four columns
-- Mock-data `TrendingSection` with Featured and Live Auction indicators
-- Homepage integration below the hero
+- Live auction cards with client-side countdown timers
+- Current bid, bidder count, watcher count, and live status
+- Community post cards with authors, media, engagement actions, and profile links
+- Homepage integration for auctions and community content
+- Accessible labels for interactive controls
 
 Backend work remains separate from this frontend phase.
