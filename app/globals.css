@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: light; }
-* { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; }
-button, a { -webkit-tap-highlight-color: transparent; }
+@layer base {
+  html { scroll-behavior: smooth; }
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-width: 320px; @apply bg-surface-grey text-brand-graphite antialiased; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+}
+
 @media (max-width: 767px) { body { padding-bottom: 4rem; } }
