@@ -1,15 +1,16 @@
 # TrueWheels
 
-## Frontend Phase 3 of 50
+## Frontend Phase 4 of 50
 
-Global footer and core UI primitives.
+Homepage hero and global vehicle search.
 
 ### Delivered
 
-- Responsive desktop footer with marketplace, company, and legal links
-- Social navigation and TrueWheels brand lockup
-- Reusable Button, Input, and Badge primitives
-- Tailwind class merging through `clsx` and `tailwind-merge`
-- Input error semantics with `aria-invalid` and `aria-describedby`
+- Cinematic responsive homepage hero
+- Vehicle search by make, model, maximum price, and location
+- Accessible labels and form submission handling
+- Marketplace query-string navigation
+- Platform trust signals
+- Phase 5 placeholder for trending vehicles, auctions, and community content
 
 Backend work remains separate from this frontend phase.
