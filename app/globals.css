@@ -5,3 +5,5 @@
 :root { color-scheme: light; }
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; }
+button, a { -webkit-tap-highlight-color: transparent; }
+@media (max-width: 767px) { body { padding-bottom: 4rem; } }
