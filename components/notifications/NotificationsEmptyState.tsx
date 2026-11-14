@@ -1,0 +1,2 @@
+import { BellOff } from "lucide-react";
+export function NotificationsEmptyState() { return <div className="rounded-xl border border-brand-silver bg-white p-10 text-center"><div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-surface-grey text-gray-500"><BellOff size={24} /></div><h2 className="mt-4 font-bold">You&apos;re all caught up</h2><p className="mt-2 text-sm text-gray-500">No new messages, bids, or saved-search matches.</p></div>; }
