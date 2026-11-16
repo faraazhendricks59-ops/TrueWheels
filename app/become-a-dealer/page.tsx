@@ -8,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function BecomeADealerPage() {
-  return <BecomeADealerContent />;
+  return (
+    <main id="main-content" tabIndex={-1}>
+      <BecomeADealerContent />
+    </main>
+  );
 }

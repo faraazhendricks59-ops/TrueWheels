@@ -26,6 +26,10 @@ const en = {
   "nav.profile": "Profile",
   "nav.sell": "Sell",
 
+  // Accessibility
+  "a11y.skipToContent": "Skip to main content",
+  "a11y.linkCopied": "Referral link copied to clipboard",
+
   // Common actions
   "action.search": "Search",
   "action.save": "Save",
@@ -247,6 +251,10 @@ const af: Dictionary = {
   "nav.profile": "Profiel",
   "nav.sell": "Verkoop",
 
+  // Accessibility
+  "a11y.skipToContent": "Slaan oor na hoofinhoud",
+  "a11y.linkCopied": "Verwysingskakel na die knipbord gekopieer",
+
   // Common actions
   "action.search": "Soek",
   "action.save": "Stoor",
@@ -463,6 +471,10 @@ const zu: Dictionary = {
   "nav.messages": "Imilayezo",
   "nav.profile": "Iphrofayela",
   "nav.sell": "Dayisa",
+
+  // Accessibility
+  "a11y.skipToContent": "Dlula uye kokuqukethwe okuyinhloko",
+  "a11y.linkCopied": "Isixhumanisi sokuncoma sikopishwe kubhodi lokunamathisela",
 
   // Common actions
   "action.search": "Sesha",

@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { X, MessageCircle, Smartphone, Mail, Link2, Check } from "lucide-react";
 import { useTranslation } from "@/components/providers/LanguageProvider";
+import { FocusTrap } from "@/components/ui/FocusTrap";
+import { useAnnounce } from "@/components/ui/AriaLiveAnnouncer";
 import { copyToClipboard } from "@/lib/utils/clipboard";
 
 interface ReferralShareSheetProps {
@@ -13,10 +15,9 @@ interface ReferralShareSheetProps {
 
 export function ReferralShareSheet({ link, onClose }: ReferralShareSheetProps) {
   const { t } = useTranslation();
+  const { announce } = useAnnounce();
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const panelRef = useRef<HTMLDivElement>(null);
-  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => setMounted(true), []);
 
@@ -46,48 +47,21 @@ export function ReferralShareSheet({ link, onClose }: ReferralShareSheetProps) {
     },
   ];
 
+  // Body scroll lock only — focus containment, Escape and focus restore are
+  // handled by FocusTrap.
   useEffect(() => {
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    closeRef.current?.focus();
-
     const { overflow } = document.body.style;
     document.body.style.overflow = "hidden";
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-        return;
-      }
-      if (event.key !== "Tab" || !panelRef.current) return;
-
-      const focusable = panelRef.current.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      );
-      if (focusable.length === 0) return;
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    window.addEventListener("keydown", onKeyDown);
     return () => {
-      window.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = overflow;
-      previouslyFocused?.focus?.();
     };
-  }, [onClose]);
+  }, []);
 
   const handleCopy = async () => {
     const ok = await copyToClipboard(link);
     if (!ok) return;
     setCopied(true);
+    announce(t("a11y.linkCopied"));
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -97,8 +71,9 @@ export function ReferralShareSheet({ link, onClose }: ReferralShareSheetProps) {
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center" role="presentation">
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
 
-      <div
-        ref={panelRef}
+      <FocusTrap
+        active
+        onEscape={onClose}
         role="dialog"
         aria-modal="true"
         aria-label={t("referral.shareTitle")}
@@ -107,7 +82,6 @@ export function ReferralShareSheet({ link, onClose }: ReferralShareSheetProps) {
         <div className="flex items-center justify-between border-b border-brand-silver p-5">
           <h3 className="font-bold text-brand-graphite">{t("referral.shareTitle")}</h3>
           <button
-            ref={closeRef}
             onClick={onClose}
             aria-label={t("referral.close")}
             className="rounded-full p-1.5 transition-colors hover:bg-surface-grey"
@@ -157,7 +131,7 @@ export function ReferralShareSheet({ link, onClose }: ReferralShareSheetProps) {
             <p className="text-xs leading-relaxed text-neutral-muted">{message}</p>
           </div>
         </div>
-      </div>
+      </FocusTrap>
     </div>,
     document.body,
   );

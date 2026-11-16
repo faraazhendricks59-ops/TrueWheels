@@ -57,6 +57,27 @@
   body {
     @apply bg-surface-grey text-brand-graphite antialiased;
   }
+
+  /* Consistent, high-visibility focus indicator for keyboard users. Deliberately
+     no border-radius here: outline already follows the element's own radius, and
+     forcing one would visibly deform pill/rounded controls on focus. */
+  *:focus-visible {
+    outline: 2px solid rgb(var(--brand-red));
+    outline-offset: 2px;
+  }
+
+  /* Respect users who prefer reduced motion. Covers every animation/transition
+     in the app (including the shimmer and the bespoke keyframe classes). */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 * {
@@ -144,14 +165,4 @@ a {
 }
 .animate-sheet-in {
   animation: sheet-in 0.2s ease-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-overlay-in,
-  .animate-palette-in,
-  .animate-banner-in,
-  .animate-sheet-in,
-  .animate-shimmer {
-    animation: none;
-  }
 }

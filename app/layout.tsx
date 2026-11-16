@@ -4,6 +4,8 @@ import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { Footer } from "@/components/layout/Footer";
 import { CookieConsentBanner } from "@/components/ui/CookieConsentBanner";
+import { SkipLink } from "@/components/ui/SkipLink";
+import { AriaLiveAnnouncerProvider } from "@/components/ui/AriaLiveAnnouncer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { CommandPaletteProvider } from "@/components/providers/CommandPaletteProvider";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
@@ -54,13 +56,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <WebSiteJsonLd />
         <LanguageProvider>
           <ThemeProvider>
-            <CommandPaletteProvider>
-              <Header />
-              {children}
-              <Footer />
-              <MobileNav />
-              <CookieConsentBanner />
-            </CommandPaletteProvider>
+            <AriaLiveAnnouncerProvider>
+              <CommandPaletteProvider>
+                <SkipLink />
+                <Header />
+                {children}
+                <Footer />
+                <MobileNav />
+                <CookieConsentBanner />
+              </CommandPaletteProvider>
+            </AriaLiveAnnouncerProvider>
           </ThemeProvider>
         </LanguageProvider>
       </body>

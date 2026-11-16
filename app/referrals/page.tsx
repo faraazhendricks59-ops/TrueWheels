@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 
 export default function ReferralsPage() {
   return (
-    <div className="min-h-screen bg-surface-grey">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-surface-grey">
       <div className="mx-auto max-w-4xl px-4 py-8">
         <ReferralDashboard />
       </div>
-    </div>
+    </main>
   );
 }

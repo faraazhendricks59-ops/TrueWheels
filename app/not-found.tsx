@@ -5,7 +5,7 @@ import { BackButton } from '@/components/ui/BackButton';
 
 export default function NotFound() {
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4">
+    <main id="main-content" tabIndex={-1} className="min-h-[70vh] flex items-center justify-center px-4">
       <div className="max-w-lg w-full text-center">
         {/* Illustration */}
         <div className="relative w-32 h-32 mx-auto mb-8">
@@ -54,6 +54,6 @@ export default function NotFound() {
 
         <BackButton />
       </div>
-    </div>
+    </main>
   );
 }

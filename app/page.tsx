@@ -14,7 +14,7 @@ export default function HomePage() {
   const { t } = useTranslation();
 
   return (
-    <main className="min-h-screen">
+    <main id="main-content" tabIndex={-1} className="min-h-screen">
       <section className="mx-auto flex min-h-[80vh] max-w-6xl flex-col justify-center px-6 py-16 lg:px-8">
         <div className="max-w-3xl">
           <p className="mb-5 text-sm font-semibold uppercase tracking-[0.18em] text-brand-red">{t("home.eyebrow")}</p>

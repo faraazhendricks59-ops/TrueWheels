@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function MarketplacePage() {
   return (
-    <main>
+    <main id="main-content" tabIndex={-1}>
       <MarketplaceBrowser />
     </main>
   );

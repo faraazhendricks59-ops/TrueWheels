@@ -57,7 +57,7 @@ export default function LegalPage({ params }: LegalPageProps) {
           </aside>
 
           {/* Content */}
-          <main className="md:col-span-3">
+          <main id="main-content" tabIndex={-1} className="md:col-span-3">
             <div className="rounded-xl border border-brand-silver bg-surface-white p-6 md:p-8">
               {doc.sections.map((section, i) => (
                 <section
