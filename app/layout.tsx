@@ -7,13 +7,27 @@ import { CookieConsentBanner } from "@/components/ui/CookieConsentBanner";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { CommandPaletteProvider } from "@/components/providers/CommandPaletteProvider";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo/site";
+import { OrganisationJsonLd, WebSiteJsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "TrueWheels | The Automotive Operating System",
-  description: "Discover, buy, sell, and manage your vehicles on South Africa's most trusted automotive ecosystem.",
+  metadataBase: new URL(SITE_URL),
+  title: `${SITE_NAME} | The Automotive Operating System`,
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_ZA",
+    url: "/",
+    title: `${SITE_NAME} | The Automotive Operating System`,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: { card: "summary_large_image" },
+  robots: { index: true, follow: true },
 };
 
 // Runs before paint to avoid a flash of the wrong theme.
@@ -36,6 +50,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="bg-surface-grey text-brand-graphite antialiased font-sans">
+        <OrganisationJsonLd />
+        <WebSiteJsonLd />
         <LanguageProvider>
           <ThemeProvider>
             <CommandPaletteProvider>
