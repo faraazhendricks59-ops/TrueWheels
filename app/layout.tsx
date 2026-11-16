@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { Footer } from "@/components/layout/Footer";
+import { CookieConsentBanner } from "@/components/ui/CookieConsentBanner";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { CommandPaletteProvider } from "@/components/providers/CommandPaletteProvider";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
@@ -39,7 +41,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <CommandPaletteProvider>
               <Header />
               {children}
+              <Footer />
               <MobileNav />
+              <CookieConsentBanner />
             </CommandPaletteProvider>
           </ThemeProvider>
         </LanguageProvider>

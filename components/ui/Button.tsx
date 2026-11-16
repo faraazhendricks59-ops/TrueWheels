@@ -3,7 +3,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-type ButtonVariant = 'primary' | 'outline';
+type ButtonVariant = 'primary' | 'outline' | 'ghost';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -14,6 +14,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const variants: Record<ButtonVariant, string> = {
   primary: 'bg-brand-red text-white shadow-card hover:bg-brand-red-dark',
   outline: 'border border-brand-silver bg-surface-white text-brand-graphite shadow-card hover:shadow-card-hover',
+  ghost: 'text-brand-graphite hover:bg-neutral-hover',
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(

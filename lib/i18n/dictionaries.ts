@@ -70,6 +70,35 @@ const en = {
 
   // Language switcher
   "language.change": "Change language",
+
+  // Cookie consent
+  "cookie.title": "We value your privacy",
+  "cookie.description":
+    "We use cookies to make TrueWheels work, understand usage, and personalise your experience. Only essential cookies are required — you choose the rest.",
+  "cookie.policyLink": "Read our Cookie Policy",
+  "cookie.essential": "Essential",
+  "cookie.essentialDesc": "Required for the platform to function",
+  "cookie.analytics": "Analytics",
+  "cookie.analyticsDesc": "Help us understand usage",
+  "cookie.marketing": "Marketing",
+  "cookie.marketingDesc": "Personalised advertising",
+  "cookie.acceptAll": "Accept All",
+  "cookie.rejectNonEssential": "Reject Non-Essential",
+  "cookie.managePreferences": "Manage Preferences",
+  "cookie.saveChoices": "Save My Choices",
+
+  // Footer
+  "footer.tagline": "South Africa's trusted marketplace for buying, selling, and owning vehicles.",
+  "footer.explore": "Explore",
+  "footer.legal": "Legal",
+  "footer.contact": "Contact",
+  "footer.terms": "Terms of Service",
+  "footer.privacy": "Privacy Policy",
+  "footer.cookies": "Cookie Policy",
+  "footer.popia": "POPIA Statement",
+  "footer.manageCookies": "Manage cookies",
+  "footer.rights": "All rights reserved.",
+  "footer.regulator": "Regulated in terms of POPIA and the CPA.",
 } as const;
 
 export type TranslationKey = keyof typeof en;
@@ -137,6 +166,35 @@ const af: Dictionary = {
 
   // Language switcher
   "language.change": "Verander taal",
+
+  // Cookie consent
+  "cookie.title": "Ons gee om vir jou privaatheid",
+  "cookie.description":
+    "Ons gebruik koekies om TrueWheels te laat werk, gebruik te verstaan en jou ervaring te personaliseer. Slegs noodsaaklike koekies is verpligtend — jy kies die res.",
+  "cookie.policyLink": "Lees ons Koekiebeleid",
+  "cookie.essential": "Noodsaaklik",
+  "cookie.essentialDesc": "Vereis vir die platform om te werk",
+  "cookie.analytics": "Analise",
+  "cookie.analyticsDesc": "Help ons gebruik verstaan",
+  "cookie.marketing": "Bemarking",
+  "cookie.marketingDesc": "Gepersonaliseerde advertensies",
+  "cookie.acceptAll": "Aanvaar Alles",
+  "cookie.rejectNonEssential": "Weier Nie-Noodsaaklik",
+  "cookie.managePreferences": "Bestuur Voorkeure",
+  "cookie.saveChoices": "Stoor My Keuses",
+
+  // Footer
+  "footer.tagline": "Suid-Afrika se betroubare markplek om voertuie te koop, verkoop en besit.",
+  "footer.explore": "Verken",
+  "footer.legal": "Regtens",
+  "footer.contact": "Kontak",
+  "footer.terms": "Diensvoorwaardes",
+  "footer.privacy": "Privaatheidsbeleid",
+  "footer.cookies": "Koekiebeleid",
+  "footer.popia": "POPIA-verklaring",
+  "footer.manageCookies": "Bestuur koekies",
+  "footer.rights": "Alle regte voorbehou.",
+  "footer.regulator": "Gereguleer ingevolge POPIA en die CPA.",
 };
 
 const zu: Dictionary = {
@@ -199,6 +257,35 @@ const zu: Dictionary = {
 
   // Language switcher
   "language.change": "Shintsha ulimi",
+
+  // Cookie consent
+  "cookie.title": "Siyakubalulekisa ubumfihlo bakho",
+  "cookie.description":
+    "Sisebenzisa amakhukhi ukwenza i-TrueWheels isebenze, ukuqonda ukusetshenziswa, nokwenza ulwazi lwakho lube ngolwakho. Amakhukhi abalulekile kuphela ayadingeka — ezinye uzikhethela zona.",
+  "cookie.policyLink": "Funda Inqubomgomo Yethu Yamakhukhi",
+  "cookie.essential": "Abalulekile",
+  "cookie.essentialDesc": "Iyadingeka ukuze inkundla isebenze",
+  "cookie.analytics": "Ukuhlaziya",
+  "cookie.analyticsDesc": "Sisiza ukuqonda ukusetshenziswa",
+  "cookie.marketing": "Ukumaketha",
+  "cookie.marketingDesc": "Izikhangiso ezenzelwe wena",
+  "cookie.acceptAll": "Yamukela Konke",
+  "cookie.rejectNonEssential": "Yenqaba Okungeyona Ebalulekile",
+  "cookie.managePreferences": "Phatha Izintandokazi",
+  "cookie.saveChoices": "Gcina Ukukhetha Kwami",
+
+  // Footer
+  "footer.tagline": "Imakethe ethembekile yaseNingizimu Afrika yokuthenga, ukudayisa nokuba ngumnikazi wezimoto.",
+  "footer.explore": "Hlola",
+  "footer.legal": "Okusemthethweni",
+  "footer.contact": "Xhumana nathi",
+  "footer.terms": "Imigomo Yesevisi",
+  "footer.privacy": "Inqubomgomo Yobumfihlo",
+  "footer.cookies": "Inqubomgomo Yamakhukhi",
+  "footer.popia": "Isitatimende se-POPIA",
+  "footer.manageCookies": "Phatha amakhukhi",
+  "footer.rights": "Wonke amalungelo agodliwe.",
+  "footer.regulator": "Kulawulwa ngokwe-POPIA ne-CPA.",
 };
 
 export const dictionaries: Record<Locale, Dictionary> = { en, af, zu };
