@@ -7,3 +7,13 @@
 body { margin: 0; min-width: 320px; }
 button, a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 767px) { body { padding-bottom: 4rem; } }
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, #E6EAF0 25%, #F3F5F8 50%, #E6EAF0 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
