@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Bell, MessageSquare, Plus, Search, User } from "lucide-react";
+import { Bell, MessageSquare, Plus, User } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { CommandPaletteTrigger } from "@/components/ui/CommandPaletteTrigger";
 
 const links = [
   ["Marketplace", "/marketplace"],
@@ -21,7 +22,7 @@ export function Header() {
           {links.map(([label, href]) => <Link key={href} href={href} className="transition-colors hover:text-brand-graphite">{label}</Link>)}
         </nav>
         <div className="flex items-center gap-2">
-          <button type="button" aria-label="Search" className="rounded-lg p-2 text-neutral-muted hover:bg-neutral-hover"><Search size={20} /></button>
+          <CommandPaletteTrigger />
           <button type="button" aria-label="Notifications" className="rounded-lg p-2 text-neutral-muted hover:bg-neutral-hover"><Bell size={20} /></button>
           <Link href="/messages" aria-label="Messages" className="rounded-lg p-2 text-neutral-muted hover:bg-neutral-hover"><MessageSquare size={20} /></Link>
           <ThemeToggle />
