@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${SITE_URL}/`, lastModified: now, changeFrequency: "daily", priority: 1 },
     { url: `${SITE_URL}/marketplace`, lastModified: now, changeFrequency: "hourly", priority: 0.9 },
+    { url: `${SITE_URL}/become-a-dealer`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
   ];
 
   const legalPages: MetadataRoute.Sitemap = LEGAL_DOC_SLUGS.map((slug) => ({
