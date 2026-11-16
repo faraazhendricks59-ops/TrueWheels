@@ -21,14 +21,14 @@ export default function NotFound() {
 
         <p className="text-6xl font-extrabold text-brand-graphite tabular-nums mb-3 tracking-tight">404</p>
         <h1 className="text-xl font-bold text-brand-graphite mb-2">This road leads nowhere</h1>
-        <p className="text-sm text-gray-500 leading-relaxed mb-8">
+        <p className="text-sm text-neutral-muted leading-relaxed mb-8">
           The listing you&apos;re looking for may have been sold, removed, or the link is broken.
           Let&apos;s get you back on track.
         </p>
 
         {/* Recovery Search */}
         <form action="/marketplace" method="get" className="relative mb-6">
-          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-subtle" />
           <input
             type="search"
             name="q"

@@ -33,7 +33,7 @@ export default function MarketplacePage() {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-brand-graphite">Marketplace</h1>
-          <p className="text-sm text-gray-500">Browse trusted vehicles from verified sellers.</p>
+          <p className="text-sm text-neutral-muted">Browse trusted vehicles from verified sellers.</p>
         </div>
       </div>
 

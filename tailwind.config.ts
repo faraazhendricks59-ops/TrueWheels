@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -11,9 +12,29 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brand: { red: "#D92332", "red-dark": "#B91C28", graphite: "#171B24", silver: "#E6EAF0" },
-        surface: { white: "#FFFFFF", grey: "#F3F5F8" },
-        semantic: { success: "#10B981", warning: "#F59E0B", error: "#EF4444" },
+        brand: {
+          red: "rgb(var(--brand-red) / <alpha-value>)",
+          "red-dark": "rgb(var(--brand-red-dark) / <alpha-value>)",
+          graphite: "rgb(var(--brand-graphite) / <alpha-value>)",
+          silver: "rgb(var(--brand-silver) / <alpha-value>)",
+        },
+        surface: {
+          white: "rgb(var(--surface-white) / <alpha-value>)",
+          grey: "rgb(var(--surface-grey) / <alpha-value>)",
+        },
+        semantic: {
+          success: "rgb(var(--semantic-success) / <alpha-value>)",
+          warning: "rgb(var(--semantic-warning) / <alpha-value>)",
+          "warning-soft": "rgb(var(--semantic-warning-soft) / <alpha-value>)",
+          error: "rgb(var(--semantic-error) / <alpha-value>)",
+        },
+        neutral: {
+          muted: "rgb(var(--neutral-muted) / <alpha-value>)",
+          subtle: "rgb(var(--neutral-subtle) / <alpha-value>)",
+          line: "rgb(var(--neutral-line) / <alpha-value>)",
+          hover: "rgb(var(--neutral-hover) / <alpha-value>)",
+          strong: "rgb(var(--neutral-strong) / <alpha-value>)",
+        },
       },
       fontFamily: { sans: ["var(--font-inter)", "system-ui", "sans-serif"] },
       boxShadow: {

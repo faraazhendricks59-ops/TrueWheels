@@ -13,7 +13,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants: Record<ButtonVariant, string> = {
   primary: 'bg-brand-red text-white shadow-card hover:bg-brand-red-dark',
-  outline: 'border border-brand-silver bg-white text-brand-graphite shadow-card hover:shadow-card-hover',
+  outline: 'border border-brand-silver bg-surface-white text-brand-graphite shadow-card hover:shadow-card-hover',
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(

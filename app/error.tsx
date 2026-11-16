@@ -20,18 +20,18 @@ export default function Error({
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
-        <div className="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6">
-          <AlertTriangle size={36} className="text-amber-500" />
+        <div className="w-20 h-20 bg-semantic-warning-soft rounded-full flex items-center justify-center mx-auto mb-6">
+          <AlertTriangle size={36} className="text-semantic-warning" />
         </div>
 
         <h1 className="text-2xl font-bold text-brand-graphite mb-2">Something broke down</h1>
-        <p className="text-sm text-gray-500 leading-relaxed mb-2">
+        <p className="text-sm text-neutral-muted leading-relaxed mb-2">
           We hit an unexpected error. Our team has been notified — you can try again, and it will
           usually resolve itself.
         </p>
 
         {error.digest && (
-          <p className="text-xs text-gray-400 font-mono mb-6">Error ID: {error.digest}</p>
+          <p className="text-xs text-neutral-subtle font-mono mb-6">Error ID: {error.digest}</p>
         )}
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -47,7 +47,7 @@ export default function Error({
 
         <Link
           href="/contact"
-          className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-gray-400 transition-colors hover:text-brand-red"
+          className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-subtle transition-colors hover:text-brand-red"
         >
           <LifeBuoy size={12} /> Still stuck? Contact support
         </Link>

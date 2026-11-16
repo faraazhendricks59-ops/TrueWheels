@@ -2,6 +2,16 @@
 
 import { useEffect } from 'react';
 
+// This component renders its own <html>/<body> and cannot rely on the app's
+// CSS variables or Tailwind classes, so it inlines a media query to respect the
+// OS dark preference.
+const styles = `
+  :root { --ge-bg: #F3F5F8; --ge-card: #FFFFFF; --ge-text: #171B24; --ge-muted: #6B7280; --ge-border: #E6EAF0; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ge-bg: #14181F; --ge-card: #1E2430; --ge-text: #F3F5F8; --ge-muted: #9CA3AF; --ge-border: #2C3340; }
+  }
+`;
+
 export default function GlobalError({
   error,
   reset,
@@ -15,7 +25,17 @@ export default function GlobalError({
 
   return (
     <html lang="en">
-      <body style={{ margin: 0, fontFamily: 'system-ui, sans-serif', backgroundColor: '#F3F5F8' }}>
+      <head>
+        <style dangerouslySetInnerHTML={{ __html: styles }} />
+      </head>
+      <body
+        style={{
+          margin: 0,
+          fontFamily: 'system-ui, sans-serif',
+          backgroundColor: 'var(--ge-bg)',
+          color: 'var(--ge-text)',
+        }}
+      >
         <div
           style={{
             minHeight: '100vh',
@@ -26,7 +46,15 @@ export default function GlobalError({
             textAlign: 'center',
           }}
         >
-          <div>
+          <div
+            style={{
+              maxWidth: 400,
+              padding: '40px 32px',
+              backgroundColor: 'var(--ge-card)',
+              border: '1px solid var(--ge-border)',
+              borderRadius: 16,
+            }}
+          >
             <div
               style={{
                 width: 64,
@@ -42,10 +70,10 @@ export default function GlobalError({
               <span style={{ color: '#fff', fontWeight: 800, fontSize: 28 }}>T</span>
             </div>
 
-            <h1 style={{ fontSize: 24, fontWeight: 800, color: '#171B24', margin: '0 0 8px' }}>
+            <h1 style={{ fontSize: 24, fontWeight: 800, margin: '0 0 8px' }}>
               We&apos;ve had a serious breakdown
             </h1>
-            <p style={{ fontSize: 14, color: '#6b7280', margin: '0 0 24px', maxWidth: 360 }}>
+            <p style={{ fontSize: 14, color: 'var(--ge-muted)', margin: '0 0 24px' }}>
               A critical error occurred. Please reload the page — if it persists, try again in a few
               minutes.
             </p>
@@ -72,3 +100,4 @@ export default function GlobalError({
     </html>
   );
 }
+
