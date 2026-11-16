@@ -1,16 +1,23 @@
+"use client";
+
 import Link from "next/link";
 import { Bell, MessageSquare, Plus, User } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { CommandPaletteTrigger } from "@/components/ui/CommandPaletteTrigger";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import { useLanguage } from "@/components/providers/LanguageProvider";
+import type { TranslationKey } from "@/lib/i18n/dictionaries";
 
-const links = [
-  ["Marketplace", "/marketplace"],
-  ["Auctions", "/auctions"],
-  ["Community", "/community"],
-  ["Dealers", "/dealers"],
-] as const;
+const links: { labelKey: TranslationKey; href: string }[] = [
+  { labelKey: "nav.marketplace", href: "/marketplace" },
+  { labelKey: "nav.auctions", href: "/auctions" },
+  { labelKey: "nav.community", href: "/community" },
+  { labelKey: "nav.dealers", href: "/dealers" },
+];
 
 export function Header() {
+  const { t } = useLanguage();
+
   return (
     <header className="sticky top-0 z-40 hidden h-16 w-full items-center border-b border-brand-silver bg-surface-white/80 backdrop-blur-md md:flex">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6">
@@ -19,15 +26,18 @@ export function Header() {
           <span className="text-xl font-bold tracking-tight text-brand-graphite">True<span className="text-brand-red">Wheels</span></span>
         </Link>
         <nav aria-label="Primary navigation" className="flex items-center gap-6 text-sm font-medium text-neutral-muted">
-          {links.map(([label, href]) => <Link key={href} href={href} className="transition-colors hover:text-brand-graphite">{label}</Link>)}
+          {links.map(({ labelKey, href }) => (
+            <Link key={href} href={href} className="transition-colors hover:text-brand-graphite">{t(labelKey)}</Link>
+          ))}
         </nav>
         <div className="flex items-center gap-2">
           <CommandPaletteTrigger />
-          <button type="button" aria-label="Notifications" className="rounded-lg p-2 text-neutral-muted hover:bg-neutral-hover"><Bell size={20} /></button>
-          <Link href="/messages" aria-label="Messages" className="rounded-lg p-2 text-neutral-muted hover:bg-neutral-hover"><MessageSquare size={20} /></Link>
+          <LanguageSwitcher />
           <ThemeToggle />
-          <Link href="/sell" className="flex items-center gap-2 rounded-lg bg-brand-red px-4 py-2 text-sm font-semibold text-white hover:bg-brand-red-dark"><Plus size={16} />List Vehicle</Link>
-          <Link href="/profile" aria-label="Profile" className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-strong text-neutral-muted"><User size={18} /></Link>
+          <button type="button" aria-label="Notifications" className="rounded-lg p-2 text-neutral-muted hover:bg-neutral-hover"><Bell size={20} /></button>
+          <Link href="/messages" aria-label={t("nav.messages")} className="rounded-lg p-2 text-neutral-muted hover:bg-neutral-hover"><MessageSquare size={20} /></Link>
+          <Link href="/sell" className="flex items-center gap-2 rounded-lg bg-brand-red px-4 py-2 text-sm font-semibold text-white hover:bg-brand-red-dark"><Plus size={16} />{t("nav.listVehicle")}</Link>
+          <Link href="/profile" aria-label={t("nav.profile")} className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-strong text-neutral-muted"><User size={18} /></Link>
         </div>
       </div>
     </header>

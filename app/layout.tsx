@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { CommandPaletteProvider } from "@/components/providers/CommandPaletteProvider";
+import { LanguageProvider } from "@/components/providers/LanguageProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -33,13 +34,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="bg-surface-grey text-brand-graphite antialiased font-sans">
-        <ThemeProvider>
-          <CommandPaletteProvider>
-            <Header />
-            {children}
-            <MobileNav />
-          </CommandPaletteProvider>
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            <CommandPaletteProvider>
+              <Header />
+              {children}
+              <MobileNav />
+            </CommandPaletteProvider>
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
