@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Car, Wrench, Store, Users, Calendar, FileText } from "lucide-react";
+import { Car, Wrench, Store, Users, Calendar, FileText, Gift } from "lucide-react";
 
 export interface CommandResult {
   id: string;
@@ -24,6 +24,7 @@ export const SEARCH_INDEX: CommandResult[] = [
   { id: "e1", group: "Events", title: "Kyalami Track Day — November", subtitle: "21 Nov • Midrand", icon: Calendar, href: "/events", keywords: "trackday motorsport" },
   { id: "pg1", group: "Pages", title: "My Dashboard", subtitle: "Manage your listings", icon: FileText, href: "/dashboard", keywords: "account listings" },
   { id: "pg2", group: "Pages", title: "Saved Searches", subtitle: "Your alerts", icon: FileText, href: "/saved-searches", keywords: "alerts notifications" },
+  { id: "pg3", group: "Pages", title: "Refer & Earn", subtitle: "Invite friends, earn credits", icon: Gift, href: "/referrals", keywords: "referral invite rewards credits share" },
 ];
 
 /** Results shown when the query is empty. */

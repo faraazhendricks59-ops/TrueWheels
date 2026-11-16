@@ -17,6 +17,7 @@ const exploreLinks: { labelKey: TranslationKey; href: string }[] = [
   { labelKey: "nav.auctions", href: "/auctions" },
   { labelKey: "nav.dealers", href: "/dealers" },
   { labelKey: "nav.community", href: "/community" },
+  { labelKey: "footer.referrals", href: "/referrals" },
 ];
 
 export function Footer() {

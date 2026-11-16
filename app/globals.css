@@ -10,6 +10,7 @@
     --surface-white: 255 255 255; /* #FFFFFF */
     --surface-grey: 243 245 248; /* #F3F5F8 */
     --brand-graphite: 23 27 36; /* #171B24 */
+    --brand-ink: 23 27 36; /* #171B24 — fixed dark surface, does NOT flip in dark mode */
     --brand-silver: 230 234 240; /* #E6EAF0 */
     --brand-red: 217 35 50; /* #D92332 */
     --brand-red-dark: 185 28 40; /* #B91C28 */
@@ -33,6 +34,7 @@
     --surface-white: 30 36 48; /* #1E2430 — cards */
     --surface-grey: 20 24 31; /* #14181F — app bg */
     --brand-graphite: 243 245 248; /* #F3F5F8 — text */
+    --brand-ink: 30 36 48; /* #1E2430 — stays dark so on-ink text keeps contrast */
     --brand-silver: 44 51 64; /* #2C3340 — borders */
     --brand-red: 228 51 63; /* #E4333F — lifted for dark */
     --brand-red-dark: 217 35 50; /* #D92332 */
@@ -130,11 +132,25 @@ a {
 .animate-banner-in {
   animation: banner-in 0.25s ease-out;
 }
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-sheet-in {
+  animation: sheet-in 0.2s ease-out;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .animate-overlay-in,
   .animate-palette-in,
   .animate-banner-in,
+  .animate-sheet-in,
   .animate-shimmer {
     animation: none;
   }

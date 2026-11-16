@@ -16,6 +16,7 @@ const config: Config = {
           red: "rgb(var(--brand-red) / <alpha-value>)",
           "red-dark": "rgb(var(--brand-red-dark) / <alpha-value>)",
           graphite: "rgb(var(--brand-graphite) / <alpha-value>)",
+          ink: "rgb(var(--brand-ink) / <alpha-value>)",
           silver: "rgb(var(--brand-silver) / <alpha-value>)",
         },
         surface: {

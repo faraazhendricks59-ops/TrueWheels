@@ -15,6 +15,8 @@ export default function robots(): MetadataRoute.Robots {
         "/messages",
         "/api/",
         "/saved-searches",
+        "/referrals",
+        "/r/",
       ],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
