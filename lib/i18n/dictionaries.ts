@@ -48,6 +48,18 @@ const en = {
   "marketplace.emptyDescription":
     "Try adjusting your filters or check back soon — new listings are added every day.",
   "marketplace.clearFilters": "Clear filters",
+  "marketplace.featured": "Featured",
+  "marketplace.verified": "Verified",
+  "marketplace.featuredSection": "Featured listings",
+  "marketplace.allListings": "All listings",
+  "marketplace.searchPlaceholder": "Search make, model or city…",
+  "marketplace.filterMake": "Make",
+  "marketplace.filterAllMakes": "All makes",
+  "marketplace.sortBy": "Sort by",
+  "marketplace.sortNewest": "Newest first",
+  "marketplace.sortPriceAsc": "Price: low to high",
+  "marketplace.sortPriceDesc": "Price: high to low",
+  "marketplace.sortMileageAsc": "Lowest mileage",
 
   // Home
   "home.eyebrow": "South Africa's digital garage",
@@ -257,6 +269,18 @@ const af: Dictionary = {
   "marketplace.emptyDescription":
     "Probeer jou filters aanpas of kyk binnekort weer — nuwe inskrywings word daagliks bygevoeg.",
   "marketplace.clearFilters": "Vee filters uit",
+  "marketplace.featured": "Uitgelig",
+  "marketplace.verified": "Geverifieer",
+  "marketplace.featuredSection": "Uitgeligte inskrywings",
+  "marketplace.allListings": "Alle inskrywings",
+  "marketplace.searchPlaceholder": "Soek maak, model of stad…",
+  "marketplace.filterMake": "Maak",
+  "marketplace.filterAllMakes": "Alle make",
+  "marketplace.sortBy": "Sorteer volgens",
+  "marketplace.sortNewest": "Nuutste eerste",
+  "marketplace.sortPriceAsc": "Prys: laag tot hoog",
+  "marketplace.sortPriceDesc": "Prys: hoog tot laag",
+  "marketplace.sortMileageAsc": "Laagste kilometers",
 
   // Home
   "home.eyebrow": "Suid-Afrika se digitale motorhuis",
@@ -462,6 +486,18 @@ const zu: Dictionary = {
   "marketplace.emptyDescription":
     "Zama ukulungisa izihlungi zakho noma uphinde uhlole maduze — ukufakwa okusha kungezwa nsuku zonke.",
   "marketplace.clearFilters": "Susa izihlungi",
+  "marketplace.featured": "Okufakiwe",
+  "marketplace.verified": "Kuqinisekisiwe",
+  "marketplace.featuredSection": "Izinhlu ezifakiwe",
+  "marketplace.allListings": "Zonke izinhlu",
+  "marketplace.searchPlaceholder": "Sesha umkhiqizi, imodeli noma idolobha…",
+  "marketplace.filterMake": "Umkhiqizi",
+  "marketplace.filterAllMakes": "Bonke abakhiqizi",
+  "marketplace.sortBy": "Hlela nge",
+  "marketplace.sortNewest": "Okusha kuqala",
+  "marketplace.sortPriceAsc": "Intengo: kusuka phansi kuye phezulu",
+  "marketplace.sortPriceDesc": "Intengo: kusuka phezulu kuye phansi",
+  "marketplace.sortMileageAsc": "Amakhilomitha aphansi",
 
   // Home
   "home.eyebrow": "Igalaji ledijithali laseNingizimu Afrika",

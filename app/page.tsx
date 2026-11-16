@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslation } from "@/components/providers/LanguageProvider";
 import type { TranslationKey } from "@/lib/i18n/dictionaries";
 
@@ -24,8 +25,18 @@ export default function HomePage() {
             {t("home.subtitle")}
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <button className="rounded-lg bg-brand-red px-6 py-3 font-semibold text-white shadow-card transition hover:bg-brand-red-dark">{t("home.explore")}</button>
-            <button className="rounded-lg border border-brand-silver bg-surface-white px-6 py-3 font-semibold text-brand-graphite shadow-card transition hover:shadow-card-hover">{t("home.listVehicle")}</button>
+            <Link
+              href="/marketplace"
+              className="rounded-lg bg-brand-red px-6 py-3 text-center font-semibold text-white shadow-card transition hover:bg-brand-red-dark"
+            >
+              {t("home.explore")}
+            </Link>
+            <Link
+              href="/become-a-dealer"
+              className="rounded-lg border border-brand-silver bg-surface-white px-6 py-3 text-center font-semibold text-brand-graphite shadow-card transition hover:shadow-card-hover"
+            >
+              {t("home.listVehicle")}
+            </Link>
           </div>
         </div>
         <div className="mt-20 grid gap-4 sm:grid-cols-3">

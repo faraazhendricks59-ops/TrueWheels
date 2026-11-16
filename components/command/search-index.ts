@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { Car, Wrench, Store, Users, Calendar, FileText, Gift } from "lucide-react";
+import { DEMO_VEHICLES, formatPrice, vehicleTitle } from "@/lib/vehicles/demo-vehicles";
 
 export interface CommandResult {
   id: string;
@@ -12,11 +13,26 @@ export interface CommandResult {
   keywords?: string;
 }
 
+/**
+ * Vehicle rows are derived from the demo listings rather than hardcoded, so a
+ * search hit can never point at a vehicle that no longer exists.
+ */
+const VEHICLE_RESULTS: CommandResult[] = DEMO_VEHICLES.map((vehicle) => ({
+  id: `v${vehicle.id}`,
+  group: "Vehicles",
+  title: vehicleTitle(vehicle),
+  subtitle: `${formatPrice(vehicle.price)} • ${vehicle.city}`,
+  icon: Car,
+  href: `/vehicles/${vehicle.id}`,
+  keywords: [vehicle.make, vehicle.model, vehicle.variant, vehicle.bodyType, vehicle.fuelType, vehicle.city]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase(),
+}));
+
 /** Mock unified search index across every entity type on the platform. */
 export const SEARCH_INDEX: CommandResult[] = [
-  { id: "v1", group: "Vehicles", title: "2021 Volkswagen Golf 8 GTI", subtitle: "R 649,000 • Sandton", icon: Car, href: "/vehicles/1", keywords: "vw gti hatch" },
-  { id: "v2", group: "Vehicles", title: "2022 BMW M3 Competition", subtitle: "R 1,450,000 • Umhlanga", icon: Car, href: "/vehicles/2", keywords: "bimmer sedan" },
-  { id: "v3", group: "Vehicles", title: "2019 Ford Ranger Raptor", subtitle: "R 785,000 • Cape Town", icon: Car, href: "/vehicles/3", keywords: "bakkie 4x4" },
+  ...VEHICLE_RESULTS,
   { id: "p1", group: "Parts", title: "Golf 7 GTI Turbocharger (IS20)", subtitle: "R 8,500 • Pretoria VW Spares", icon: Wrench, href: "/parts/p1", keywords: "turbo is20" },
   { id: "p2", group: "Parts", title: "Brembo Brake Set — Hilux 2.8", subtitle: "R 3,250 • BrakeTech SA", icon: Wrench, href: "/parts/p2", keywords: "brakes pads discs" },
   { id: "d1", group: "Dealers", title: "Prestige Motors SA", subtitle: "Verified Dealer • Sandton", icon: Store, href: "/dealers/prestige-motors-sa", keywords: "dealer showroom" },

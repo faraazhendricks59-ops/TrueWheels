@@ -9,6 +9,7 @@ import {
   VEHICLE_IDS,
   formatPrice,
   getVehicle,
+  photoCredit,
   vehicleTitle,
 } from "@/lib/vehicles/demo-vehicles";
 
@@ -57,6 +58,7 @@ export default function VehiclePage({ params }: VehiclePageProps) {
 
   const title = vehicleTitle(vehicle);
   const url = absoluteUrl(`/vehicles/${vehicle.id}`);
+  const credit = photoCredit(vehicle.images[0]);
 
   const specs = [
     { icon: Gauge, label: "Mileage", value: `${vehicle.mileage.toLocaleString("en-ZA")} km` },
@@ -98,6 +100,32 @@ export default function VehiclePage({ params }: VehiclePageProps) {
               />
             </div>
           </div>
+
+          {/* CC BY / CC BY-SA require attribution wherever the work is shown. */}
+          {credit && (
+            <p className="mt-2 text-[11px] leading-relaxed text-neutral-subtle">
+              Photo:{" "}
+              <a
+                href={credit.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-brand-red"
+              >
+                {credit.author}
+              </a>{" "}
+              via Wikimedia Commons, licensed under{" "}
+              <a
+                href={credit.licenceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-brand-red"
+              >
+                {credit.licence}
+              </a>
+              .
+            </p>
+          )}
+
           <h1 className="mt-6 text-2xl font-bold text-brand-graphite">{title}</h1>
           <p className="mt-1 flex items-center gap-1.5 text-sm text-neutral-muted">
             <MapPin size={14} />
