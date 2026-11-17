@@ -7,6 +7,9 @@
     --color-brand: #E10600;
     --color-ink: #14161A;
     --aurora-gradient: linear-gradient(120deg, #4285F4, #00C8E5, #A142F4, #F439A0, #4285F4);
+    /* Parked off-screen so the cursor glow is invisible until the pointer moves. */
+    --mouse-x: -1000px;
+    --mouse-y: -1000px;
   }
   html { scroll-behavior: smooth; }
   body { @apply bg-surface-paper text-ink-800 font-sans antialiased; }
@@ -73,11 +76,33 @@
     background-size: 40px 40px;
   }
 
+  /* ===== AMBIENT CURSOR GLOW ===== */
+  .cursor-glow {
+    position: relative;
+    overflow: hidden;
+  }
+  .cursor-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle 600px at var(--mouse-x) var(--mouse-y),
+      rgba(225, 6, 0, 0.06),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .cursor-glow:hover::before { opacity: 1; }
+
   /* ===== LOW DATA MODE ===== */
   .low-data .glass { @apply backdrop-blur-none bg-white; }
   .low-data .dark .glass { @apply bg-ink-900; }
   .low-data .aurora-bg, .low-data .aurora-text { @apply bg-brand text-white; animation: none !important; }
   .low-data .noise::after { display: none; }
+  .low-data .cursor-glow::before { display: none; }
 }
 
 @layer utilities {
