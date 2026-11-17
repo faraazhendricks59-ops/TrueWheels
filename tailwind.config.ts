@@ -2,49 +2,84 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: "class",
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
+        ink: {
+          950: "#07080A", 900: "#0B0D10", 800: "#14161A", 700: "#1C1F24",
+          600: "#262A31", 500: "#3A3F47", 400: "#5A616B", 300: "#8A919C",
+          200: "#C3C8D0", 100: "#E4E7EB", 50: "#F2F4F6",
+        },
         brand: {
-          red: "rgb(var(--brand-red) / <alpha-value>)",
-          "red-dark": "rgb(var(--brand-red-dark) / <alpha-value>)",
-          graphite: "rgb(var(--brand-graphite) / <alpha-value>)",
-          ink: "rgb(var(--brand-ink) / <alpha-value>)",
-          silver: "rgb(var(--brand-silver) / <alpha-value>)",
+          DEFAULT: "#E10600", 700: "#8F0400", 600: "#B30500",
+          500: "#FF2D20", 400: "#FF5A4E", 100: "#FFE1DF", 50: "#FFF1F0",
+        },
+        aurora: {
+          blue: "#4285F4", cyan: "#00C8E5", purple: "#A142F4",
+          pink: "#F439A0", lime: "#00E38C",
         },
         surface: {
-          white: "rgb(var(--surface-white) / <alpha-value>)",
-          grey: "rgb(var(--surface-grey) / <alpha-value>)",
+          paper: "#F7F8FA", white: "#FFFFFF",
+          glass: "rgba(255,255,255,0.65)", dark: "#0B0D10",
         },
-        semantic: {
-          success: "rgb(var(--semantic-success) / <alpha-value>)",
-          warning: "rgb(var(--semantic-warning) / <alpha-value>)",
-          "warning-soft": "rgb(var(--semantic-warning-soft) / <alpha-value>)",
-          error: "rgb(var(--semantic-error) / <alpha-value>)",
-        },
-        neutral: {
-          muted: "rgb(var(--neutral-muted) / <alpha-value>)",
-          subtle: "rgb(var(--neutral-subtle) / <alpha-value>)",
-          line: "rgb(var(--neutral-line) / <alpha-value>)",
-          hover: "rgb(var(--neutral-hover) / <alpha-value>)",
-          strong: "rgb(var(--neutral-strong) / <alpha-value>)",
-        },
+        semantic: { success: "#00E38C", warning: "#FFB020", error: "#FF4438" },
       },
-      fontFamily: { sans: ["var(--font-inter)", "system-ui", "sans-serif"] },
+      fontFamily: {
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
+      fontSize: {
+        xs: ["0.75rem", { lineHeight: "1rem" }],
+        sm: ["0.875rem", { lineHeight: "1.25rem" }],
+        base: ["1rem", { lineHeight: "1.5rem" }],
+        lg: ["1.125rem", { lineHeight: "1.75rem" }],
+        xl: ["1.25rem", { lineHeight: "1.75rem" }],
+        "2xl": ["1.5rem", { lineHeight: "2rem" }],
+        "3xl": ["1.875rem", { lineHeight: "2.25rem" }],
+        "4xl": ["2.25rem", { lineHeight: "2.5rem" }],
+        "5xl": ["3rem", { lineHeight: "1.1" }],
+        "6xl": ["3.75rem", { lineHeight: "1.1" }],
+        "7xl": ["4.5rem", { lineHeight: "1" }],
+      },
+      spacing: {
+        "0": "0px", "0.5": "2px", "1": "4px", "1.5": "6px", "2": "8px",
+        "2.5": "10px", "3": "12px", "3.5": "14px", "4": "16px", "5": "20px",
+        "6": "24px", "7": "28px", "8": "32px", "9": "36px", "10": "40px",
+        "11": "44px", "12": "48px", "14": "56px", "16": "64px", "20": "80px",
+      },
+      borderRadius: {
+        sm: "4px", DEFAULT: "8px", md: "12px", lg: "16px",
+        xl: "20px", "2xl": "24px", "3xl": "32px", full: "9999px",
+      },
       boxShadow: {
-        card: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-        "card-hover": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        glow: "0 0 40px -10px rgba(225,6,0,0.45)",
+        "glow-aurora": "0 0 60px -12px rgba(161,66,244,0.35)",
+        glass: "0 8px 32px rgba(11,13,16,0.08)",
+        lift: "0 20px 40px -12px rgba(11,13,16,0.18)",
+      },
+      transitionTimingFunction: {
+        swift: "cubic-bezier(0.22, 1, 0.36, 1)",
+        snap: "cubic-bezier(0.2, 0, 0, 1)",
+        glide: "cubic-bezier(0.4, 0, 0.2, 1)",
+      },
+      keyframes: {
+        aurora: { "0%,100%": { backgroundPosition: "0% 50%" }, "50%": { backgroundPosition: "100% 50%" } },
+        shimmer: { "0%": { backgroundPosition: "-400px 0" }, "100%": { backgroundPosition: "400px 0" } },
+        rise: { "0%": { opacity: "0", transform: "translateY(24px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
+        "slash-in": { "0%": { opacity: "0", transform: "skewX(-18deg) translateX(-1.4em)" }, "100%": { opacity: "1", transform: "skewX(-18deg) translateX(0)" } },
+        pulse: { "0%, 100%": { opacity: "1" }, "50%": { opacity: ".5" } },
+      },
+      animation: {
+        aurora: "aurora 8s ease infinite",
+        shimmer: "shimmer 1.4s infinite linear",
+        rise: "rise 0.6s cubic-bezier(0.22,1,0.36,1) both",
+        "slash-in": "slash-in 0.5s cubic-bezier(0.22,1,0.36,1) both",
+        pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },
   plugins: [],
 };
-
 export default config;
