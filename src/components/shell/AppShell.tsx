@@ -7,6 +7,8 @@ import { FloatingActionButton } from "./FloatingActionButton";
 import { Footer } from "./Footer";
 import { CookieBanner } from "@/components/compliance/CookieBanner";
 import { FeatureGate } from "@/components/feature/FeatureGate";
+import { AIConciergeSheet } from "@/components/ai/AIConciergeSheet";
+import { useConcierge } from "@/components/providers/ConciergeProvider";
 
 interface AppShellProps {
   children: ReactNode;
@@ -28,6 +30,8 @@ export function AppShell({
   hideMobileNav = false,
   hideFooter = false,
 }: AppShellProps) {
+  const { isOpen: isConciergeOpen, close: closeConcierge } = useConcierge();
+
   return (
     <div
       className={clsx(
@@ -61,6 +65,7 @@ export function AppShell({
         </FeatureGate>
       )}
       <CookieBanner />
+      <AIConciergeSheet isOpen={isConciergeOpen} onClose={closeConcierge} />
     </div>
   );
 }
