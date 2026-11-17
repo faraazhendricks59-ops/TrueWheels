@@ -12,6 +12,27 @@
     --mouse-y: -1000px;
   }
   html { scroll-behavior: smooth; }
+
+  /* Smooth theme switch. Scoped to the two colour properties only, so hover
+     and transform transitions elsewhere are unaffected. */
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition:
+      background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      color 0.3s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.theme-transition,
+    html.theme-transition *,
+    html.theme-transition *::before,
+    html.theme-transition *::after {
+      transition: none !important;
+    }
+  }
   body { @apply bg-surface-paper text-ink-800 font-sans antialiased; }
   ::selection { @apply bg-brand text-white; }
 

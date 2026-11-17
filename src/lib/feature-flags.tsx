@@ -42,6 +42,9 @@ export const FEATURE_KEYS = {
   // Form wizard
   "wizard.previous_step": true,
   "wizard.next_step": true,
+
+  // UI chrome
+  "ui.theme_toggle": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;

@@ -5,6 +5,9 @@ import { FeatureProvider } from "@/lib/feature-flags";
 import { OnboardingController } from "@/components/onboarding/OnboardingController";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { ToastProvider } from "@/components/ui/Toast";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { ThemeScript } from "@/components/theme/ThemeScript";
+import { Navbar } from "@/components/layout/Navbar";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap" });
@@ -18,15 +21,22 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Runs before first paint so a dark-mode user never sees a white flash. */}
+        <ThemeScript />
+      </head>
       <body
         className={`${inter.variable} ${grotesk.variable} ${mono.variable} min-h-screen bg-surface-paper text-ink-900 dark:bg-ink-950 dark:text-white`}
       >
         <FeatureProvider>
-          <MotionProvider>
-            <ToastProvider>
-              <OnboardingController>{children}</OnboardingController>
-            </ToastProvider>
-          </MotionProvider>
+          <ThemeProvider>
+            <MotionProvider>
+              <ToastProvider>
+                <Navbar />
+                <OnboardingController>{children}</OnboardingController>
+              </ToastProvider>
+            </MotionProvider>
+          </ThemeProvider>
         </FeatureProvider>
       </body>
     </html>

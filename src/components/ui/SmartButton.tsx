@@ -22,6 +22,13 @@ interface SmartButtonProps {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   className?: string;
+  /**
+   * Required in practice for `size="icon"`, which renders no text content.
+   * Declared explicitly rather than spread through, so an accidental typo in a
+   * prop name is a type error instead of a silently dropped attribute.
+   */
+  "aria-label"?: string;
+  "aria-pressed"?: boolean;
 }
 
 const VARIANTS: Record<ButtonVariant, string> = {
@@ -54,6 +61,8 @@ export function SmartButton({
   onClick,
   type = "button",
   className,
+  "aria-label": ariaLabel,
+  "aria-pressed": ariaPressed,
 }: SmartButtonProps) {
   const { isEnabled } = useFeatureFlags();
   const isFeatureEnabled = isEnabled(featureKey);
@@ -65,6 +74,7 @@ export function SmartButton({
       <button
         type={type}
         disabled
+        aria-label={ariaLabel}
         className={clsx(
           "inline-flex items-center justify-center rounded-xl font-semibold transition-all ease-swift",
           "bg-ink-50 text-ink-300 border border-ink-100 cursor-not-allowed dark:bg-ink-900 dark:border-ink-800 dark:text-ink-600",
@@ -84,6 +94,8 @@ export function SmartButton({
       type={type}
       onClick={onClick}
       disabled={isDisabled}
+      aria-label={ariaLabel}
+      aria-pressed={ariaPressed}
       className={clsx(
         "inline-flex items-center justify-center rounded-xl font-semibold transition-all ease-swift",
         "focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-ink-950",
