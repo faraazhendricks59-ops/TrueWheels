@@ -10,6 +10,8 @@ interface SmartButtonProps {
   children: ReactNode;
   disabledReason?: string;
   variant?: "primary" | "secondary" | "ghost";
+  disabled?: boolean;
+  type?: "button" | "submit";
   onClick?: () => void;
   className?: string;
 }
@@ -19,6 +21,8 @@ export function SmartButton({
   children,
   disabledReason,
   variant = "primary",
+  disabled,
+  type = "button",
   onClick,
   className,
 }: SmartButtonProps) {
@@ -47,7 +51,12 @@ export function SmartButton({
   }
 
   return (
-    <button onClick={onClick} className={clsx(baseStyles, variants[variant], className)}>
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      className={clsx(baseStyles, variants[variant], className)}
+    >
       {children}
     </button>
   );

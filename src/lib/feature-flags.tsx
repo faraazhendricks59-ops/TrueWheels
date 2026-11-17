@@ -21,6 +21,13 @@ export const FEATURE_KEYS = {
   // Commerce
   "commerce.checkout": true,
   "commerce.trade_in": true,
+
+  // Auth
+  "auth.email_login": true,
+  "auth.google_login": true,
+
+  // Onboarding
+  "onboarding.intent_gate": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;
