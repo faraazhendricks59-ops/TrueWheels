@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useId, ReactNode } from "react";
+import { useState, useRef, useEffect, useId, useContext, createContext, ReactNode } from "react";
 import { clsx } from "clsx";
 import { useClickOutside, useEscapeKey } from "./overlay-hooks";
 
@@ -46,6 +46,10 @@ export function Tooltip({ children, content, side = "top" }: TooltipProps) {
 }
 
 // --- DROPDOWN ---
+// Lets DropdownItem close the menu after a selection without threading a
+// callback through every caller.
+const DropdownCloseContext = createContext<(() => void) | null>(null);
+
 interface DropdownProps {
   trigger: ReactNode;
   children: ReactNode;
@@ -70,7 +74,11 @@ export function Dropdown({ trigger, children, align = "right", label = "Open men
   });
 
   const items = () =>
-    Array.from(menuRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]:not([disabled])') ?? []);
+    Array.from(
+      menuRef.current?.querySelectorAll<HTMLElement>(
+        '[role="menuitem"]:not([disabled]), [role="menuitemradio"]:not([disabled])'
+      ) ?? []
+    );
 
   const focusItem = (direction: 1 | -1) => {
     const nodes = items();
@@ -134,7 +142,11 @@ export function Dropdown({ trigger, children, align = "right", label = "Open men
             align === "right" ? "right-0" : "left-0"
           )}
         >
-          <div className="p-1">{children}</div>
+          <div className="p-1">
+            <DropdownCloseContext.Provider value={() => setIsOpen(false)}>
+              {children}
+            </DropdownCloseContext.Provider>
+          </div>
         </div>
       )}
     </div>
@@ -145,14 +157,24 @@ interface DropdownItemProps {
   children: ReactNode;
   onClick?: () => void;
   destructive?: boolean;
+  /** Renders role="menuitemradio" for single-select menus. */
+  selected?: boolean;
 }
 
-export function DropdownItem({ children, onClick, destructive = false }: DropdownItemProps) {
+export function DropdownItem({ children, onClick, destructive = false, selected }: DropdownItemProps) {
+  const isRadio = selected !== undefined;
+  const closeMenu = useContext(DropdownCloseContext);
   return (
     <button
       type="button"
-      role="menuitem"
-      onClick={onClick}
+      role={isRadio ? "menuitemradio" : "menuitem"}
+      aria-checked={isRadio ? selected : undefined}
+      onClick={() => {
+        onClick?.();
+        // A selection dismisses the menu; leaving it open makes the choice look
+        // unregistered.
+        closeMenu?.();
+      }}
       className={clsx(
         "w-full text-left px-3 py-2 text-sm rounded-lg transition-colors flex items-center gap-2 focus:outline-none focus:bg-ink-50 dark:focus:bg-ink-800",
         destructive

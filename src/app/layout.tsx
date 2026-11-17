@@ -8,6 +8,7 @@ import { ToastProvider } from "@/components/ui/Toast";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { ThemeScript } from "@/components/theme/ThemeScript";
 import { Navbar } from "@/components/layout/Navbar";
+import { I18nProvider } from "@/components/providers/I18nProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap" });
@@ -30,12 +31,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <FeatureProvider>
           <ThemeProvider>
-            <MotionProvider>
-              <ToastProvider>
-                <Navbar />
-                <OnboardingController>{children}</OnboardingController>
-              </ToastProvider>
-            </MotionProvider>
+            <I18nProvider>
+              <MotionProvider>
+                <ToastProvider>
+                  <Navbar />
+                  <OnboardingController>{children}</OnboardingController>
+                </ToastProvider>
+              </MotionProvider>
+            </I18nProvider>
           </ThemeProvider>
         </FeatureProvider>
       </body>
