@@ -28,6 +28,10 @@ export const FEATURE_KEYS = {
 
   // Onboarding
   "onboarding.intent_gate": true,
+
+  // Listings
+  "listings.publish": true,
+  "listings.cancel": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;

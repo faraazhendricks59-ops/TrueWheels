@@ -1,10 +1,11 @@
 import { Logo } from "@/components/brand/Logo";
 import { Reveal } from "@/components/motion/Reveal";
 import { LiveStatsCard } from "@/components/dashboard/LiveStatsCard";
+import { CreateListingForm } from "@/components/listings/CreateListingForm";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center gap-10 py-16">
+    <main className="min-h-screen flex flex-col items-center justify-center gap-10 py-16 px-4">
       <Reveal variant="up">
         <div className="flex flex-col items-center gap-6">
           <Logo animated size="xl" />
@@ -13,6 +14,9 @@ export default function Home() {
       </Reveal>
       <Reveal variant="up" delay={120}>
         <LiveStatsCard />
+      </Reveal>
+      <Reveal variant="up" delay={200}>
+        <CreateListingForm />
       </Reveal>
     </main>
   );
