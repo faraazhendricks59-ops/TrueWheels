@@ -2,6 +2,8 @@
 
 import { ReactNode } from "react";
 import { clsx } from "clsx";
+import { BottomNav } from "./BottomNav";
+import { FloatingActionButton } from "./FloatingActionButton";
 
 interface AppShellProps {
   children: ReactNode;
@@ -11,9 +13,16 @@ interface AppShellProps {
    * clearance is still applied, since the fixed nav would otherwise cover them.
    */
   disablePadding?: boolean;
+  /** Full-bleed surfaces (map, auction room) opt out of the mobile chrome. */
+  hideMobileNav?: boolean;
 }
 
-export function AppShell({ children, className, disablePadding = false }: AppShellProps) {
+export function AppShell({
+  children,
+  className,
+  disablePadding = false,
+  hideMobileNav = false,
+}: AppShellProps) {
   return (
     <div
       className={clsx(
@@ -24,13 +33,22 @@ export function AppShell({ children, className, disablePadding = false }: AppShe
         // so it takes no space in flow and must be compensated here.
         "pt-[calc(var(--header-height)+var(--sat))]",
         // Clearance for the fixed mobile tab bar; desktop has no bottom bar.
-        "pb-[calc(var(--mobile-nav-height)+var(--sab))]",
+        hideMobileNav
+          ? "pb-[calc(var(--sab))]"
+          : "pb-[calc(var(--mobile-nav-height)+var(--sab))]",
         "md:pb-[calc(var(--footer-height)+var(--sab))]",
         !disablePadding && "px-4 md:px-6 lg:px-8",
         className
       )}
     >
       {children}
+
+      {!hideMobileNav && (
+        <>
+          <BottomNav />
+          <FloatingActionButton />
+        </>
+      )}
     </div>
   );
 }

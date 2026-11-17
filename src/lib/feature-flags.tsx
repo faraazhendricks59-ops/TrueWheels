@@ -36,6 +36,7 @@ export const FEATURE_KEYS = {
   "listings.publish": true,
   "listings.cancel": true,
   "listings.delete": true,
+  "listings.create": true,
 
   // Marketplace
   "marketplace.clear_filters": true,
@@ -50,6 +51,10 @@ export const FEATURE_KEYS = {
   "ui.language_switcher": true,
   "ui.right_rail": true,
   "ui.mobile_nav": true,
+  "nav.mobile_home": true,
+  "nav.mobile_search": true,
+  "nav.mobile_messages": true,
+  "nav.mobile_profile": true,
   "ui.mobile_menu": true,
   "ui.omnibox": true,
   "ui.ai_pill": true,

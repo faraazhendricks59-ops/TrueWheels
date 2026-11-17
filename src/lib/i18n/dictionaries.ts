@@ -27,6 +27,9 @@ export type TranslationKey =
   | "nav.community"
   | "nav.parts"
   | "nav.list_vehicle"
+  | "nav.home"
+  | "nav.messages"
+  | "nav.profile"
   | "action.search"
   | "action.save"
   | "action.share"
@@ -61,6 +64,9 @@ const en: Record<TranslationKey, string> = {
   "nav.community": "Community",
   "nav.parts": "Parts & Spares",
   "nav.list_vehicle": "List Vehicle",
+  "nav.home": "Home",
+  "nav.messages": "Messages",
+  "nav.profile": "Profile",
   "action.search": "Search",
   "action.save": "Save",
   "action.share": "Share",
@@ -97,6 +103,9 @@ const af: Record<TranslationKey, string> = {
   "nav.community": "Gemeenskap",
   "nav.parts": "Onderdele",
   "nav.list_vehicle": "Lys Voertuig",
+  "nav.home": "Tuis",
+  "nav.messages": "Boodskappe",
+  "nav.profile": "Profiel",
   "action.search": "Soek",
   "action.save": "Stoor",
   "action.share": "Deel",
@@ -133,6 +142,9 @@ const zu: Record<TranslationKey, string> = {
   "nav.community": "Umphakathi",
   "nav.parts": "Izingxenye",
   "nav.list_vehicle": "Faka Imoto",
+  "nav.home": "Ikhaya",
+  "nav.messages": "Imilayezo",
+  "nav.profile": "Iphrofayela",
   "action.search": "Sesha",
   "action.save": "Gcina",
   "action.share": "Yabelana",
