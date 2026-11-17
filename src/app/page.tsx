@@ -4,6 +4,7 @@ import { LiveStatsCard } from "@/components/dashboard/LiveStatsCard";
 import { CreateListingForm } from "@/components/listings/CreateListingForm";
 import { OverlayShowcase } from "@/components/ui/OverlayShowcase";
 import { MarketplaceFeed } from "@/components/marketplace/MarketplaceFeed";
+import { ListVehicleWizard } from "@/components/forms/ListVehicleWizard";
 
 export default function Home() {
   return (
@@ -25,6 +26,9 @@ export default function Home() {
       </Reveal>
       <Reveal variant="up" delay={320}>
         <MarketplaceFeed />
+      </Reveal>
+      <Reveal variant="up" delay={380}>
+        <ListVehicleWizard />
       </Reveal>
     </main>
   );

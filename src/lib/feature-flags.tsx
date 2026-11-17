@@ -38,6 +38,10 @@ export const FEATURE_KEYS = {
   // Marketplace
   "marketplace.clear_filters": true,
   "marketplace.view_all": true,
+
+  // Form wizard
+  "wizard.previous_step": true,
+  "wizard.next_step": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;
