@@ -1,13 +1,9 @@
-import type { Metadata } from "next";
-import { DashboardShell } from "@/components/dashboard/DashboardShell";
-import { DashboardSection } from "@/components/dashboard/DashboardSection";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = { title: "Settings | TrueWheels" };
-
+/**
+ * Settings moved to /settings in Phase 20. The dashboard shell kept a stub so
+ * the sidebar link and any bookmark still land somewhere sensible.
+ */
 export default function Page() {
-  return (
-    <DashboardShell>
-      <DashboardSection variant="settings" />
-    </DashboardShell>
-  );
+  redirect("/settings");
 }
