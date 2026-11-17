@@ -87,7 +87,10 @@ export function SidebarSlot({ children, className }: GridSlotProps) {
 }
 
 export function RightRailSlot({ children, className }: GridSlotProps) {
-  const { hasSidebar } = useContext(LayoutContext);
+  const { hasSidebar, hasRightRail } = useContext(LayoutContext);
+  // Without this the rightRailFeatureKey kill switch did nothing: MainSlot
+  // widened for a rail that then still rendered.
+  if (!hasRightRail) return null;
   return (
     <div
       className={clsx(
