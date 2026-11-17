@@ -29,6 +29,8 @@ interface SmartButtonProps {
    */
   "aria-label"?: string;
   "aria-pressed"?: boolean;
+  /** Anchor for the guided tour spotlight. */
+  "data-tour"?: string;
 }
 
 const VARIANTS: Record<ButtonVariant, string> = {
@@ -63,6 +65,7 @@ export function SmartButton({
   className,
   "aria-label": ariaLabel,
   "aria-pressed": ariaPressed,
+  "data-tour": dataTour,
 }: SmartButtonProps) {
   const { isEnabled } = useFeatureFlags();
   const isFeatureEnabled = isEnabled(featureKey);
@@ -75,6 +78,7 @@ export function SmartButton({
         type={type}
         disabled
         aria-label={ariaLabel}
+        data-tour={dataTour}
         className={clsx(
           "inline-flex items-center justify-center rounded-xl font-semibold transition-all ease-swift",
           "bg-ink-50 text-ink-300 border border-ink-100 cursor-not-allowed dark:bg-ink-900 dark:border-ink-800 dark:text-ink-600",
@@ -96,6 +100,7 @@ export function SmartButton({
       disabled={isDisabled}
       aria-label={ariaLabel}
       aria-pressed={ariaPressed}
+      data-tour={dataTour}
       className={clsx(
         "inline-flex items-center justify-center rounded-xl font-semibold transition-all ease-swift",
         "focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-ink-950",

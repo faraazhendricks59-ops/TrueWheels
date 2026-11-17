@@ -16,6 +16,7 @@ export function FloatingActionButton() {
       <div className="pointer-events-auto mb-[calc(var(--mobile-nav-height)+12px)]">
         <SmartButton
             featureKey="listings.create"
+            data-tour="fab-list-vehicle"
             size="lg"
             className="!rounded-full !h-14 !w-14 !p-0 shadow-glow relative overflow-hidden group"
             aria-label={t("nav.list_vehicle")}

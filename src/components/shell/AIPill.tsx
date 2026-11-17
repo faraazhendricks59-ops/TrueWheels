@@ -10,6 +10,7 @@ export function AIPill() {
     <Magnetic strength={0.15}>
       <SmartButton
         featureKey="ai.concierge"
+        data-tour="ai-concierge"
         size="sm"
         className="!bg-transparent !border-0 !shadow-none hover:!shadow-none relative overflow-hidden group"
       >

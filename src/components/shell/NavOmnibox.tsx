@@ -11,6 +11,7 @@ export function NavOmnibox() {
   return (
     <button
       type="button"
+      data-tour="global-search"
       onClick={open}
       aria-keyshortcuts="Meta+K Control+K"
       className="w-full h-10 flex items-center gap-3 px-4 rounded-full bg-white dark:bg-ink-900 border border-ink-100 dark:border-ink-800 shadow-sm hover:shadow-md hover:border-ink-200 dark:hover:border-ink-700 transition-all ease-swift group text-left"

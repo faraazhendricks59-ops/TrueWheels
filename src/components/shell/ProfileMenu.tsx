@@ -10,7 +10,10 @@ export function ProfileMenu() {
   const { t } = useTranslation();
 
   const trigger = (
-    <span className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full hover:bg-ink-50 dark:hover:bg-ink-900 transition-colors cursor-pointer border border-transparent hover:border-ink-100 dark:hover:border-ink-800">
+    <span
+      data-tour="profile-menu"
+      className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full hover:bg-ink-50 dark:hover:bg-ink-900 transition-colors cursor-pointer border border-transparent hover:border-ink-100 dark:hover:border-ink-800"
+    >
       <span className="w-7 h-7 rounded-full bg-ink-200 dark:bg-ink-700 flex items-center justify-center text-xs font-bold text-ink-600 dark:text-ink-300">
         JD
       </span>
