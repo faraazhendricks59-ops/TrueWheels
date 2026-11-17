@@ -41,6 +41,9 @@ export const FEATURE_KEYS = {
   // Marketplace
   "marketplace.clear_filters": true,
   "marketplace.view_all": true,
+  "marketplace.view_toggle": true,
+  "marketplace.sort": true,
+  "marketplace.active_filters": true,
 
   // Form wizard
   "wizard.previous_step": true,
