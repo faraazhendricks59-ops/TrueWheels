@@ -17,7 +17,10 @@ export function Navbar() {
   const { t } = useTranslation();
 
   return (
-    <nav className="sticky top-0 z-40 w-full glass border-b border-ink-100 dark:border-ink-800">
+    <nav
+      className="fixed top-0 inset-x-0 z-40 h-[var(--header-height)] glass border-b border-ink-100 dark:border-ink-800"
+      style={{ paddingTop: "var(--sat)" }}
+    >
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <Logo size="sm" />
         <div className="flex items-center gap-3">

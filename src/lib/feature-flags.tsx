@@ -46,6 +46,8 @@ export const FEATURE_KEYS = {
   // UI chrome
   "ui.theme_toggle": true,
   "ui.language_switcher": true,
+  "ui.right_rail": true,
+  "ui.mobile_nav": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;

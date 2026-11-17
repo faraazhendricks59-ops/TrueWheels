@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { FeatureProvider } from "@/lib/feature-flags";
@@ -19,6 +19,14 @@ import { SkipLink } from "@/components/a11y/SkipLink";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
+
+// viewport-fit=cover is required for env(safe-area-inset-*) to return anything
+// other than 0; without it the safe-area utilities are inert on iOS.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "TrueWheels | The Automotive Operating System",

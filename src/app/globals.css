@@ -10,12 +10,27 @@
     /* Parked off-screen so the cursor glow is invisible until the pointer moves. */
     --mouse-x: -1000px;
     --mouse-y: -1000px;
+
+    /* ===== STRUCTURAL HEIGHTS ===== */
+    --header-height: 4rem;
+    --footer-height: 0rem;
+    --mobile-nav-height: 5rem;
+
+    /* ===== SAFE AREAS =====
+       These resolve to 0 unless the viewport is declared with viewport-fit=cover
+       (see the `viewport` export in app/layout.tsx). */
+    --sat: env(safe-area-inset-top, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
   }
   html {
-    scroll-behavior: smooth;
     /* Font scaling: everything in the app is rem-based, so scaling the root
        scales the whole interface, like a controlled browser zoom. */
     font-size: calc(16px * var(--font-scale, 1));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
   }
 
   /* Smooth theme switch. Scoped to the two colour properties only, so hover
@@ -38,7 +53,12 @@
       transition: none !important;
     }
   }
-  body { @apply bg-surface-paper text-ink-800 font-sans antialiased; }
+  body {
+    @apply bg-surface-paper text-ink-800 font-sans antialiased;
+    /* Reserves the scrollbar gutter so switching between short and long pages
+       does not shift the layout horizontally. */
+    scrollbar-gutter: stable;
+  }
   ::selection { @apply bg-brand text-white; }
 
   /* Brand scrollbar */
