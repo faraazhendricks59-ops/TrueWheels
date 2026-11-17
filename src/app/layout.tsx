@@ -11,6 +11,7 @@ import { TopNav } from "@/components/shell/TopNav";
 import { AppShell } from "@/components/shell/AppShell";
 import { CommandPaletteProvider } from "@/components/providers/CommandPaletteProvider";
 import { ConciergeProvider } from "@/components/providers/ConciergeProvider";
+import { PersonalizationProvider } from "@/components/providers/PersonalizationProvider";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { TourProvider } from "@/components/providers/TourProvider";
 import { NotificationProvider } from "@/components/providers/NotificationProvider";
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                           omnibox, which calls useCommandPalette. */}
                       <CommandPaletteProvider>
                         <ConciergeProvider>
+                          <PersonalizationProvider>
                         <SkipLink />
                         <TopNav />
                         {/* AppShell is the single source of header clearance and
@@ -79,6 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             <OnboardingController>{children}</OnboardingController>
                           </main>
                         </AppShell>
+                          </PersonalizationProvider>
                         </ConciergeProvider>
                       </CommandPaletteProvider>
                       </TourProvider>

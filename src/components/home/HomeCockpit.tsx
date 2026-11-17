@@ -4,6 +4,8 @@ import Link from "next/link";
 import { LayoutGrid, MainSlot, RightRailSlot } from "@/components/shell/LayoutGrid";
 import { HeroOmnibox } from "@/components/home/HeroOmnibox";
 import { LiveTicker } from "@/components/home/LiveTicker";
+import { ForYouRail } from "@/components/personalization/ForYouRail";
+import { RecentlyViewedRail } from "@/components/personalization/RecentlyViewedRail";
 import { PersonalizedRail, RailCard } from "@/components/home/PersonalizedRail";
 import { AIConciergeDock } from "@/components/home/AIConciergeDock";
 import { LiveActivityRail } from "@/components/marketplace/LiveActivityRail";
@@ -44,6 +46,9 @@ export function HomeCockpit() {
           </div>
 
           <div className="space-y-12">
+            <ForYouRail />
+            <RecentlyViewedRail />
+
             <FeatureGate featureKey="home.personalized_rails">
               <PersonalizedRail
                 title="Continuing your search"
