@@ -59,7 +59,7 @@ export function CommandPalette({ onClose }: { onClose: () => void }) {
         ? "AI mode. " + buildAiAnswer(query, flatResults)
         : `${flatResults.length} ${flatResults.length === 1 ? "result" : "results"} available`
     );
-  }, [announce, flatResults.length, mode, query]);
+  }, [announce, flatResults, mode, query]);
 
   useEffect(() => {
     listRef.current?.querySelector(`[data-index="${selectedIndex}"]`)?.scrollIntoView({ block: "nearest" });
