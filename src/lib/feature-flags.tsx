@@ -7,6 +7,7 @@ export const FEATURE_KEYS = {
   // Global
   "global.maintenance": false,
   "global.disable_payments": false,
+  "global.retry_action": true,
 
   // Navigation
   "nav.auctions": true,
@@ -33,6 +34,10 @@ export const FEATURE_KEYS = {
   "listings.publish": true,
   "listings.cancel": true,
   "listings.delete": true,
+
+  // Marketplace
+  "marketplace.clear_filters": true,
+  "marketplace.view_all": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;

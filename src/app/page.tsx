@@ -3,6 +3,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { LiveStatsCard } from "@/components/dashboard/LiveStatsCard";
 import { CreateListingForm } from "@/components/listings/CreateListingForm";
 import { OverlayShowcase } from "@/components/ui/OverlayShowcase";
+import { MarketplaceFeed } from "@/components/marketplace/MarketplaceFeed";
 
 export default function Home() {
   return (
@@ -21,6 +22,9 @@ export default function Home() {
       </Reveal>
       <Reveal variant="up" delay={260}>
         <OverlayShowcase />
+      </Reveal>
+      <Reveal variant="up" delay={320}>
+        <MarketplaceFeed />
       </Reveal>
     </main>
   );
