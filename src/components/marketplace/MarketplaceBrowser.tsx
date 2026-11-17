@@ -1,6 +1,5 @@
 "use client";
 
-import { AppShell } from "@/components/shell/AppShell";
 import { LayoutGrid, MainSlot, SidebarSlot, RightRailSlot } from "@/components/shell/LayoutGrid";
 import { FilterPanel } from "@/components/marketplace/FilterPanel";
 import { LiveActivityRail } from "@/components/marketplace/LiveActivityRail";
@@ -11,7 +10,7 @@ export function MarketplaceBrowser() {
   const listings = DEMO_VEHICLES.slice(0, 9);
 
   return (
-    <AppShell>
+    <>
       <LayoutGrid showSidebar showRightRail rightRailFeatureKey="ui.right_rail">
         <SidebarSlot>
           <div className="sticky top-[calc(var(--header-height)+var(--sat)+1.5rem)]">
@@ -44,6 +43,6 @@ export function MarketplaceBrowser() {
           </div>
         </RightRailSlot>
       </LayoutGrid>
-    </AppShell>
+    </>
   );
 }

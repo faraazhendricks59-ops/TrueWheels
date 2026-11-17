@@ -1,0 +1,14 @@
+"use client";
+
+import { ReactNode } from "react";
+import { useFeatureFlags, type FeatureKey } from "@/lib/feature-flags";
+
+/**
+ * Renders children only when the feature is enabled. Use for navigation entries
+ * and static blocks; SmartButton already applies its own gating for actions.
+ */
+export function FeatureGate({ featureKey, children }: { featureKey: FeatureKey; children: ReactNode }) {
+  const { isEnabled } = useFeatureFlags();
+  if (!isEnabled(featureKey)) return null;
+  return <>{children}</>;
+}

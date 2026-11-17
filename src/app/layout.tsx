@@ -7,7 +7,9 @@ import { MotionProvider } from "@/components/motion/MotionProvider";
 import { ToastProvider } from "@/components/ui/Toast";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { ThemeScript } from "@/components/theme/ThemeScript";
-import { Navbar } from "@/components/layout/Navbar";
+import { TopNav } from "@/components/shell/TopNav";
+import { CommandPalette } from "@/components/command/CommandPalette";
+import { AppShell } from "@/components/shell/AppShell";
 import { I18nProvider } from "@/components/providers/I18nProvider";
 import {
   AccessibilityProvider,
@@ -53,11 +55,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <MotionProvider>
                     <ToastProvider>
                       <SkipLink />
-                      <Navbar />
-                      {/* The single main landmark; the skip link targets it. */}
-                      <main id="main-content" tabIndex={-1} className="outline-none">
-                        <OnboardingController>{children}</OnboardingController>
-                      </main>
+                      <TopNav />
+                      <CommandPalette />
+                      {/* AppShell is the single source of header clearance and
+                          safe-area insets; pages must not nest another one. */}
+                      <AppShell>
+                        {/* The single main landmark; the skip link targets it. */}
+                        <main id="main-content" tabIndex={-1} className="outline-none flex-1 w-full">
+                          <OnboardingController>{children}</OnboardingController>
+                        </main>
+                      </AppShell>
                     </ToastProvider>
                   </MotionProvider>
                 </AriaLiveAnnouncerProvider>

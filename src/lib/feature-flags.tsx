@@ -10,6 +10,8 @@ export const FEATURE_KEYS = {
   "global.retry_action": true,
 
   // Navigation
+  "nav.marketplace":
+    true,
   "nav.auctions": true,
   "nav.community": true,
   "nav.parts": true,
@@ -48,6 +50,12 @@ export const FEATURE_KEYS = {
   "ui.language_switcher": true,
   "ui.right_rail": true,
   "ui.mobile_nav": true,
+  "ui.mobile_menu": true,
+  "ui.omnibox": true,
+  "ui.ai_pill": true,
+  "ui.profile_menu": true,
+  "ai.concierge": true,
+  "command.palette": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;
