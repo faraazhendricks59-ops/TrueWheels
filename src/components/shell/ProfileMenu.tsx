@@ -1,6 +1,6 @@
 "use client";
 
-import { BellRing, ChevronDown, LayoutDashboard, LogOut, Settings } from "lucide-react";
+import { BellRing, ChevronDown, LayoutDashboard, LogOut, Scale, Settings } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { useRouter } from "next/navigation";
 import { Dropdown, DropdownItem } from "@/components/ui/Floating";
@@ -40,6 +40,9 @@ export function ProfileMenu() {
       </DropdownItem>
       <DropdownItem onClick={() => router.push("/saved-searches")}>
         <Icon icon={BellRing} size={14} /> Saved searches
+      </DropdownItem>
+      <DropdownItem onClick={() => router.push("/compare")}>
+        <Icon icon={Scale} size={14} /> Compare vehicles
       </DropdownItem>
       <DropdownItem onClick={() => console.log("Settings")}>
         <Icon icon={Settings} size={14} /> Settings

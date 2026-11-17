@@ -1,6 +1,7 @@
 import {
   Bell,
   Car,
+  Scale,
   Wrench,
   Store,
   Users,
@@ -40,6 +41,7 @@ const PAGES: SearchItem[] = [
   { id: "page-messages", type: "page", title: "Messages", subtitle: "Your conversations", href: "/messages", icon: MessageSquare },
   { id: "page-profile", type: "page", title: "Profile", subtitle: "Account and verification", href: "/profile", icon: User },
   { id: "page-saved-searches", type: "page", title: "Saved searches", subtitle: "Your alerts and matches", href: "/saved-searches", icon: Bell },
+  { id: "page-compare", type: "page", title: "Compare vehicles", subtitle: "Side-by-side specs", href: "/compare", icon: Scale },
 ];
 
 const vehicleItems = (): SearchItem[] =>
