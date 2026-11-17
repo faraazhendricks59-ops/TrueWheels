@@ -60,7 +60,7 @@ export const FEATURE_KEYS = {
   "ui.ai_pill": true,
   "ui.profile_menu": true,
   "ai.concierge": true,
-  "command.palette": true,
+  "ui.command_palette": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;

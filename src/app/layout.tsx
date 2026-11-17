@@ -8,8 +8,8 @@ import { ToastProvider } from "@/components/ui/Toast";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { ThemeScript } from "@/components/theme/ThemeScript";
 import { TopNav } from "@/components/shell/TopNav";
-import { CommandPalette } from "@/components/command/CommandPalette";
 import { AppShell } from "@/components/shell/AppShell";
+import { CommandPaletteProvider } from "@/components/providers/CommandPaletteProvider";
 import { I18nProvider } from "@/components/providers/I18nProvider";
 import {
   AccessibilityProvider,
@@ -54,17 +54,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <AriaLiveAnnouncerProvider>
                   <MotionProvider>
                     <ToastProvider>
-                      <SkipLink />
-                      <TopNav />
-                      <CommandPalette />
-                      {/* AppShell is the single source of header clearance and
-                          safe-area insets; pages must not nest another one. */}
-                      <AppShell>
-                        {/* The single main landmark; the skip link targets it. */}
-                        <main id="main-content" tabIndex={-1} className="outline-none flex-1 w-full">
-                          <OnboardingController>{children}</OnboardingController>
-                        </main>
-                      </AppShell>
+                      {/* Owns the palette state and renders it; must wrap the
+                          omnibox, which calls useCommandPalette. */}
+                      <CommandPaletteProvider>
+                        <SkipLink />
+                        <TopNav />
+                        {/* AppShell is the single source of header clearance and
+                            safe-area insets; pages must not nest another one. */}
+                        <AppShell>
+                          {/* The single main landmark; the skip link targets it. */}
+                          <main id="main-content" tabIndex={-1} className="outline-none flex-1 w-full">
+                            <OnboardingController>{children}</OnboardingController>
+                          </main>
+                        </AppShell>
+                      </CommandPaletteProvider>
                     </ToastProvider>
                   </MotionProvider>
                 </AriaLiveAnnouncerProvider>

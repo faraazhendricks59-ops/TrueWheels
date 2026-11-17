@@ -2,14 +2,16 @@
 
 import { Search, Command } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
-import { COMMAND_PALETTE_OPEN_EVENT } from "@/components/command/CommandPalette";
+import { useCommandPalette } from "@/components/providers/CommandPaletteProvider";
 
 /** Search entry point that opens the command palette. */
 export function NavOmnibox() {
+  const { open } = useCommandPalette();
+
   return (
     <button
       type="button"
-      onClick={() => window.dispatchEvent(new Event(COMMAND_PALETTE_OPEN_EVENT))}
+      onClick={open}
       aria-keyshortcuts="Meta+K Control+K"
       className="w-full h-10 flex items-center gap-3 px-4 rounded-full bg-white dark:bg-ink-900 border border-ink-100 dark:border-ink-800 shadow-sm hover:shadow-md hover:border-ink-200 dark:hover:border-ink-700 transition-all ease-swift group text-left"
     >
