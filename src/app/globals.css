@@ -11,7 +11,12 @@
     --mouse-x: -1000px;
     --mouse-y: -1000px;
   }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    /* Font scaling: everything in the app is rem-based, so scaling the root
+       scales the whole interface, like a controlled browser zoom. */
+    font-size: calc(16px * var(--font-scale, 1));
+  }
 
   /* Smooth theme switch. Scoped to the two colour properties only, so hover
      and transform transitions elsewhere are unaffected. */
@@ -43,7 +48,67 @@
   ::-webkit-scrollbar-thumb:hover { @apply bg-ink-300; }
 
   /* Strict focus ring */
-  *:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; border-radius: 4px; }
+  *:focus-visible {
+    outline: 3px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Bypass block for keyboard users. Held off-screen with a transform so it
+     never depends on the element's own height. */
+  .skip-link {
+    position: fixed;
+    top: 0;
+    left: 1rem;
+    z-index: 100;
+    transform: translateY(-150%);
+    @apply bg-brand text-white px-4 py-3 rounded-xl font-semibold text-sm shadow-lift;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .skip-link:focus {
+    transform: translateY(1rem);
+  }
+
+  /* ===== HIGH CONTRAST =====
+     The colour tokens compile to literal hex values, not CSS custom
+     properties, so redefining --color-brand here would have no effect. These
+     rules override the rendered utilities instead. !important is required
+     because Tailwind's utilities layer is emitted after the base layer. */
+  .high-contrast {
+    --hc-bg: #ffffff;
+    --hc-fg: #000000;
+  }
+  .dark.high-contrast {
+    --hc-bg: #000000;
+    --hc-fg: #ffffff;
+  }
+  .high-contrast body {
+    background-color: var(--hc-bg) !important;
+    color: var(--hc-fg) !important;
+  }
+  /* Muted greys are the main contrast failure in the default palette. */
+  .high-contrast .text-ink-200,
+  .high-contrast .text-ink-300,
+  .high-contrast .text-ink-400,
+  .high-contrast .text-ink-500,
+  .high-contrast .text-ink-600 {
+    color: var(--hc-fg) !important;
+  }
+  .high-contrast .glass {
+    background-color: var(--hc-bg) !important;
+    backdrop-filter: none !important;
+    border-color: var(--hc-fg) !important;
+  }
+  .high-contrast .border-ink-100,
+  .high-contrast .border-ink-200,
+  .high-contrast .border-ink-700,
+  .high-contrast .border-ink-800 {
+    border-color: var(--hc-fg) !important;
+  }
+  .high-contrast .skeleton {
+    background-image: none !important;
+    border: 1px solid var(--hc-fg);
+  }
 }
 
 @layer components {

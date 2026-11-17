@@ -9,6 +9,12 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { ThemeScript } from "@/components/theme/ThemeScript";
 import { Navbar } from "@/components/layout/Navbar";
 import { I18nProvider } from "@/components/providers/I18nProvider";
+import {
+  AccessibilityProvider,
+  A11yScript,
+} from "@/components/providers/AccessibilityProvider";
+import { AriaLiveAnnouncerProvider } from "@/components/a11y/AriaLiveAnnouncer";
+import { SkipLink } from "@/components/a11y/SkipLink";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap" });
@@ -25,6 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Runs before first paint so a dark-mode user never sees a white flash. */}
         <ThemeScript />
+        {/* Applies stored text-size and contrast before first paint. */}
+        <A11yScript />
       </head>
       <body
         className={`${inter.variable} ${grotesk.variable} ${mono.variable} min-h-screen bg-surface-paper text-ink-900 dark:bg-ink-950 dark:text-white`}
@@ -32,12 +40,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <FeatureProvider>
           <ThemeProvider>
             <I18nProvider>
-              <MotionProvider>
-                <ToastProvider>
-                  <Navbar />
-                  <OnboardingController>{children}</OnboardingController>
-                </ToastProvider>
-              </MotionProvider>
+              <AccessibilityProvider>
+                <AriaLiveAnnouncerProvider>
+                  <MotionProvider>
+                    <ToastProvider>
+                      <SkipLink />
+                      <Navbar />
+                      {/* The single main landmark; the skip link targets it. */}
+                      <main id="main-content" tabIndex={-1} className="outline-none">
+                        <OnboardingController>{children}</OnboardingController>
+                      </main>
+                    </ToastProvider>
+                  </MotionProvider>
+                </AriaLiveAnnouncerProvider>
+              </AccessibilityProvider>
             </I18nProvider>
           </ThemeProvider>
         </FeatureProvider>

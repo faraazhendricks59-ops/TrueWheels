@@ -8,7 +8,7 @@ import { ListVehicleWizard } from "@/components/forms/ListVehicleWizard";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center gap-10 py-16 px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center gap-10 py-16 px-4">
       <Reveal variant="up">
         <div className="flex flex-col items-center gap-6">
           <Logo animated size="xl" />
@@ -30,6 +30,6 @@ export default function Home() {
       <Reveal variant="up" delay={380}>
         <ListVehicleWizard />
       </Reveal>
-    </main>
+    </div>
   );
 }

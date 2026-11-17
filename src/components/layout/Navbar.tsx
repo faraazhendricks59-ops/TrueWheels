@@ -3,6 +3,7 @@
 import { Logo } from "@/components/brand/Logo";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import { AccessibilityMenu } from "@/components/a11y/AccessibilityMenu";
 import { useTranslation } from "@/components/providers/I18nProvider";
 import type { TranslationKey } from "@/lib/i18n/dictionaries";
 
@@ -33,6 +34,7 @@ export function Navbar() {
             ))}
           </ul>
           <LanguageSwitcher />
+          <AccessibilityMenu />
           <ThemeToggle />
         </div>
       </div>
