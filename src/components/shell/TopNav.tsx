@@ -13,6 +13,7 @@ import type { TranslationKey } from "@/lib/i18n/dictionaries";
 import { NavOmnibox } from "./NavOmnibox";
 import { AIPill } from "./AIPill";
 import { ProfileMenu } from "./ProfileMenu";
+import { RoleAwareNav } from "./RoleAwareNav";
 import { MobileMenuSheet } from "./MobileMenuSheet";
 
 const DESKTOP_LINKS: { href: string; key: TranslationKey }[] = [
@@ -53,6 +54,9 @@ export function TopNav() {
                 </a>
               </FeatureGate>
             ))}
+            {/* Tier-specific destinations, shown only when the viewer holds the
+                role. Public links above stay visible for everyone. */}
+            <RoleAwareNav variant="topnav" />
           </nav>
         </div>
 

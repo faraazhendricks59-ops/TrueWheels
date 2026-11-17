@@ -10,6 +10,7 @@ import { ThemeScript } from "@/components/theme/ThemeScript";
 import { TopNav } from "@/components/shell/TopNav";
 import { AppShell } from "@/components/shell/AppShell";
 import { CommandPaletteProvider } from "@/components/providers/CommandPaletteProvider";
+import { AuthProvider } from "@/components/providers/AuthProvider";
 import { OrganizationSchema, WebSiteSchema } from "@/components/seo/JsonLd";
 import { I18nProvider } from "@/components/providers/I18nProvider";
 import {
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <AccessibilityProvider>
                 <AriaLiveAnnouncerProvider>
                   <MotionProvider>
+                    <AuthProvider>
                     <ToastProvider>
                       {/* Owns the palette state and renders it; must wrap the
                           omnibox, which calls useCommandPalette. */}
@@ -73,6 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </AppShell>
                       </CommandPaletteProvider>
                     </ToastProvider>
+                    </AuthProvider>
                   </MotionProvider>
                 </AriaLiveAnnouncerProvider>
               </AccessibilityProvider>
