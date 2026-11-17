@@ -108,6 +108,31 @@ export function searchItems(query: string, limit = 6): SearchItem[] {
   });
 }
 
+/**
+ * Conversational filler that carries no matching signal. Stripping it lets an
+ * AI-mode question like "how much is a golf gti" still reach the index, which
+ * matches on substrings and would otherwise return nothing for the full phrase.
+ */
+const STOPWORDS = new Set([
+  "a", "an", "the", "is", "are", "was", "were", "be", "am", "do", "does", "did",
+  "how", "much", "what", "which", "who", "when", "where", "why", "best", "good",
+  "of", "for", "to", "in", "on", "at", "near", "me", "my", "i", "we", "you",
+  "want", "need", "looking", "show", "find", "give", "tell", "about", "please",
+  "cost", "costs", "worth", "value", "price", "prices", "car", "cars",
+  "vehicle", "vehicles", "buy", "buying", "sell", "selling", "and", "or",
+]);
+
+/** Drops filler words, keeping the terms that actually name something. */
+export function extractKeywords(query: string): string {
+  const words = query
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean);
+  const kept = words.filter((word) => !STOPWORDS.has(word));
+  return (kept.length > 0 ? kept : words).join(" ");
+}
+
 export function groupItems(items: SearchItem[]): { type: EntityType; label: string; items: SearchItem[] }[] {
   return ENTITY_GROUPS.map((group) => ({
     ...group,

@@ -2,6 +2,8 @@
 
 import { Sheet } from "@/components/ui/Sheet";
 import { useTranslation } from "@/components/providers/I18nProvider";
+import { FeatureGate } from "@/components/feature/FeatureGate";
+import { AIOmnibox } from "@/components/search/AIOmnibox";
 import type { TranslationKey } from "@/lib/i18n/dictionaries";
 
 const LINKS: { href: string; key: TranslationKey }[] = [
@@ -16,6 +18,13 @@ export function MobileMenuSheet({ isOpen, onClose }: { isOpen: boolean; onClose:
   const { t } = useTranslation();
   return (
     <Sheet isOpen={isOpen} onClose={onClose} title="Menu" side="right">
+      {/* Inline search: the header omnibox is hidden below md, so the sheet is
+          where a phone reaches search. */}
+      <FeatureGate featureKey="ui.omnibox">
+        <div className="pb-4">
+          <AIOmnibox />
+        </div>
+      </FeatureGate>
       <nav className="flex flex-col">
         {LINKS.map((link) => (
           <a
