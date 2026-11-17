@@ -2,9 +2,11 @@
 
 import { useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { SearchX } from "lucide-react";
+import { SearchX, SlidersHorizontal } from "lucide-react";
 import { LayoutGrid, MainSlot, SidebarSlot, RightRailSlot } from "@/components/shell/LayoutGrid";
-import { FilterPanel } from "@/components/marketplace/FilterPanel";
+import { AdvancedFilterPanel } from "@/components/filters/AdvancedFilterPanel";
+import { Sheet } from "@/components/ui/Sheet";
+import { SmartButton } from "@/components/ui/SmartButton";
 import { LiveActivityRail } from "@/components/marketplace/LiveActivityRail";
 import { ViewToggle, type ViewMode } from "@/components/marketplace/ViewToggle";
 import { SortDropdown, type SortOption } from "@/components/marketplace/SortDropdown";
@@ -14,8 +16,19 @@ import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { CountUp } from "@/components/motion/CountUp";
 import { Reveal } from "@/components/motion/Reveal";
-import { DEMO_VEHICLES, type DemoVehicle } from "@/lib/demo/vehicles";
+import type { DemoVehicle } from "@/lib/demo/vehicles";
 import { localeTag } from "@/lib/i18n/locale";
+import {
+  filterVehicles,
+  parseMarketplaceQuery,
+  PRICE_MAX,
+  PRICE_MIN,
+  MILEAGE_MAX,
+  MILEAGE_MIN,
+  YEAR_MIN,
+  type MarketplaceQuery,
+} from "@/lib/marketplace-filter";
+import { featureLabel } from "@/lib/vehicle-facets";
 
 const PAGE_SIZE = 24;
 
@@ -49,56 +62,93 @@ export function MarketplaceBrowser() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const query = searchParams.get("q")?.trim() ?? "";
-  const maxPrice = Number(searchParams.get("max") ?? "") || 0;
+  const queryString = searchParams.toString();
+  const query = useMemo(
+    () => parseMarketplaceQuery(new URLSearchParams(queryString)),
+    [queryString]
+  );
 
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [sortBy, setSortBy] = useState<SortOption>("relevance");
+  const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
 
-  // Filters live in the URL, so removing a chip has to rewrite it. Hiding the
-  // chip alone would leave the results filtered and the two would disagree.
+  // Filters live in the URL, so removing a chip rewrites it. Hiding the chip
+  // alone would leave the results filtered and the two would disagree.
   const updateParams = (mutate: (params: URLSearchParams) => void) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(queryString);
     mutate(params);
     const qs = params.toString();
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   };
 
-  const results = useMemo(() => {
-    let list = DEMO_VEHICLES;
-    if (query) {
-      const q = query.toLowerCase();
-      list = list.filter(
-        (vehicle) =>
-          vehicle.title.toLowerCase().includes(q) || vehicle.location.toLowerCase().includes(q)
-      );
-    }
-    if (maxPrice > 0) list = list.filter((vehicle) => vehicle.price <= maxPrice);
-    return sortVehicles(list, sortBy, query);
-  }, [query, maxPrice, sortBy]);
+  const results = useMemo(
+    () => sortVehicles(filterVehicles(query), sortBy, query.q),
+    [query, sortBy]
+  );
 
-  // Each chip's id is the search param it controls, so removal is a one-liner.
+  // Each chip knows the search param it controls, so removal is a one-liner.
   const filters = useMemo<Filter[]>(() => {
-    const active: Filter[] = [];
-    if (query) active.push({ id: "q", label: "Search", value: query });
-    if (maxPrice > 0) {
-      active.push({
-        id: "max",
-        label: "Max price",
-        value: `R ${maxPrice.toLocaleString(localeTag("en"))}`,
+    const chips: Filter[] = [];
+    if (query.q) chips.push({ id: "q", label: "Search", value: query.q });
+    if (query.makes.length) chips.push({ id: "make", label: "Make", value: query.makes.join(", ") });
+    if (query.bodies.length) chips.push({ id: "body", label: "Body type", value: query.bodies.join(", ") });
+    if (query.provinces.length) {
+      chips.push({ id: "province", label: "Province", value: query.provinces.join(", ") });
+    }
+    if (query.features.length) {
+      chips.push({
+        id: "features",
+        label: "Features",
+        value: query.features.map(featureLabel).join(", "),
       });
     }
-    return active;
-  }, [query, maxPrice]);
+    if (query.min > PRICE_MIN || query.max < PRICE_MAX) {
+      chips.push({
+        id: "price",
+        label: "Price",
+        value: `R ${query.min.toLocaleString(localeTag("en"))} - R ${query.max.toLocaleString(localeTag("en"))}`,
+      });
+    }
+    if (query.minMileage > MILEAGE_MIN || query.maxMileage < MILEAGE_MAX) {
+      chips.push({
+        id: "mileage",
+        label: "Mileage",
+        value: `${query.minMileage.toLocaleString(localeTag("en"))} - ${query.maxMileage.toLocaleString(localeTag("en"))} km`,
+      });
+    }
+    if (query.yearFrom > YEAR_MIN) {
+      chips.push({ id: "yearFrom", label: "Year from", value: String(query.yearFrom) });
+    }
+    return chips;
+  }, [query]);
+
+  // The price chip spans two params, so it needs its own removal.
+  const removeFilter = (id: string) => {
+    if (id === "price") {
+      updateParams((params) => {
+        params.delete("min");
+        params.delete("max");
+      });
+      return;
+    }
+    if (id === "mileage") {
+      updateParams((params) => {
+        params.delete("minMileage");
+        params.delete("maxMileage");
+      });
+      return;
+    }
+    updateParams((params) => params.delete(id));
+  };
 
   const visible = results.slice(0, PAGE_SIZE);
+
+  const panel = <AdvancedFilterPanel onApplied={() => setIsFilterSheetOpen(false)} />;
 
   return (
     <LayoutGrid showSidebar showRightRail rightRailFeatureKey="ui.right_rail">
       <SidebarSlot>
-        <div className="sticky top-[calc(var(--header-height)+var(--sat)+1.5rem)]">
-          <FilterPanel />
-        </div>
+        <div className="sticky top-[calc(var(--header-height)+var(--sat)+1.5rem)]">{panel}</div>
       </SidebarSlot>
 
       <MainSlot>
@@ -110,13 +160,23 @@ export function MarketplaceBrowser() {
                   <h1 className="text-lg font-display font-bold text-ink-900 dark:text-white">
                     <CountUp end={results.length} duration={1000} /> vehicles found
                   </h1>
-                  {query && (
+                  {query.q && (
                     <p className="text-xs text-ink-500 dark:text-ink-300 mt-0.5">
-                      Matching &ldquo;{query}&rdquo;
+                      Matching &ldquo;{query.q}&rdquo;
                     </p>
                   )}
                 </div>
                 <div className="flex items-center gap-3">
+                  <SmartButton
+                    featureKey="filters.mobile_trigger"
+                    variant="secondary"
+                    size="sm"
+                    className="md:hidden"
+                    leftIcon={SlidersHorizontal}
+                    onClick={() => setIsFilterSheetOpen(true)}
+                  >
+                    Filters
+                  </SmartButton>
                   <SortDropdown value={sortBy} onChange={setSortBy} />
                   <ViewToggle value={viewMode} onChange={setViewMode} />
                 </div>
@@ -124,11 +184,12 @@ export function MarketplaceBrowser() {
 
               <ActiveFilters
                 filters={filters}
-                onRemove={(id) => updateParams((params) => params.delete(id))}
+                onRemove={removeFilter}
                 onClearAll={() =>
                   updateParams((params) => {
-                    params.delete("q");
-                    params.delete("max");
+                    ["q", "make", "body", "province", "features", "min", "max", "minMileage", "maxMileage", "yearFrom"].forEach(
+                      (key) => params.delete(key)
+                    );
                   })
                 }
               />
@@ -140,6 +201,10 @@ export function MarketplaceBrowser() {
               icon={SearchX}
               title="No vehicles match your search"
               description="Try a different make, model or city, or clear the filters."
+              actionLabel="Clear all filters"
+              actionFeatureKey="marketplace.clear_filters"
+              // Snapshot the keys first: deleting while iterating skips entries.
+              onAction={() => updateParams((params) => Array.from(params.keys()).forEach((key) => params.delete(key)))}
             />
           ) : viewMode === "grid" ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -170,6 +235,15 @@ export function MarketplaceBrowser() {
           <LiveActivityRail />
         </div>
       </RightRailSlot>
+
+      <Sheet
+        isOpen={isFilterSheetOpen}
+        onClose={() => setIsFilterSheetOpen(false)}
+        title="Refine search"
+        side="bottom"
+      >
+        {panel}
+      </Sheet>
     </LayoutGrid>
   );
 }

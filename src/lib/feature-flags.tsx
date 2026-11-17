@@ -44,6 +44,16 @@ export const FEATURE_KEYS = {
   "marketplace.view_toggle": true,
   "marketplace.sort": true,
   "marketplace.active_filters": true,
+  "filters.price_range": true,
+  "filters.mileage_range": true,
+  "filters.facets": true,
+  "filters.features": true,
+  "filters.ai_verified_only": true,
+  "filters.apply": true,
+  "filters.save_search": true,
+  "filters.cancel_save": true,
+  "filters.confirm_save": true,
+  "filters.mobile_trigger": true,
 
   // Form wizard
   "wizard.previous_step": true,
