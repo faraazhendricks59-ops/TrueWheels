@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { SearchX, SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 import { LayoutGrid, MainSlot, SidebarSlot, RightRailSlot } from "@/components/shell/LayoutGrid";
 import { AdvancedFilterPanel } from "@/components/filters/AdvancedFilterPanel";
 import { Sheet } from "@/components/ui/Sheet";
@@ -15,10 +15,15 @@ import { SortDropdown, type SortOption } from "@/components/marketplace/SortDrop
 import { ActiveFilters, type Filter } from "@/components/marketplace/ActiveFilters";
 import { VehicleListItem } from "@/components/marketplace/VehicleListItem";
 import { VehicleCard } from "@/components/vehicles/VehicleCard";
-import { EmptyState } from "@/components/ui/EmptyState";
+import { DidYouMean } from "@/components/search/DidYouMean";
+import { RelevanceBadge } from "@/components/search/RelevanceBadge";
+import { SearchZeroState, type RecoveryAction } from "@/components/search/SearchZeroState";
+import { SearchFeedback } from "@/components/search/SearchFeedback";
+import { SaveSearchModal } from "@/components/filters/SaveSearchModal";
+import { explainTopMatch, resolveSearch, scoreVehicle } from "@/lib/search-relevance";
 import { CountUp } from "@/components/motion/CountUp";
 import { Reveal } from "@/components/motion/Reveal";
-import type { DemoVehicle } from "@/lib/demo/vehicles";
+import { DEMO_VEHICLES, type DemoVehicle } from "@/lib/demo/vehicles";
 import { localeTag } from "@/lib/i18n/locale";
 import {
   filterVehicles,
@@ -34,7 +39,13 @@ import { featureLabel } from "@/lib/vehicle-facets";
 
 const PAGE_SIZE = 24;
 
-function sortVehicles(vehicles: DemoVehicle[], sort: SortOption, query: string): DemoVehicle[] {
+const DEMO_TOTAL = DEMO_VEHICLES.length;
+
+function sortVehicles(
+  vehicles: DemoVehicle[],
+  sort: SortOption,
+  terms: string[]
+): DemoVehicle[] {
   const list = [...vehicles];
   switch (sort) {
     case "price_asc":
@@ -47,14 +58,12 @@ function sortVehicles(vehicles: DemoVehicle[], sort: SortOption, query: string):
       return list.sort((a, b) => a.mileage - b.mileage);
     case "relevance":
     default: {
-      // No ranking model yet: exact title matches float, then title proximity.
-      // Deterministic, so it does not reshuffle between renders.
-      if (!query) return list;
-      const q = query.toLowerCase();
+      // Score by how well each listing matches the search terms, then fall back
+      // to price so the order is stable rather than arbitrary.
+      if (terms.length === 0) return list.sort((a, b) => a.price - b.price);
       return list.sort((a, b) => {
-        const aExact = a.title.toLowerCase() === q ? 0 : 1;
-        const bExact = b.title.toLowerCase() === q ? 0 : 1;
-        return aExact - bExact;
+        const diff = scoreVehicle(b, terms) - scoreVehicle(a, terms);
+        return diff !== 0 ? diff : a.price - b.price;
       });
     }
   }
@@ -73,6 +82,7 @@ export function MarketplaceBrowser() {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [sortBy, setSortBy] = useState<SortOption>("relevance");
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   // Radius lives in the URL alongside the other filters, so a map search is
   // shareable and the chip bar can remove it like anything else.
@@ -108,13 +118,17 @@ export function MarketplaceBrowser() {
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   };
 
+  // Text resolution is computed once and shared, so the correction banner, the
+  // facet counts and the results all describe the same match.
+  const resolution = useMemo(() => resolveSearch(query.q), [query.q]);
+
   const results = useMemo(() => {
     const filtered = filterVehicles(query);
     const geoFiltered = radiusCenter
       ? filtered.filter((vehicle) => withinRadius(vehicle, radiusCenter, radiusKm))
       : filtered;
-    return sortVehicles(geoFiltered, sortBy, query.q);
-  }, [query, sortBy, radiusCenter, radiusKm]);
+    return sortVehicles(geoFiltered, sortBy, resolution.matches.map((match) => match.corrected));
+  }, [query, sortBy, radiusCenter, radiusKm, resolution.matches]);
 
   // Each chip knows the search param it controls, so removal is a one-liner.
   const filters = useMemo<Filter[]>(() => {
@@ -188,6 +202,81 @@ export function MarketplaceBrowser() {
 
   const visible = results.slice(0, PAGE_SIZE);
 
+  // Every recovery action reports the count it would actually bring back.
+  const recoveryActions = useMemo<RecoveryAction[]>(() => {
+    const actions: RecoveryAction[] = [];
+    const hasFacets =
+      query.makes.length +
+        query.bodies.length +
+        query.provinces.length +
+        query.features.length +
+        (query.min > PRICE_MIN ? 1 : 0) +
+        (query.max < PRICE_MAX ? 1 : 0) +
+        (query.minMileage > 0 ? 1 : 0) +
+        (query.maxMileage < MILEAGE_MAX ? 1 : 0) +
+        (query.yearFrom > YEAR_MIN ? 1 : 0) >
+      0;
+    if (hasFacets) {
+      actions.push({
+        id: "filters",
+        label: "Relax filters",
+        description: query.q
+          ? `Remove your filters to see ${resolution.results.length.toLocaleString(localeTag("en"))} results for this search.`
+          : `Remove your filters to see all ${DEMO_TOTAL.toLocaleString(localeTag("en"))} listings.`,
+        recovered: query.q ? resolution.results.length : DEMO_TOTAL,
+      });
+    }
+    if (radiusCenter) {
+      const withoutRadius = filterVehicles(query).length;
+      actions.push({
+        id: "radius",
+        label: "Expand radius",
+        description: `Widen the search area to include ${withoutRadius.toLocaleString(localeTag("en"))} vehicles outside the current radius.`,
+        recovered: withoutRadius,
+      });
+    }
+    actions.push({
+      id: "alert",
+      label: "Set up alert",
+      description: query.q
+        ? `Get notified when a new match for “${query.q}” is listed.`
+        : "Get notified when a new match for these filters is listed.",
+    });
+    return actions;
+  }, [query, radiusCenter, resolution.results.length]);
+
+  const handleRecovery = (id: string) => {
+    if (id === "filters") {
+      updateParams((params) => {
+        ["make", "body", "province", "features", "min", "max", "minMileage", "maxMileage", "yearFrom"].forEach(
+          (key) => params.delete(key)
+        );
+      });
+      return;
+    }
+    if (id === "radius") {
+      updateParams((params) => {
+        params.delete("lat");
+        params.delete("lng");
+        params.delete("radius");
+      });
+      return;
+    }
+    if (id === "alert") {
+      setIsAlertOpen(true);
+      return;
+    }
+    updateParams((params) => Array.from(params.keys()).forEach((key) => params.delete(key)));
+  };
+
+  const topReasons = useMemo(
+    () =>
+      sortBy === "relevance" && results.length > 0
+        ? explainTopMatch(results[0], results, resolution.matches.map((match) => match.corrected))
+        : [],
+    [results, resolution.matches, sortBy]
+  );
+
   const panel = <AdvancedFilterPanel onApplied={() => setIsFilterSheetOpen(false)} />;
 
   return (
@@ -241,6 +330,27 @@ export function MarketplaceBrowser() {
             </div>
           </Reveal>
 
+          {resolution.correction && (
+            <DidYouMean
+              type="typo"
+              originalQuery={resolution.correction.original}
+              suggestedQuery={resolution.correction.corrected}
+              resultCount={resolution.correction.count}
+              onApplySuggestion={(next) =>
+                updateParams((params) => params.set("q", next))
+              }
+            />
+          )}
+          {!resolution.correction && results.length === 0 && resolution.broaden && (
+            <DidYouMean
+              type="broaden"
+              originalQuery={query.q}
+              suggestedQuery={resolution.broaden.query}
+              resultCount={resolution.broaden.count}
+              onApplySuggestion={(next) => updateParams((params) => params.set("q", next))}
+            />
+          )}
+
           {/* The map is checked before the empty state so that a radius which
               excludes everything still shows the map and its circle, rather
               than replacing it with a message about the result count. */}
@@ -254,20 +364,19 @@ export function MarketplaceBrowser() {
               />
             </Reveal>
           ) : visible.length === 0 ? (
-            <EmptyState
-              icon={SearchX}
-              title="No vehicles match your search"
-              description="Try a different make, model or city, or clear the filters."
-              actionLabel="Clear all filters"
-              actionFeatureKey="marketplace.clear_filters"
-              // Snapshot the keys first: deleting while iterating skips entries.
-              onAction={() => updateParams((params) => Array.from(params.keys()).forEach((key) => params.delete(key)))}
-            />
+            <SearchZeroState query={query.q} actions={recoveryActions} onAction={handleRecovery} />
           ) : viewMode === "grid" ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
               {visible.map((vehicle, index) => (
                 <Reveal key={vehicle.id} variant="up" delay={Math.min(index, 8) * 40}>
-                  <VehicleCard vehicle={vehicle} />
+                  <div className="relative">
+                    {index === 0 && topReasons.length > 0 && (
+                      <div className="absolute top-3 right-3 z-10">
+                        <RelevanceBadge reasons={topReasons} />
+                      </div>
+                    )}
+                    <VehicleCard vehicle={vehicle} />
+                  </div>
                 </Reveal>
               ))}
             </div>
@@ -275,15 +384,24 @@ export function MarketplaceBrowser() {
             <div className="space-y-4">
               {visible.map((vehicle, index) => (
                 <Reveal key={vehicle.id} variant="up" delay={Math.min(index, 8) * 40}>
-                  <VehicleListItem
-                    vehicle={vehicle}
-                    isFeatured={index % 5 === 0}
-                    isVerified={index % 3 === 0}
-                  />
+                  <div className="relative">
+                    {index === 0 && topReasons.length > 0 && (
+                      <div className="absolute top-4 right-4 z-10">
+                        <RelevanceBadge reasons={topReasons} />
+                      </div>
+                    )}
+                    <VehicleListItem
+                      vehicle={vehicle}
+                      isFeatured={index % 5 === 0}
+                      isVerified={index % 3 === 0}
+                    />
+                  </div>
                 </Reveal>
               ))}
             </div>
           )}
+
+          {viewMode !== "map" && visible.length > 0 && <SearchFeedback query={query.q} />}
         </div>
       </MainSlot>
 
@@ -301,6 +419,12 @@ export function MarketplaceBrowser() {
       >
         {panel}
       </Sheet>
+
+      <SaveSearchModal
+        isOpen={isAlertOpen}
+        onClose={() => setIsAlertOpen(false)}
+        queryString={queryString}
+      />
     </LayoutGrid>
   );
 }

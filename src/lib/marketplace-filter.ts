@@ -1,4 +1,5 @@
 import { DEMO_VEHICLES, type DemoVehicle } from "@/lib/demo/vehicles";
+import { resolveSearch } from "@/lib/search-relevance";
 import {
   vehicleBodyType,
   vehicleHasFeature,
@@ -79,12 +80,16 @@ export function parseMarketplaceQuery(params: URLSearchParams): MarketplaceQuery
 /** Which list-valued facet to ignore, so its own counts stay unfiltered by itself. */
 export type FacetKey = "makes" | "bodies" | "provinces" | "features";
 
-export function filterVehicles(query: MarketplaceQuery, omit?: FacetKey): DemoVehicle[] {
-  const term = query.q.toLowerCase();
-  return DEMO_VEHICLES.filter((vehicle) => {
-    if (term && !vehicle.title.toLowerCase().includes(term) && !vehicle.location.toLowerCase().includes(term)) {
-      return false;
-    }
+/**
+ * Applies the facet and range filters only. The free-text term is handled by
+ * resolveSearch so that spelling correction and term matching stay in one place.
+ */
+export function applyFacets(
+  vehicles: DemoVehicle[],
+  query: MarketplaceQuery,
+  omit?: FacetKey
+): DemoVehicle[] {
+  return vehicles.filter((vehicle) => {
     if (omit !== "makes" && query.makes.length > 0 && !query.makes.includes(vehicleMake(vehicle))) return false;
     if (omit !== "bodies" && query.bodies.length > 0 && !query.bodies.includes(vehicleBodyType(vehicle))) return false;
     if (omit !== "provinces" && query.provinces.length > 0 && !query.provinces.includes(vehicleProvince(vehicle))) {
@@ -102,4 +107,13 @@ export function filterVehicles(query: MarketplaceQuery, omit?: FacetKey): DemoVe
     if (vehicle.year < query.yearFrom) return false;
     return true;
   });
+}
+
+/**
+ * Text matching goes through resolveSearch, so a mistyped query resolves to the
+ * corrected results and the facet counts describe the same set the grid shows.
+ */
+export function filterVehicles(query: MarketplaceQuery, omit?: FacetKey): DemoVehicle[] {
+  const pool = query.q.trim() ? resolveSearch(query.q).results : DEMO_VEHICLES;
+  return applyFacets(pool, query, omit);
 }
