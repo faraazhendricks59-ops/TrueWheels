@@ -4,6 +4,9 @@ import { ReactNode } from "react";
 import { clsx } from "clsx";
 import { BottomNav } from "./BottomNav";
 import { FloatingActionButton } from "./FloatingActionButton";
+import { Footer } from "./Footer";
+import { CookieBanner } from "@/components/compliance/CookieBanner";
+import { FeatureGate } from "@/components/feature/FeatureGate";
 
 interface AppShellProps {
   children: ReactNode;
@@ -15,6 +18,7 @@ interface AppShellProps {
   disablePadding?: boolean;
   /** Full-bleed surfaces (map, auction room) opt out of the mobile chrome. */
   hideMobileNav?: boolean;
+  hideFooter?: boolean;
 }
 
 export function AppShell({
@@ -22,6 +26,7 @@ export function AppShell({
   className,
   disablePadding = false,
   hideMobileNav = false,
+  hideFooter = false,
 }: AppShellProps) {
   return (
     <div
@@ -36,7 +41,7 @@ export function AppShell({
         hideMobileNav
           ? "pb-[calc(var(--sab))]"
           : "pb-[calc(var(--mobile-nav-height)+var(--sab))]",
-        "md:pb-[calc(var(--footer-height)+var(--sab))]",
+        "md:pb-[var(--sab)]",
         !disablePadding && "px-4 md:px-6 lg:px-8",
         className
       )}
@@ -49,6 +54,13 @@ export function AppShell({
           <FloatingActionButton />
         </>
       )}
+
+      {!hideFooter && (
+        <FeatureGate featureKey="ui.footer">
+          <Footer />
+        </FeatureGate>
+      )}
+      <CookieBanner />
     </div>
   );
 }

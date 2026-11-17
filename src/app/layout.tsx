@@ -10,6 +10,7 @@ import { ThemeScript } from "@/components/theme/ThemeScript";
 import { TopNav } from "@/components/shell/TopNav";
 import { AppShell } from "@/components/shell/AppShell";
 import { CommandPaletteProvider } from "@/components/providers/CommandPaletteProvider";
+import { OrganizationSchema, WebSiteSchema } from "@/components/seo/JsonLd";
 import { I18nProvider } from "@/components/providers/I18nProvider";
 import {
   AccessibilityProvider,
@@ -43,6 +44,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeScript />
         {/* Applies stored text-size and contrast before first paint. */}
         <A11yScript />
+        {/* Structured data for crawlers that do not execute JavaScript. */}
+        <OrganizationSchema />
+        <WebSiteSchema />
       </head>
       <body
         className={`${inter.variable} ${grotesk.variable} ${mono.variable} min-h-screen bg-surface-paper text-ink-900 dark:bg-ink-950 dark:text-white`}

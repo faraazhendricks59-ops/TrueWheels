@@ -61,6 +61,12 @@ export const FEATURE_KEYS = {
   "ui.profile_menu": true,
   "ai.concierge": true,
   "ui.command_palette": true,
+  "ui.footer": true,
+  "marketing.newsletter_footer": true,
+  "marketing.newsletter_submit": true,
+  "compliance.cookie_banner": true,
+  "compliance.cookie_accept": true,
+  "compliance.cookie_reject": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;
