@@ -6,6 +6,8 @@ import { SearchX, SlidersHorizontal } from "lucide-react";
 import { LayoutGrid, MainSlot, SidebarSlot, RightRailSlot } from "@/components/shell/LayoutGrid";
 import { AdvancedFilterPanel } from "@/components/filters/AdvancedFilterPanel";
 import { Sheet } from "@/components/ui/Sheet";
+import { MapView } from "@/components/map/MapView";
+import { withinRadius } from "@/lib/geo";
 import { SmartButton } from "@/components/ui/SmartButton";
 import { LiveActivityRail } from "@/components/marketplace/LiveActivityRail";
 import { ViewToggle, type ViewMode } from "@/components/marketplace/ViewToggle";
@@ -72,6 +74,31 @@ export function MarketplaceBrowser() {
   const [sortBy, setSortBy] = useState<SortOption>("relevance");
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
 
+  // Radius lives in the URL alongside the other filters, so a map search is
+  // shareable and the chip bar can remove it like anything else.
+  const radiusCenter = useMemo<[number, number] | null>(() => {
+    const lat = Number(searchParams.get("lat"));
+    const lng = Number(searchParams.get("lng"));
+    return Number.isFinite(lat) && Number.isFinite(lng) && searchParams.get("lat") !== null
+      ? [lat, lng]
+      : null;
+  }, [searchParams]);
+  const radiusKm = Number(searchParams.get("radius")) || 10;
+
+  const setRadius = (next: [number, number] | null, km?: number) => {
+    updateParams((params) => {
+      if (next) {
+        params.set("lat", String(next[0]));
+        params.set("lng", String(next[1]));
+        params.set("radius", String(km ?? radiusKm));
+      } else {
+        params.delete("lat");
+        params.delete("lng");
+        params.delete("radius");
+      }
+    });
+  };
+
   // Filters live in the URL, so removing a chip rewrites it. Hiding the chip
   // alone would leave the results filtered and the two would disagree.
   const updateParams = (mutate: (params: URLSearchParams) => void) => {
@@ -81,10 +108,13 @@ export function MarketplaceBrowser() {
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   };
 
-  const results = useMemo(
-    () => sortVehicles(filterVehicles(query), sortBy, query.q),
-    [query, sortBy]
-  );
+  const results = useMemo(() => {
+    const filtered = filterVehicles(query);
+    const geoFiltered = radiusCenter
+      ? filtered.filter((vehicle) => withinRadius(vehicle, radiusCenter, radiusKm))
+      : filtered;
+    return sortVehicles(geoFiltered, sortBy, query.q);
+  }, [query, sortBy, radiusCenter, radiusKm]);
 
   // Each chip knows the search param it controls, so removal is a one-liner.
   const filters = useMemo<Filter[]>(() => {
@@ -119,8 +149,15 @@ export function MarketplaceBrowser() {
     if (query.yearFrom > YEAR_MIN) {
       chips.push({ id: "yearFrom", label: "Year from", value: String(query.yearFrom) });
     }
+    if (radiusCenter) {
+      chips.push({
+        id: "radius",
+        label: "Radius",
+        value: `${radiusKm} km of ${radiusCenter[0].toFixed(2)}, ${radiusCenter[1].toFixed(2)}`,
+      });
+    }
     return chips;
-  }, [query]);
+  }, [query, radiusCenter, radiusKm]);
 
   // The price chip spans two params, so it needs its own removal.
   const removeFilter = (id: string) => {
@@ -128,6 +165,14 @@ export function MarketplaceBrowser() {
       updateParams((params) => {
         params.delete("min");
         params.delete("max");
+      });
+      return;
+    }
+    if (id === "radius") {
+      updateParams((params) => {
+        params.delete("lat");
+        params.delete("lng");
+        params.delete("radius");
       });
       return;
     }
@@ -187,7 +232,7 @@ export function MarketplaceBrowser() {
                 onRemove={removeFilter}
                 onClearAll={() =>
                   updateParams((params) => {
-                    ["q", "make", "body", "province", "features", "min", "max", "minMileage", "maxMileage", "yearFrom"].forEach(
+                    ["q", "make", "body", "province", "features", "min", "max", "minMileage", "maxMileage", "yearFrom", "lat", "lng", "radius"].forEach(
                       (key) => params.delete(key)
                     );
                   })
@@ -196,7 +241,19 @@ export function MarketplaceBrowser() {
             </div>
           </Reveal>
 
-          {visible.length === 0 ? (
+          {/* The map is checked before the empty state so that a radius which
+              excludes everything still shows the map and its circle, rather
+              than replacing it with a message about the result count. */}
+          {viewMode === "map" ? (
+            <Reveal variant="up" delay={60}>
+              <MapView
+                vehicles={results}
+                center={radiusCenter}
+                radiusKm={radiusKm}
+                onRadiusChange={setRadius}
+              />
+            </Reveal>
+          ) : visible.length === 0 ? (
             <EmptyState
               icon={SearchX}
               title="No vehicles match your search"

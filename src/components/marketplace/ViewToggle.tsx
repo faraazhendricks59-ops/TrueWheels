@@ -1,11 +1,11 @@
 "use client";
 
-import { LayoutGrid, List } from "lucide-react";
+import { LayoutGrid, List, Map as MapIcon } from "lucide-react";
 import { clsx } from "clsx";
 import { Icon } from "@/components/ui/Icon";
 import { FeatureGate } from "@/components/feature/FeatureGate";
 
-export type ViewMode = "grid" | "list";
+export type ViewMode = "grid" | "list" | "map";
 
 interface ViewToggleProps {
   value: ViewMode;
@@ -15,6 +15,7 @@ interface ViewToggleProps {
 const MODES: { id: ViewMode; label: string; icon: typeof LayoutGrid }[] = [
   { id: "grid", label: "Grid view", icon: LayoutGrid },
   { id: "list", label: "List view", icon: List },
+  { id: "map", label: "Map view", icon: MapIcon },
 ];
 
 export function ViewToggle({ value, onChange }: ViewToggleProps) {

@@ -282,3 +282,90 @@
   .dark .range-thumb::-moz-range-thumb { background: #101014; }
   .low-data .range-thumb::-webkit-slider-thumb { transition: none; }
 }
+
+@layer components {
+  /* Price pins. Leaflet's default marker images are replaced by divIcon HTML so
+     the pins match the design system; Leaflet still positions the wrapper. */
+  .custom-price-pin {
+    background: transparent !important;
+    border: none !important;
+  }
+  .pin-inner {
+    position: relative;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(20, 22, 26, 0.1);
+    color: #14161a;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+  }
+  .pin-inner::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px 6px 0;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
+  }
+  .pin-inner:hover,
+  .pin-inner:focus-visible {
+    background: #e10600;
+    color: #fff;
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 8px 20px rgba(225, 6, 0, 0.3);
+    z-index: 1000 !important;
+  }
+  .pin-inner:hover::after,
+  .pin-inner:focus-visible::after {
+    border-color: #e10600 transparent transparent transparent;
+  }
+  .dark .pin-inner {
+    background: rgba(20, 22, 26, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #f3f5f8;
+  }
+  .dark .pin-inner::after {
+    border-color: rgba(20, 22, 26, 0.9) transparent transparent transparent;
+  }
+  .dark .pin-inner:hover,
+  .dark .pin-inner:focus-visible {
+    background: #e10600;
+    color: #fff;
+  }
+  .dark .pin-inner:hover::after,
+  .dark .pin-inner:focus-visible::after {
+    border-color: #e10600 transparent transparent transparent;
+  }
+  .low-data .pin-inner { transition: none; backdrop-filter: none; }
+
+  /* Leaflet's own chrome, restyled to match the surface tokens. */
+  .leaflet-container {
+    background: #e9ecef;
+    font-family: var(--font-sans);
+  }
+  .dark .leaflet-container { background: #0d0f13; }
+  .leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.8) !important;
+    color: #6b7280 !important;
+    font-size: 10px !important;
+  }
+  .dark .leaflet-control-attribution {
+    background: rgba(13, 15, 19, 0.8) !important;
+    color: #9ca3af !important;
+  }
+  .leaflet-control-attribution a { color: #e10600 !important; }
+  .leaflet-interactive:focus { outline: none; }
+  .radius-active .leaflet-container { cursor: crosshair; }
+}

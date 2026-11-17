@@ -54,6 +54,9 @@ export const FEATURE_KEYS = {
   "filters.cancel_save": true,
   "filters.confirm_save": true,
   "filters.mobile_trigger": true,
+  "map.view": true,
+  "map.controls": true,
+  "map.radius": true,
 
   // Form wizard
   "wizard.previous_step": true,
