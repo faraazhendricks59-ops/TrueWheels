@@ -1,12 +1,14 @@
 "use client";
 
-import { ChevronDown, LayoutDashboard, Settings, LogOut } from "lucide-react";
+import { BellRing, ChevronDown, LayoutDashboard, LogOut, Settings } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
+import { useRouter } from "next/navigation";
 import { Dropdown, DropdownItem } from "@/components/ui/Floating";
 import { TrustBadge } from "@/components/ui/Badge";
 import { useTranslation } from "@/components/providers/I18nProvider";
 
 export function ProfileMenu() {
+  const router = useRouter();
   const { t } = useTranslation();
 
   const trigger = (
@@ -33,8 +35,11 @@ export function ProfileMenu() {
         />
       </div>
 
-      <DropdownItem onClick={() => console.log("Dashboard")}>
+      <DropdownItem onClick={() => router.push("/dashboard")}>
         <Icon icon={LayoutDashboard} size={14} /> Dashboard
+      </DropdownItem>
+      <DropdownItem onClick={() => router.push("/saved-searches")}>
+        <Icon icon={BellRing} size={14} /> Saved searches
       </DropdownItem>
       <DropdownItem onClick={() => console.log("Settings")}>
         <Icon icon={Settings} size={14} /> Settings
