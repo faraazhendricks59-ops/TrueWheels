@@ -12,6 +12,7 @@ import { AppShell } from "@/components/shell/AppShell";
 import { CommandPaletteProvider } from "@/components/providers/CommandPaletteProvider";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { TourProvider } from "@/components/providers/TourProvider";
+import { NotificationProvider } from "@/components/providers/NotificationProvider";
 import { OrganizationSchema, WebSiteSchema } from "@/components/seo/JsonLd";
 import { I18nProvider } from "@/components/providers/I18nProvider";
 import {
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <MotionProvider>
                     <AuthProvider>
                     <ToastProvider>
+                      <NotificationProvider>
                       <TourProvider>
                       {/* Owns the palette state and renders it; must wrap the
                           omnibox, which calls useCommandPalette. */}
@@ -77,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </AppShell>
                       </CommandPaletteProvider>
                       </TourProvider>
+                      </NotificationProvider>
                     </ToastProvider>
                     </AuthProvider>
                   </MotionProvider>

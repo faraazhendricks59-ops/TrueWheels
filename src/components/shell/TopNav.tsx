@@ -14,6 +14,7 @@ import { NavOmnibox } from "./NavOmnibox";
 import { AIPill } from "./AIPill";
 import { ProfileMenu } from "./ProfileMenu";
 import { RoleAwareNav } from "./RoleAwareNav";
+import { NotificationBell } from "./NotificationBell";
 import { MobileMenuSheet } from "./MobileMenuSheet";
 
 const DESKTOP_LINKS: { href: string; key: TranslationKey }[] = [
@@ -84,6 +85,7 @@ export function TopNav() {
           </span>
 
           <FeatureGate featureKey="ui.profile_menu">
+            <NotificationBell />
             <ProfileMenu />
           </FeatureGate>
         </div>

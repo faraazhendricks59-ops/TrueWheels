@@ -70,6 +70,11 @@ const config: Config = {
         rise: { "0%": { opacity: "0", transform: "translateY(24px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
         "slash-in": { "0%": { opacity: "0", transform: "skewX(-18deg) translateX(-1.4em)" }, "100%": { opacity: "1", transform: "skewX(-18deg) translateX(0)" } },
         pulse: { "0%, 100%": { opacity: "1" }, "50%": { opacity: ".5" } },
+        "pulse-ring": {
+          "0%": { transform: "scale(0.8)", opacity: "0.8" },
+          "70%": { transform: "scale(2.2)", opacity: "0" },
+          "100%": { transform: "scale(2.2)", opacity: "0" },
+        },
         "scale-in": {
           "0%": { opacity: "0", transform: "scale(0.96)" },
           "100%": { opacity: "1", transform: "scale(1)" },
@@ -86,6 +91,7 @@ const config: Config = {
       },
       animation: {
         aurora: "aurora 8s ease infinite",
+        "pulse-ring": "pulse-ring 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite",
         shimmer: "shimmer 1.4s infinite linear",
         rise: "rise 0.6s cubic-bezier(0.22,1,0.36,1) both",
         "slash-in": "slash-in 0.5s cubic-bezier(0.22,1,0.36,1) both",

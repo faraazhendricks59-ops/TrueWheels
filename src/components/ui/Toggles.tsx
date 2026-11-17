@@ -1,13 +1,13 @@
 "use client";
 
-import { useId } from "react";
+import { useId, type ReactNode } from "react";
 import { clsx } from "clsx";
 import { Check } from "lucide-react";
 import { Icon } from "./Icon";
 
 // --- SWITCH ---
 interface SwitchProps {
-  label?: string;
+  label?: ReactNode;
   description?: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
