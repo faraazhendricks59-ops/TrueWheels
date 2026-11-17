@@ -4,6 +4,7 @@ import "./globals.css";
 import { FeatureProvider } from "@/lib/feature-flags";
 import { OnboardingController } from "@/components/onboarding/OnboardingController";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { ToastProvider } from "@/components/ui/Toast";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap" });
@@ -22,7 +23,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <FeatureProvider>
           <MotionProvider>
-            <OnboardingController>{children}</OnboardingController>
+            <ToastProvider>
+              <OnboardingController>{children}</OnboardingController>
+            </ToastProvider>
           </MotionProvider>
         </FeatureProvider>
       </body>

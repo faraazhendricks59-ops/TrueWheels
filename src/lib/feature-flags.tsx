@@ -32,6 +32,7 @@ export const FEATURE_KEYS = {
   // Listings
   "listings.publish": true,
   "listings.cancel": true,
+  "listings.delete": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;

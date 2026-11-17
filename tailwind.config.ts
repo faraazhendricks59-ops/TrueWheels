@@ -70,6 +70,18 @@ const config: Config = {
         rise: { "0%": { opacity: "0", transform: "translateY(24px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
         "slash-in": { "0%": { opacity: "0", transform: "skewX(-18deg) translateX(-1.4em)" }, "100%": { opacity: "1", transform: "skewX(-18deg) translateX(0)" } },
         pulse: { "0%, 100%": { opacity: "1" }, "50%": { opacity: ".5" } },
+        "scale-in": {
+          "0%": { opacity: "0", transform: "scale(0.96)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        "slide-up": {
+          "0%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        "slide-left": {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
       },
       animation: {
         aurora: "aurora 8s ease infinite",
@@ -77,6 +89,9 @@ const config: Config = {
         rise: "rise 0.6s cubic-bezier(0.22,1,0.36,1) both",
         "slash-in": "slash-in 0.5s cubic-bezier(0.22,1,0.36,1) both",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "scale-in": "scale-in 0.2s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "slide-up": "slide-up 0.3s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "slide-left": "slide-left 0.3s cubic-bezier(0.22, 1, 0.36, 1) both",
       },
     },
   },
