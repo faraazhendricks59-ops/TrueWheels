@@ -18,15 +18,11 @@ export function FloatingActionButton() {
             featureKey="listings.create"
             data-tour="fab-list-vehicle"
             size="lg"
-            className="!rounded-full !h-14 !w-14 !p-0 shadow-glow relative overflow-hidden group"
+            className="!h-14 !w-14 !rounded-full !p-0 shadow-lift"
             aria-label={t("nav.list_vehicle")}
           >
-            <span
-              className="absolute inset-0 aurora-bg opacity-90 group-hover:opacity-100 transition-opacity"
-              aria-hidden="true"
-            />
-            <span className="relative flex items-center justify-center">
-              <Icon icon={Plus} size={24} className="text-white" strokeWidth={2.5} />
+            <span className="flex items-center justify-center">
+              <Icon icon={Plus} size={22} className="text-white" strokeWidth={2.5} />
             </span>
         </SmartButton>
       </div>

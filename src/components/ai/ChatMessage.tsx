@@ -23,7 +23,7 @@ export function ChatMessage({ message }: { message: ChatMessageData }) {
   return (
     <div className={clsx("flex gap-3", isAI ? "justify-start" : "justify-end")}>
       {isAI && (
-        <span className="w-8 h-8 rounded-xl aurora-bg flex items-center justify-center text-white flex-shrink-0">
+        <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-brand text-white">
           <Icon icon={Sparkles} size={14} />
         </span>
       )}

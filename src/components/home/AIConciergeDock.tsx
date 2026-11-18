@@ -25,12 +25,11 @@ export function AIConciergeDock() {
               variant="primary"
               size="lg"
               onClick={open}
-              className="!rounded-full !h-14 !px-6 !shadow-glow-aurora relative overflow-hidden group"
+              className="!h-12 !rounded-full !px-5"
             >
-              <span className="absolute inset-0 aurora-bg opacity-90 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
-              <span className="relative flex items-center gap-2 text-white font-semibold">
-                <Icon icon={Sparkles} size={18} className="text-white" />
-                Ask TrueWheels &mdash; find my next car
+              <span className="flex items-center gap-2 font-semibold text-white">
+                <Icon icon={Sparkles} size={17} className="text-white" />
+                Find my next car
               </span>
             </SmartButton>
           </Magnetic>

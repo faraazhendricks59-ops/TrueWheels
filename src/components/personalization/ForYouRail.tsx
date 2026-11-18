@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
 import { FeatureGate } from "@/components/feature/FeatureGate";
 import { PersonalizedRail, RailCard } from "@/components/home/PersonalizedRail";
+import { VehicleThumb } from "@/components/vehicles/VehicleThumb";
 import { ReasonTooltip } from "./ReasonTooltip";
 import { usePersonalization } from "@/components/providers/PersonalizationProvider";
 import { recommendForYou, vehicleSummary } from "@/lib/personalization";
@@ -40,10 +41,8 @@ export function ForYouRail() {
         {recommendations.map(({ vehicle, reason }) => (
           <RailCard key={vehicle.id}>
             <Link href={`/vehicles/${vehicle.id}`} className="block group">
-              <span className="aspect-[16/10] bg-gradient-to-br from-ink-100 to-ink-200 dark:from-ink-800 dark:to-ink-700 flex items-center justify-center relative">
-                <span className="font-display font-bold text-ink-400 dark:text-ink-500 text-lg">
-                  {vehicle.year}
-                </span>
+              <span className="relative block aspect-[16/10]">
+                <VehicleThumb vehicle={vehicle} className="absolute inset-0" />
                 <span className="absolute top-2 left-2">
                   <Badge variant="ai">
                     <Icon icon={Sparkles} size={8} />

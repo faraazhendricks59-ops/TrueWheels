@@ -123,11 +123,11 @@ export function AIOmnibox({ initialQuery = "", onClose, className }: AIOmniboxPr
       <form onSubmit={submit} className="relative">
         <div
           className={clsx(
-            "flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-3 sm:py-4 rounded-2xl border transition-all duration-300 ease-swift",
-            "bg-white dark:bg-ink-900 shadow-lift",
+            "flex items-center gap-2 sm:gap-3 rounded-xl border px-4 py-3 transition-colors sm:px-5 sm:py-3.5",
+            "bg-white shadow-lift dark:bg-ink-900",
             showResults
-              ? "border-ink-200 dark:border-ink-700 rounded-b-none"
-              : "border-ink-100 dark:border-ink-800 hover:border-brand/30 hover:shadow-glow"
+              ? "rounded-b-none border-ink-200 dark:border-ink-700"
+              : "border-ink-200 hover:border-ink-300 dark:border-ink-700 dark:hover:border-ink-600"
           )}
         >
           <Icon icon={Search} size={20} className="text-ink-400 flex-shrink-0" />
@@ -227,7 +227,7 @@ export function AIOmnibox({ initialQuery = "", onClose, className }: AIOmniboxPr
         <div
           id="omnibox-results"
           ref={listRef}
-          className="absolute top-full left-0 right-0 bg-white dark:bg-ink-900 border-x border-b border-ink-200 dark:border-ink-700 rounded-b-2xl shadow-xl z-50 overflow-hidden animate-slide-down"
+          className="absolute left-0 right-0 top-full z-50 overflow-hidden rounded-b-xl border-x border-b border-ink-200 bg-white shadow-lift dark:border-ink-700 dark:bg-ink-900"
         >
           {isAI && query.length > 5 && <InstantAnswer query={query} />}
 

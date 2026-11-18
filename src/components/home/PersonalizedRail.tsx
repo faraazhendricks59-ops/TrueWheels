@@ -42,7 +42,7 @@ export function RailCard({ children, className }: { children: ReactNode; classNa
     <Magnetic strength={0.05} className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[340px] snap-start">
       <div
         className={clsx(
-          "h-full bg-white dark:bg-ink-900 border border-ink-100 dark:border-ink-800 rounded-2xl overflow-hidden shadow-lift hover:shadow-glow transition-all ease-swift",
+          "h-full overflow-hidden rounded-xl border border-ink-200/70 bg-white transition-colors hover:border-ink-300 dark:border-ink-800 dark:bg-ink-900 dark:hover:border-ink-700",
           className
         )}
       >

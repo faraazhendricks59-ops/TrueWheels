@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { FeatureProvider } from "@/lib/feature-flags";
 import { OnboardingController } from "@/components/onboarding/OnboardingController";
@@ -29,7 +29,17 @@ import { AriaLiveAnnouncerProvider } from "@/components/a11y/AriaLiveAnnouncer";
 import { SkipLink } from "@/components/a11y/SkipLink";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap" });
+// The display face was Space Grotesk, whose quirky single-storey letterforms are a
+// common "AI startup" default and read as playful next to listing data. Inter Tight
+// is the condensed sibling of the body face: same skeleton, tighter tracking, so
+// headings sit in the same family as the text they introduce, which is how a real
+// catalogue (AutoTrader, Mobile.de) is set. Body and mono are unchanged.
+const display = Inter_Tight({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  weight: ["500", "600", "700", "800"],
+});
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 // viewport-fit=cover is required for env(safe-area-inset-*) to return anything
@@ -70,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <WebSiteSchema />
       </head>
       <body
-        className={`${inter.variable} ${grotesk.variable} ${mono.variable} min-h-screen bg-surface-paper text-ink-900 dark:bg-ink-950 dark:text-white`}
+        className={`${inter.variable} ${display.variable} ${mono.variable} min-h-screen bg-surface-paper text-ink-900 dark:bg-ink-950 dark:text-white`}
       >
         <FeatureProvider>
           <ThemeProvider>

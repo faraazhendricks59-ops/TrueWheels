@@ -15,15 +15,26 @@ const config: Config = {
           DEFAULT: "#E10600", 700: "#8F0400", 600: "#B30500",
           500: "#FF2D20", 400: "#FF5A4E", 100: "#FFE1DF", 50: "#FFF1F0",
         },
+        // The "aurora" family was five saturated hues (Google blue, neon cyan,
+        // violet, hot pink, neon lime) used as chrome on informational notes,
+        // relevance badges and AI pills. Five competing accents is the palette of a
+        // demo; a marketplace uses one brand colour and a neutral. These are muted
+        // to conventional, accessible tones, and `purple` in particular — which
+        // marked every "AI" affordance — is now a neutral slate, so AI chrome stops
+        // shouting in a different colour from everything else.
         aurora: {
-          blue: "#4285F4", cyan: "#00C8E5", purple: "#A142F4",
-          pink: "#F439A0", lime: "#00E38C",
+          blue: "#2563EB", cyan: "#0891B2", purple: "#475569",
+          pink: "#BE185D", lime: "#15803D",
         },
         surface: {
           paper: "#F7F8FA", white: "#FFFFFF",
           glass: "rgba(255,255,255,0.65)", dark: "#0B0D10",
         },
-        semantic: { success: "#00E38C", warning: "#FFB020", error: "#FF4438" },
+        // Accessible, print-like values. The previous set (#00E38C neon green,
+        // #FFB020) read as a game HUD rather than a marketplace: the green failed
+        // contrast on white for any text use, and the trio together was the single
+        // loudest "this is a demo" signal in the palette. These clear 4.5:1 on white.
+        semantic: { success: "#15803D", warning: "#B45309", error: "#DC2626" },
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],
@@ -49,15 +60,23 @@ const config: Config = {
         "6": "24px", "7": "28px", "8": "32px", "9": "36px", "10": "40px",
         "11": "44px", "12": "48px", "14": "56px", "16": "64px", "20": "80px",
       },
+      // A marketplace is closer to print than to a mobile app: tight corners read
+      // as considered, large ones as a toy. The old scale (2xl at 24px) rounded
+      // every card like a pill; this one keeps cards crisp and buttons nearly square.
       borderRadius: {
-        sm: "4px", DEFAULT: "8px", md: "12px", lg: "16px",
-        xl: "20px", "2xl": "24px", "3xl": "32px", full: "9999px",
+        sm: "3px", DEFAULT: "6px", md: "8px", lg: "10px",
+        xl: "12px", "2xl": "14px", "3xl": "18px", full: "9999px",
       },
+      // Elevation is a neutral, low-spread shadow. The red "glow" that sat under
+      // every primary button and the 40px "lift" under every card were the most
+      // obviously synthetic effects on the site. `glow` is kept as a name so no
+      // surface breaks, but it now resolves to the same quiet card shadow.
       boxShadow: {
-        glow: "0 0 40px -10px rgba(225,6,0,0.45)",
-        "glow-aurora": "0 0 60px -12px rgba(161,66,244,0.35)",
-        glass: "0 8px 32px rgba(11,13,16,0.08)",
-        lift: "0 20px 40px -12px rgba(11,13,16,0.18)",
+        card: "0 1px 2px 0 rgb(16 24 40 / 0.05), 0 1px 3px 0 rgb(16 24 40 / 0.05)",
+        lift: "0 4px 12px -2px rgb(16 24 40 / 0.10), 0 2px 6px -2px rgb(16 24 40 / 0.06)",
+        glass: "0 4px 16px rgb(11 13 16 / 0.06)",
+        glow: "0 1px 2px 0 rgb(16 24 40 / 0.05), 0 1px 3px 0 rgb(16 24 40 / 0.05)",
+        "glow-aurora": "0 1px 2px 0 rgb(16 24 40 / 0.05)",
       },
       transitionTimingFunction: {
         swift: "cubic-bezier(0.22, 1, 0.36, 1)",

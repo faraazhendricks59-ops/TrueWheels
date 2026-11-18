@@ -6,12 +6,12 @@ type Tone = "red" | "green" | "amber" | "blue" | "ink" | "aurora";
 type Variant = "status" | "trust" | "spec" | "live" | "ai";
 
 const TONES: Record<Tone, string> = {
-  red: "text-brand border-brand/30 bg-brand/5",
-  green: "text-semantic-success border-semantic-success/30 bg-semantic-success/5",
-  amber: "text-semantic-warning border-semantic-warning/30 bg-semantic-warning/5",
-  blue: "text-aurora-blue border-aurora-blue/30 bg-aurora-blue/5",
-  ink: "text-ink-600 border-ink-200 bg-ink-50",
-  aurora: "text-aurora-purple border-aurora-purple/30 bg-aurora-purple/5",
+  red: "text-brand-700 dark:text-brand-400 border-brand/25 bg-brand-50 dark:bg-brand/10",
+  green: "text-semantic-success border-semantic-success/25 bg-semantic-success/10",
+  amber: "text-semantic-warning border-semantic-warning/25 bg-semantic-warning/10",
+  blue: "text-aurora-blue border-aurora-blue/25 bg-aurora-blue/10",
+  ink: "text-ink-600 dark:text-ink-300 border-ink-200 dark:border-ink-700 bg-ink-50 dark:bg-ink-800/60",
+  aurora: "text-aurora-purple border-aurora-purple/25 bg-aurora-purple/10",
 };
 
 interface BadgeProps {
@@ -36,8 +36,8 @@ export function Badge({
   return (
     <span
       className={clsx(
-        "inline-flex items-center gap-1.5 h-[22px] px-2.5 rounded-full border",
-        "text-[10px] font-semibold uppercase tracking-wide leading-none whitespace-nowrap",
+        "inline-flex items-center gap-1.5 h-[20px] px-2 rounded border",
+        "text-[10px] font-semibold uppercase tracking-[0.04em] leading-none whitespace-nowrap",
         variant === "spec"
           ? "font-mono normal-case tracking-normal text-ink-600 border-ink-200 bg-transparent rounded-md"
           : TONES[tone],

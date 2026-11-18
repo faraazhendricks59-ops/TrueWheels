@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { VehicleThumb } from "@/components/vehicles/VehicleThumb";
 import { Badge } from "@/components/ui/Badge";
 import { Reveal } from "@/components/motion/Reveal";
 import { FeatureGate } from "@/components/feature/FeatureGate";
@@ -32,10 +33,8 @@ export function SimilarCarsWidget({ vehicle }: { vehicle: DemoVehicle }) {
                 className="bg-white dark:bg-ink-900 border border-ink-100 dark:border-ink-800 rounded-2xl overflow-hidden hover:border-brand/30 hover:shadow-lift transition-all ease-swift flex flex-col"
               >
                 <Link href={`/vehicles/${match.id}`} className="group block">
-                  <span className="aspect-[16/10] bg-gradient-to-br from-ink-100 to-ink-200 dark:from-ink-800 dark:to-ink-700 flex items-center justify-center relative">
-                    <span className="font-display font-bold text-ink-400 dark:text-ink-500 text-lg">
-                      {match.year}
-                    </span>
+                  <span className="relative block aspect-[16/10]">
+                    <VehicleThumb vehicle={match} className="absolute inset-0" />
                     <span className="absolute top-3 right-3">
                       <Badge variant="trust" tone="blue">
                         {score}% match

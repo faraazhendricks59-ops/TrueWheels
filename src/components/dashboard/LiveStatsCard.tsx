@@ -35,7 +35,7 @@ export function LiveStatsCard() {
           speed={0.2}
           className="pointer-events-none absolute -top-10 -right-10 w-40 h-40"
         >
-          <div className="w-40 h-40 aurora-bg rounded-full blur-3xl opacity-40" />
+          <div className="h-40 w-40 rounded-full bg-brand/10 blur-3xl" />
         </Parallax>
 
         <div className="relative z-10">

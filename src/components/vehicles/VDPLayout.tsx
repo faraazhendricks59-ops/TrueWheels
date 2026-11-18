@@ -27,9 +27,9 @@ export function VDPLayout({
   vehicle: DemoVehicle;
 }) {
   return (
-    <div className="w-full max-w-[1600px] mx-auto py-6">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-        <div className="lg:col-span-8 xl:col-span-9 min-w-0 space-y-10">{children}</div>
+    <div className="mx-auto w-full max-w-[1360px] py-5">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
+        <div className="min-w-0 space-y-6 lg:col-span-8 xl:col-span-9">{children}</div>
 
         <aside className="hidden lg:block lg:col-span-4 xl:col-span-3">
           <div className="sticky top-[calc(var(--header-height)+1.5rem)]">

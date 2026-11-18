@@ -34,13 +34,13 @@ interface SmartButtonProps {
 }
 
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: "bg-brand text-white hover:bg-brand-600 shadow-glow hover:shadow-lift",
+    primary: "bg-brand text-white hover:bg-brand-600 active:bg-brand-700",
   secondary:
     "bg-ink-100 text-ink-900 hover:bg-ink-200 dark:bg-ink-800 dark:text-white dark:hover:bg-ink-700",
   outline:
     "bg-transparent border border-ink-200 text-ink-900 hover:bg-ink-50 dark:border-ink-700 dark:text-white dark:hover:bg-ink-800",
   ghost: "bg-transparent text-ink-600 hover:bg-ink-50 dark:text-ink-300 dark:hover:bg-ink-800",
-  danger: "bg-semantic-error text-white hover:bg-red-600",
+    danger: "bg-semantic-error text-white hover:brightness-95",
 };
 
 const SIZES: Record<ButtonSize, string> = {
@@ -80,7 +80,7 @@ export function SmartButton({
         aria-label={ariaLabel}
         data-tour={dataTour}
         className={clsx(
-          "inline-flex items-center justify-center rounded-xl font-semibold transition-all ease-swift",
+          "inline-flex items-center justify-center rounded-lg font-semibold transition-colors ease-swift",
           "bg-ink-50 text-ink-300 border border-ink-100 cursor-not-allowed dark:bg-ink-900 dark:border-ink-800 dark:text-ink-600",
           SIZES[size],
           className
@@ -102,7 +102,7 @@ export function SmartButton({
       aria-pressed={ariaPressed}
       data-tour={dataTour}
       className={clsx(
-        "inline-flex items-center justify-center rounded-xl font-semibold transition-all ease-swift",
+        "inline-flex items-center justify-center rounded-lg font-semibold transition-colors ease-swift",
         "focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-ink-950",
         "disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none",
         VARIANTS[variant],

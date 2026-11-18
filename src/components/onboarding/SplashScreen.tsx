@@ -26,7 +26,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       }`}
     >
       {/* Aurora Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] aurora-bg opacity-15 blur-[120px] rounded-full" />
+      <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/10 blur-[120px]" />
 
       {/* Animated Logo */}
       <div className="relative z-10">

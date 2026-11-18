@@ -90,7 +90,7 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
       <Reveal variant="up" delay={200}>
         <FeatureGate featureKey="vdp.description">
           <section>
-            <h2 className="text-xl font-display font-bold text-ink-900 dark:text-white mb-3">
+            <h2 className="mb-2 text-lg font-display font-semibold text-ink-900 dark:text-white">
               About this {vehicleBodyType(vehicle).toLowerCase()}
             </h2>
             <p className="text-sm text-ink-600 dark:text-ink-300 leading-relaxed">
@@ -153,17 +153,13 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
       {/* Insurance sits under the same "Ownership Costs" heading as finance,
           because the two together are what the car costs to run. */}
       <FeatureGate featureKey="vdp.insurance_estimator">
-        <section aria-labelledby="ownership-costs-heading" className="space-y-6">
-          <div className="flex items-center gap-3">
-            <span className="h-px flex-1 bg-ink-100 dark:bg-ink-800" aria-hidden="true" />
-            <h2
-              id="ownership-costs-heading"
-              className="text-xl font-display font-bold text-ink-900 dark:text-white"
-            >
-              Ownership Costs
-            </h2>
-            <span className="h-px flex-1 bg-ink-100 dark:bg-ink-800" aria-hidden="true" />
-          </div>
+        <section aria-labelledby="ownership-costs-heading" className="space-y-4">
+          <h2
+            id="ownership-costs-heading"
+            className="text-lg font-display font-semibold text-ink-900 dark:text-white"
+          >
+            Ownership costs
+          </h2>
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
             <InsuranceEstimator vehicleValue={vehicle.price} />

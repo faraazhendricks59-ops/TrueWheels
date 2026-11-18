@@ -13,23 +13,13 @@ import { LiveActivityRail } from "@/components/marketplace/LiveActivityRail";
 import { FeatureGate } from "@/components/feature/FeatureGate";
 import { DEMO_VEHICLES } from "@/lib/demo/vehicles";
 import { localeTag } from "@/lib/i18n/dictionaries";
+import { VehicleThumb } from "@/components/vehicles/VehicleThumb";
 
 /** Deterministic picks from the shared demo set, so home and marketplace agree. */
 const CONTINUE_SEARCH = DEMO_VEHICLES.slice(12, 20);
 
 /** Matches the marketplace card format so prices read identically everywhere. */
 const zar = (value: number) => `R ${value.toLocaleString(localeTag("en"))}`;
-
-function VehicleMedia({ year }: { year: number }) {
-  // Gradient placeholder rather than a photograph: the demo set ships no imagery
-  // and the photo URLs in the brief do not resolve. Matching VehicleCard keeps
-  // the two surfaces visually consistent.
-  return (
-    <div className="aspect-[16/10] w-full bg-gradient-to-br from-ink-100 to-ink-200 dark:from-ink-800 dark:to-ink-700 flex items-center justify-center">
-      <span className="font-display font-bold text-ink-400 dark:text-ink-500 text-lg">{year}</span>
-    </div>
-  );
-}
 
 export function HomeCockpit() {
   return (
@@ -71,7 +61,7 @@ export function HomeCockpit() {
               >
                 {CONTINUE_SEARCH.map((vehicle) => (
                   <RailCard key={vehicle.id}>
-                    <VehicleMedia year={vehicle.year} />
+                    <VehicleThumb vehicle={vehicle} className="aspect-[16/10] w-full" />
                     <div className="p-4">
                       <h3 className="font-bold text-ink-900 dark:text-white truncate mb-1">{vehicle.title}</h3>
                       <p className="text-lg font-display font-bold text-brand mb-2 tabular-nums">

@@ -21,7 +21,6 @@ import { SearchZeroState, type RecoveryAction } from "@/components/search/Search
 import { SearchFeedback } from "@/components/search/SearchFeedback";
 import { SaveSearchModal } from "@/components/filters/SaveSearchModal";
 import { explainTopMatch, resolveSearch, scoreVehicle } from "@/lib/search-relevance";
-import { CountUp } from "@/components/motion/CountUp";
 import { Reveal } from "@/components/motion/Reveal";
 import { DEMO_VEHICLES, type DemoVehicle } from "@/lib/demo/vehicles";
 import { localeTag } from "@/lib/i18n/locale";
@@ -288,11 +287,11 @@ export function MarketplaceBrowser() {
       <MainSlot>
         <div className="space-y-6">
           <Reveal variant="up">
-            <div className="bg-white dark:bg-ink-900 border border-ink-100 dark:border-ink-800 rounded-2xl p-4 shadow-lift">
+            <div className="rounded-xl border border-ink-200/70 bg-white p-4 dark:border-ink-800 dark:bg-ink-900">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                   <h1 className="text-lg font-display font-bold text-ink-900 dark:text-white">
-                    <CountUp end={results.length} duration={1000} /> vehicles found
+                    {results.length} vehicles found
                   </h1>
                   {query.q && (
                     <p className="text-xs text-ink-500 dark:text-ink-300 mt-0.5">
@@ -392,10 +391,7 @@ export function MarketplaceBrowser() {
                         <RelevanceBadge reasons={topReasons} />
                       </div>
                     )}
-                    <VehicleListItem
-                      vehicle={vehicle}
-                      isFeatured={index % 5 === 0}
-                    />
+                    <VehicleListItem vehicle={vehicle} />
                   </div>
                 </Reveal>
               ))}

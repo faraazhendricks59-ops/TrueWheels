@@ -149,7 +149,7 @@ export function AIConciergeSheet({ isOpen, onClose }: AIConciergeSheetProps) {
       >
         <div className="flex items-center justify-between p-5 border-b border-ink-100 dark:border-ink-800 bg-ink-50/50 dark:bg-ink-950/50 flex-shrink-0">
           <div className="flex items-center gap-3">
-            <span className="w-9 h-9 rounded-xl aurora-bg flex items-center justify-center text-white">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand text-white">
               <Icon icon={Sparkles} size={16} />
             </span>
             <div>

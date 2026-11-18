@@ -9,6 +9,7 @@ import { PersonalizedRail } from "@/components/home/PersonalizedRail";
 import { usePersonalization } from "@/components/providers/PersonalizationProvider";
 import { viewedVehicles } from "@/lib/personalization";
 import { localeTag } from "@/lib/i18n/locale";
+import { VehicleThumb } from "@/components/vehicles/VehicleThumb";
 
 export function RecentlyViewedRail() {
   const { viewedVehicles: viewedIds, clearHistory, isHydrated } = usePersonalization();
@@ -29,11 +30,9 @@ export function RecentlyViewedRail() {
               href={`/vehicles/${vehicle.id}`}
               className="flex-shrink-0 w-[200px] snap-start group"
             >
-              <span className="aspect-[4/3] rounded-xl overflow-hidden bg-gradient-to-br from-ink-100 to-ink-200 dark:from-ink-800 dark:to-ink-700 mb-2 relative flex items-center justify-center">
-                <span className="font-display font-bold text-ink-400 dark:text-ink-500">
-                  {vehicle.year}
-                </span>
-                <span className="absolute top-2 right-2 w-6 h-6 rounded-full bg-ink-950/60 backdrop-blur flex items-center justify-center text-white">
+              <span className="relative mb-2 block aspect-[4/3] overflow-hidden rounded-lg">
+                <VehicleThumb vehicle={vehicle} className="absolute inset-0" />
+                <span className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-ink-950/60 text-white backdrop-blur">
                   <Icon icon={Clock} size={12} />
                 </span>
               </span>

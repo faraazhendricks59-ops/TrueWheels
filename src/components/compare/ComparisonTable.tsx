@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment } from "react";
+import { VehicleThumb } from "@/components/vehicles/VehicleThumb";
 import { Plus, X } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { Badge } from "@/components/ui/Badge";
@@ -76,10 +77,8 @@ export function ComparisonTable({ vehicles, onRemove, onAdd }: ComparisonTablePr
                   className="sticky top-0 z-20 bg-ink-50 dark:bg-ink-950 border-b border-ink-100 dark:border-ink-800 p-4 min-w-[220px] align-top"
                 >
                   <span className="flex flex-col items-center text-center">
-                    <span className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-gradient-to-br from-ink-100 to-ink-200 dark:from-ink-800 dark:to-ink-700 flex items-center justify-center mb-3">
-                      <span className="font-display font-bold text-ink-400 dark:text-ink-500 text-lg">
-                        {vehicle.year}
-                      </span>
+                    <span className="relative mb-3 block aspect-[16/10] w-full overflow-hidden rounded-lg">
+                      <VehicleThumb vehicle={vehicle} className="absolute inset-0" />
                       <FeatureGate featureKey="compare.remove_vehicle">
                         <button
                           type="button"

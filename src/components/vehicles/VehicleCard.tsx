@@ -1,22 +1,46 @@
-import { Gauge, MapPin } from "lucide-react";
+import Link from "next/link";
+import { MapPin } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
-
-import { CountUp } from "@/components/motion/CountUp";
 import { photoForVehicle } from "@/lib/vehicle-photos";
+import { vehicleBodyType } from "@/lib/vehicle-facets";
+import { localeTag } from "@/lib/i18n/locale";
 import type { DemoVehicle } from "@/lib/demo/vehicles";
 
+/**
+ * A listing card, built to read like a catalogue entry rather than a poster.
+ *
+ * What changed and why, against the version this replaces:
+ *
+ *  - It did not link anywhere. The whole card is now a link to the vehicle's page,
+ *    which is the first thing anyone expects a listing card to do.
+ *  - The price counted up on load (CountUp). An animated number on every card in a
+ *    grid is a toy effect and it delays the one figure the buyer came for; it is now
+ *    printed plainly.
+ *  - The photograph carried a translucent "Photo: <author> · CC BY-SA 4.0" strip
+ *    across the bottom of every image. The attribution must stay (the images are
+ *    CC BY-SA), but it belongs in fine print, not stamped over the car. It now sits
+ *    below the image at caption size, where it reads as a credit and not as a defect.
+ *  - Year, mileage and location were spread across two rows with a pin and a gauge.
+ *    They are now one muted specification line, the way a printed listing reads:
+ *    "2019 · 62 000 km · Hatchback · Sandton, GP".
+ *
+ * Deliberately absent: any "Live", "Verified", "Featured" or countdown badge. None
+ * of those signals has a system behind it (see src/lib/listing-activity.ts and
+ * src/lib/seller.ts), and a badge that appears on every card carries no information.
+ */
 export function VehicleCard({ vehicle }: { vehicle: DemoVehicle }) {
   const photo = photoForVehicle(vehicle);
+  const price = `R ${vehicle.price.toLocaleString(localeTag("en"))}`;
 
   return (
-    <article className="bg-white dark:bg-ink-900 border border-ink-100 dark:border-ink-800 rounded-2xl p-4 shadow-lift overflow-hidden transition-shadow hover:shadow-lift">
-      {/* Aspect-locked media box, matching VehicleCardSkeleton so the loading
-          swap causes no layout shift. A plain img is used because the source
-          dimensions are already small; next/image would add no value here. */}
-      <div className="aspect-[16/10] w-full mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-ink-100 to-ink-200 dark:from-ink-800 dark:to-ink-700 relative">
-        {photo ? (
-          <>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+    <article className="group h-full">
+      <Link
+        href={`/vehicles/${vehicle.id}`}
+        className="flex h-full flex-col overflow-hidden rounded-xl border border-ink-200/70 bg-white transition-colors hover:border-ink-300 dark:border-ink-800 dark:bg-ink-900 dark:hover:border-ink-700"
+      >
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-ink-100 dark:bg-ink-800">
+          {photo ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
             <img
               src={photo.url}
               alt={`${vehicle.title}, shown as a ${photo.subject}`}
@@ -24,42 +48,43 @@ export function VehicleCard({ vehicle }: { vehicle: DemoVehicle }) {
               decoding="async"
               width={photo.width}
               height={photo.height}
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover transition-transform duration-300 ease-swift group-hover:scale-[1.03]"
             />
-            <span className="absolute bottom-0 left-0 right-0 px-2 py-1 text-[9px] leading-tight text-white/90 bg-black/45 backdrop-blur-[2px] truncate">
-              Photo: {photo.attribution} · {photo.licence}
+          ) : (
+            <span className="absolute inset-0 flex items-center justify-center text-2xl font-semibold text-ink-300 dark:text-ink-600">
+              {vehicle.year}
             </span>
-          </>
-        ) : (
-          <span className="absolute inset-0 flex items-center justify-center font-display font-bold text-ink-400 dark:text-ink-500 text-lg">
-            {vehicle.year}
-          </span>
-        )}
-      </div>
+          )}
+        </div>
 
-      <h3 className="text-sm font-semibold text-ink-900 dark:text-white truncate mb-1">
-        {vehicle.title}
-      </h3>
-      <p className="text-xl font-display font-bold text-ink-900 dark:text-white mb-3 tabular-nums">
-        R <CountUp end={vehicle.price} duration={900} />
-      </p>
+        <div className="flex flex-1 flex-col p-3.5">
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="min-w-0 text-sm font-semibold leading-snug text-ink-900 group-hover:text-brand dark:text-white">
+              {vehicle.title}
+            </h3>
+            <p className="flex-shrink-0 text-base font-bold tabular-nums text-ink-900 dark:text-white">
+              {price}
+            </p>
+          </div>
 
-      <div className="flex items-center justify-between gap-2 text-ink-500 dark:text-ink-400">
-        <span className="flex items-center gap-1 text-xs">
-          <Icon icon={Gauge} size={12} />
-          {vehicle.mileage.toLocaleString("en-ZA")} km
-        </span>
-        <span className="flex items-center gap-1 text-xs truncate">
-          <Icon icon={MapPin} size={12} />
-          {vehicle.location}
-        </span>
-        {/* A pulsing red "Live" badge sat here, on every card. It read as an
-            auction closing now, which is the most powerful urgency signal on the
-            page. There is no auction system, no deadline and no bid, which
-            src/lib/listing-activity.ts already records. A badge that appears on
-            every listing carries no information anyway, so it was decoration
-            borrowing the appearance of a countdown. */}
-      </div>
+          <p className="mt-1 text-xs text-ink-500 dark:text-ink-400">
+            {vehicle.year} &middot; {vehicle.mileage.toLocaleString(localeTag("en"))} km &middot;{" "}
+            {vehicleBodyType(vehicle)}
+          </p>
+
+          <p className="mt-1.5 flex items-center gap-1 text-xs text-ink-500 dark:text-ink-400">
+            <Icon icon={MapPin} size={12} />
+            {vehicle.location}
+          </p>
+
+          {photo && (
+            <p className="mt-auto pt-3 text-[10px] leading-tight text-ink-400 dark:text-ink-500">
+              Photo: {photo.attribution}, {photo.licence}. Representative {photo.subject}, not this
+              specific vehicle.
+            </p>
+          )}
+        </div>
+      </Link>
     </article>
   );
 }

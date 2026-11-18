@@ -41,8 +41,10 @@ export function MakeOfferSheet({ isOpen, onClose, vehicle }: MakeOfferSheetProps
   const [position, setPosition] = useState<OfferDraft["position"]>("unsure");
   const [copied, setCopied] = useState(false);
 
-  const draft: OfferDraft = { amount, position, note };
-  const message = useMemo(() => offerMessage(vehicle, draft), [vehicle, draft]);
+  const message = useMemo(
+    () => offerMessage(vehicle, { amount, position, note } satisfies OfferDraft),
+    [vehicle, amount, position, note],
+  );
 
   const lowOffer = amount > 0 && amount < vehicle.price * 0.8;
 
