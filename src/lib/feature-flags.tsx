@@ -43,6 +43,7 @@ export const FEATURE_KEYS = {
   "marketplace.view_all": true,
   "marketplace.view_toggle": true,
   "marketplace.sort": true,
+  "marketplace.search_submit": true,
   "marketplace.active_filters": true,
   "filters.price_range": true,
   "filters.mileage_range": true,

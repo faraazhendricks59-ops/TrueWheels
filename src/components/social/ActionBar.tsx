@@ -36,17 +36,19 @@ export function ActionBar({
   const boost = useOptimistic(`boost:${postId}`, false);
 
   return (
-    <div className="flex items-center gap-1 mt-3 pt-3 border-t border-ink-100 dark:border-ink-800">
+    <div className="mt-3 flex items-center justify-between max-w-md -ml-2">
       <FeatureGate featureKey="social.action_comment">
         <button
           type="button"
           onClick={onOpenComments}
           aria-expanded={isCommentsOpen}
           aria-label="Show replies"
-          className="flex items-center justify-center gap-1.5 min-w-[44px] min-h-[44px] px-2 sm:px-2.5 rounded-full text-ink-400 hover:text-aurora-blue hover:bg-aurora-blue/5 transition-colors"
+          className="group/act flex items-center gap-1 rounded-full p-1.5 text-ink-400 transition-colors hover:text-aurora-blue"
         >
-          <Icon icon={MessageCircle} size={16} />
-          <span className="hidden sm:inline text-xs font-medium">Replies</span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full transition-colors group-hover/act:bg-aurora-blue/10">
+            <Icon icon={MessageCircle} size={16} />
+          </span>
+          <span className="hidden text-xs font-medium sm:inline">Replies</span>
         </button>
       </FeatureGate>
 
@@ -58,14 +60,14 @@ export function ActionBar({
           aria-pressed={boost.isActive}
           aria-label={boost.isActive ? "Remove this from your boosts" : "Boost this post"}
           className={clsx(
-            "flex items-center justify-center gap-1.5 min-w-[44px] min-h-[44px] px-2 sm:px-2.5 rounded-full transition-colors",
-            boost.isActive
-              ? "text-semantic-success"
-              : "text-ink-400 hover:text-semantic-success hover:bg-semantic-success/5",
+            "group/act flex items-center gap-1 rounded-full p-1.5 transition-colors",
+            boost.isActive ? "text-semantic-success" : "text-ink-400 hover:text-semantic-success",
           )}
         >
-          <Icon icon={Repeat2} size={16} strokeWidth={boost.isActive ? 2.5 : 1.75} />
-          <span className={clsx("hidden sm:inline text-xs font-medium", boost.isActive && "font-bold")}>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full transition-colors group-hover/act:bg-semantic-success/10">
+            <Icon icon={Repeat2} size={16} strokeWidth={boost.isActive ? 2.5 : 1.75} />
+          </span>
+          <span className={clsx("hidden text-xs font-medium sm:inline", boost.isActive && "font-bold")}>
             {boost.isActive ? "Boosted" : "Boost"}
           </span>
         </button>
@@ -84,10 +86,12 @@ export function ActionBar({
           type="button"
           onClick={onOpenShare}
           aria-label="Share this post"
-          className="flex items-center justify-center gap-1.5 min-w-[44px] min-h-[44px] px-2 sm:px-2.5 rounded-full text-ink-400 hover:text-aurora-purple hover:bg-aurora-purple/5 transition-colors"
+          className="group/act flex items-center gap-1 rounded-full p-1.5 text-ink-400 transition-colors hover:text-aurora-purple"
         >
-          <Icon icon={Share2} size={16} />
-          <span className="hidden sm:inline text-xs font-medium">Share</span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full transition-colors group-hover/act:bg-aurora-purple/10">
+            <Icon icon={Share2} size={16} />
+          </span>
+          <span className="hidden text-xs font-medium sm:inline">Share</span>
         </button>
       </FeatureGate>
     </div>

@@ -78,11 +78,11 @@ export function ReactionButton({
         data-storage-key={storageKey}
         data-initial={initiallyActive ? "active" : "inactive"}
         className={clsx(
-          "flex items-center justify-center gap-1.5 min-w-[44px] min-h-[44px] px-2 sm:px-2.5 rounded-full transition-colors",
-          isActive ? "text-brand" : "text-ink-400 hover:text-brand hover:bg-brand/5",
+          "group/act flex items-center gap-1 rounded-full p-1.5 transition-colors",
+          isActive ? "text-brand" : "text-ink-400 hover:text-brand",
         )}
       >
-        <span className="relative inline-flex p-0.5">
+        <span className="relative flex h-8 w-8 items-center justify-center rounded-full transition-colors group-hover/act:bg-brand/10">
           <Icon
             icon={Flame}
             size={16}

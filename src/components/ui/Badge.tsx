@@ -7,9 +7,9 @@ type Variant = "status" | "trust" | "spec" | "live" | "ai";
 
 const TONES: Record<Tone, string> = {
   red: "text-brand-700 dark:text-brand-400 border-brand/25 bg-brand-50 dark:bg-brand/10",
-  green: "text-semantic-success border-semantic-success/25 bg-semantic-success/5",
+  green: "text-semantic-success-dark dark:text-semantic-success border-semantic-success/25 bg-semantic-success/5",
   amber: "text-semantic-warning border-semantic-warning/25 bg-semantic-warning/5",
-  blue: "text-aurora-blue border-aurora-blue/25 bg-aurora-blue/5",
+  blue: "text-aurora-blue-dark dark:text-aurora-blue border-aurora-blue/25 bg-aurora-blue/5",
   ink: "text-ink-600 dark:text-ink-300 border-ink-200 dark:border-ink-700 bg-ink-50 dark:bg-ink-800/60",
   aurora: "text-aurora-purple border-aurora-purple/25 bg-aurora-purple/5",
 };

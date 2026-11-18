@@ -77,41 +77,43 @@ export function ProfileView() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto pb-16">
+    <div className="mx-auto max-w-2xl pb-16">
       {identity.isExample && (
-        <p className="mb-4 rounded-xl border border-ink-200 dark:border-ink-800 bg-ink-50 dark:bg-ink-900 px-4 py-3 text-[12px] text-ink-600 dark:text-ink-300 leading-relaxed">
+        <p className="mb-4 rounded-xl border border-ink-200 bg-ink-50 px-4 py-3 text-[12px] leading-relaxed text-ink-600 dark:border-ink-800 dark:bg-ink-900 dark:text-ink-300">
           {EXAMPLE_PROFILE}
         </p>
       )}
 
-      <ProfileHeader
-        identity={identity}
-        onShare={share}
-        onMore={() =>
-          toast({
-            variant: "info",
-            title: "Nothing to manage here yet",
-            description: "There is no profile record to edit, so there are no other actions.",
-          })
-        }
-        onMessage={() =>
-          toast({
-            variant: "info",
-            title: "Messaging is not built yet",
-            description: "There is no message store, so a message would have nowhere to go.",
-          })
-        }
-        onFollow={() =>
-          toast({
-            variant: "info",
-            title: "Following is not built yet",
-            description: "There is no follow graph, so a follow could not be recorded.",
-          })
-        }
-      />
+      <div className="overflow-hidden rounded-2xl border border-ink-100 bg-white dark:border-ink-800 dark:bg-ink-900">
+        <ProfileHeader
+          identity={identity}
+          onShare={share}
+          onMore={() =>
+            toast({
+              variant: "info",
+              title: "Nothing to manage here yet",
+              description: "There is no profile record to edit, so there are no other actions.",
+            })
+          }
+          onMessage={() =>
+            toast({
+              variant: "info",
+              title: "Messaging is not built yet",
+              description: "There is no message store, so a message would have nowhere to go.",
+            })
+          }
+          onFollow={() =>
+            toast({
+              variant: "info",
+              title: "Following is not built yet",
+              description: "There is no follow graph, so a follow could not be recorded.",
+            })
+          }
+        />
+      </div>
 
       {!isLoading && (
-        <>
+        <div className="mt-4">
           <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} panelId={PANEL_ID} />
           <TabContent
             activeTab={activeTab}
@@ -121,7 +123,7 @@ export function ProfileView() {
             roleLabel={roleLabel(role)}
             identitySource={IDENTITY_ON_DEVICE}
           />
-        </>
+        </div>
       )}
     </div>
   );

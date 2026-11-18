@@ -55,44 +55,60 @@ export function MessageComposer({ draftId, initialBody }: { draftId: string; ini
   };
 
   return (
-    <div className="p-4 border-t border-ink-100 dark:border-ink-800 bg-white dark:bg-ink-900 flex-shrink-0">
-      <label htmlFor="message-body" className="sr-only">
-        Your message
-      </label>
-      <textarea
-        id="message-body"
-        value={body}
-        onChange={(event) => setBody(event.target.value)}
-        rows={5}
-        className="w-full bg-ink-50 dark:bg-ink-950 border border-ink-100 dark:border-ink-800 rounded-2xl px-4 py-3 text-sm text-ink-900 dark:text-white placeholder:text-ink-400 focus:outline-none focus:border-brand transition-colors resize-y"
-        placeholder="Write your message…"
-      />
+    <div className="flex-shrink-0 border-t border-ink-100 bg-white p-3 dark:border-ink-800 dark:bg-ink-900">
+      {/* The input bar. A chat composer is a pill-shaped field with the send
+          control inside it, not a textarea above a row of buttons — the field and
+          its action read as one object. */}
+      <div className="flex items-end gap-2">
+        <label htmlFor="message-body" className="sr-only">
+          Your message
+        </label>
+        <div className="flex flex-1 items-end rounded-3xl border border-ink-200 bg-ink-50 px-4 py-2.5 dark:border-ink-700 dark:bg-ink-950">
+          <textarea
+            id="message-body"
+            value={body}
+            onChange={(event) => setBody(event.target.value)}
+            rows={1}
+            className="max-h-40 w-full resize-none bg-transparent text-sm text-ink-900 placeholder:text-ink-400 focus:outline-none dark:text-white"
+            placeholder="Type a message"
+          />
+        </div>
+        <button
+          type="button"
+          onClick={save}
+          disabled={!dirty}
+          aria-label="Save this message"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-semantic-success text-white transition-colors hover:brightness-110 disabled:cursor-not-allowed disabled:bg-ink-200 disabled:text-ink-400 dark:disabled:bg-ink-700"
+        >
+          <Icon icon={Save} size={18} />
+        </button>
+      </div>
 
-      <div className="flex flex-wrap items-center gap-2 mt-3">
-        <SmartButton featureKey="messages.save_draft" onClick={save} disabled={!dirty} leftIcon={Save} className="!h-10">
-          Save changes
-        </SmartButton>
+      {/* The secondary actions stay, because they are the ways a message actually
+          leaves this device. They are demoted below the bar rather than competing
+          with it. */}
+      <div className="mt-2.5 flex flex-wrap items-center gap-2">
         <SmartButton
           featureKey="messages.copy_draft"
-          variant="secondary"
+          variant="ghost"
+          size="sm"
           onClick={copy}
           leftIcon={copied ? Check : Copy}
-          className="!h-10"
         >
           {copied ? "Copied" : "Copy"}
         </SmartButton>
         <SmartButton
           featureKey="messages.send_whatsapp"
-          variant="secondary"
+          variant="ghost"
+          size="sm"
           leftIcon={MessageCircle}
-          className="!h-10"
           onClick={() => window.open(whatsAppShareLink(body), "_blank", "noopener,noreferrer")}
         >
           Send on WhatsApp
         </SmartButton>
       </div>
 
-      <p className="text-[10px] text-ink-400 mt-2 leading-relaxed">{DRAFT_LOCAL_ONLY}</p>
+      <p className="mt-2 text-[10px] leading-relaxed text-ink-400 dark:text-ink-300">{DRAFT_LOCAL_ONLY}</p>
     </div>
   );
 }

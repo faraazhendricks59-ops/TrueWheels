@@ -40,38 +40,38 @@ export function PostCard({ post }: { post: CommunityPost }) {
   }).format(new Date(post.postedAt));
 
   return (
-    <article className="bg-white dark:bg-ink-900 border-b border-ink-100 dark:border-ink-800 p-5">
+    <article className="relative border-b border-ink-100 px-4 py-3 transition-colors hover:bg-ink-50/60 dark:border-ink-800 dark:hover:bg-ink-950/40">
       <div className="flex gap-3">
         <div
-          className="w-11 h-11 rounded-full bg-ink-100 dark:bg-ink-800 flex-shrink-0 flex items-center justify-center text-xs font-bold text-ink-500 dark:text-ink-300"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-ink-100 text-xs font-bold text-ink-500 dark:bg-ink-800 dark:text-ink-300"
           aria-hidden="true"
         >
           {initialsFor(post.authorName)}
         </div>
 
-        <div className="flex-1 min-w-0">
-          <div className="flex items-baseline gap-x-2 gap-y-0.5 flex-wrap mb-1.5">
-            <span className="font-bold text-sm text-ink-900 dark:text-white">
+        <div className="min-w-0 flex-1">
+          <div className="mb-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+            <span className="text-sm font-bold text-ink-900 dark:text-white">
               {post.authorName}
             </span>
-            <span className="text-xs text-ink-400">@{post.authorHandle}</span>
+            <span className="text-sm text-ink-400 dark:text-ink-300">@{post.authorHandle}</span>
             <span className="text-ink-300" aria-hidden="true">
               ·
             </span>
-            <time dateTime={post.postedAt} className="text-xs text-ink-400">
+            <time dateTime={post.postedAt} className="text-sm text-ink-400 hover:underline dark:text-ink-300">
               {posted}
             </time>
-            <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-ink-400 border border-ink-200 dark:border-ink-700 rounded-full px-2 py-0.5">
-              Demo post
+            <span className="ml-1 inline-flex items-center rounded-full border border-ink-200 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ink-400 dark:border-ink-700 dark:text-ink-300">
+              Example
             </span>
           </div>
 
-          <p className="text-[15px] text-ink-700 dark:text-ink-200 leading-relaxed whitespace-pre-wrap">
+          <p className="whitespace-pre-wrap text-[15px] leading-relaxed text-ink-800 dark:text-ink-100">
             {post.content.split(/(#[a-zA-Z0-9_]+)/g).map((part, index) =>
               part.startsWith("#") ? (
                 // Not a link: there are no topic pages, so a link would go
                 // nowhere. It is emphasised because it is a topic tag.
-                <span key={index} className="text-aurora-blue font-medium">
+                <span key={index} className="font-medium text-aurora-blue dark:text-aurora-blue-light">
                   {part}
                 </span>
               ) : (

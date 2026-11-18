@@ -16,40 +16,55 @@ import { DEMO_POSTS, FEED_DISCLOSURE } from "@/lib/social";
  * community service, so nobody can publish and the three posts below are
  * examples, labelled as such on every card and again here. The page is built so
  * that a real feed can replace DEMO_POSTS without touching the layout.
+ *
+ * The layout is the timeline shape: a single narrow column of rows with a
+ * sticky header, and the rail beside it. A narrow column is what makes a feed
+ * read as a feed — a wide grid of cards reads as a catalogue.
  */
 export function CommunityFeed() {
   return (
-    <div className="max-w-[1300px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 py-6">
+    <div className="mx-auto grid max-w-[1100px] grid-cols-1 gap-6 py-6 lg:grid-cols-[minmax(0,1fr)_330px]">
       {/* A div, not <main>: the root layout already provides the single main
           landmark, and a second one makes the landmark structure ambiguous. */}
-      <div className="lg:col-span-8 xl:col-span-8 space-y-4">
+      <div className="min-w-0">
         <FeatureGate featureKey="community.feed">
-        <Reveal variant="up">
-          <div className="flex gap-2.5 rounded-2xl border border-aurora-blue/20 bg-aurora-blue/5 px-4 py-3">
-            <Icon icon={Info} size={14} className="text-aurora-blue flex-shrink-0 mt-0.5" />
-            <p className="text-[11px] text-ink-600 dark:text-ink-300 leading-relaxed">
+          {/* Sticky, so the heading and the disclosure stay with the column as the
+              rows scroll under them. */}
+          <div className="sticky top-[calc(var(--header-height)+var(--sat))] z-20 border-b border-ink-100 bg-surface-paper/85 backdrop-blur-lg dark:border-ink-800 dark:bg-ink-950/85">
+            <div className="flex items-center justify-between px-4 py-3">
+              <h1 className="font-display text-lg font-bold text-ink-900 dark:text-white">
+                Community
+              </h1>
+              <Icon icon={Info} size={15} className="text-ink-400 dark:text-ink-300" />
+            </div>
+          </div>
+
+          <div className="flex gap-2.5 border-b border-ink-100 bg-aurora-blue/5 px-4 py-3 dark:border-ink-800">
+            <Icon icon={Info} size={14} className="mt-0.5 flex-shrink-0 text-aurora-blue" />
+            <p className="text-[11px] leading-relaxed text-ink-600 dark:text-ink-300">
               {FEED_DISCLOSURE}
             </p>
           </div>
-        </Reveal>
 
-        <Reveal variant="up" delay={60}>
-          <PostComposer />
-        </Reveal>
+          <Reveal variant="up">
+            <PostComposer />
+          </Reveal>
 
-        <div className="divide-y divide-ink-100 dark:divide-ink-800 bg-white dark:bg-ink-900 border border-ink-100 dark:border-ink-800 rounded-2xl overflow-hidden">
-          {DEMO_POSTS.map((post, index) => (
-            <Reveal key={post.id} variant="up" delay={(index + 1) * 80}>
-              <PostCard post={post} />
-            </Reveal>
-          ))}
-        </div>
+          <div className="divide-y divide-ink-100 bg-white dark:divide-ink-800 dark:bg-ink-900">
+            {DEMO_POSTS.map((post, index) => (
+              <Reveal key={post.id} variant="up" delay={(index + 1) * 80}>
+                <PostCard post={post} />
+              </Reveal>
+            ))}
+          </div>
         </FeatureGate>
       </div>
 
-      <aside className="lg:col-span-4 xl:col-span-4">
+      <aside className="hidden lg:block">
         <Reveal variant="up" delay={120}>
-          <CommunitySidebar />
+          <div className="sticky top-[calc(var(--header-height)+var(--sat)+1.5rem)]">
+            <CommunitySidebar />
+          </div>
         </Reveal>
       </aside>
     </div>

@@ -133,30 +133,38 @@ function ConversationRow({ draft, isActive }: { draft: MessageDraft; isActive: b
       href={`/messages/${draft.id}`}
       aria-current={isActive ? "page" : undefined}
       className={clsx(
-        "flex gap-3 p-4 transition-colors",
-        isActive ? "bg-brand/5 border-l-2 border-l-brand" : "hover:bg-ink-50/50 dark:hover:bg-ink-950/50",
+        "flex gap-3 px-4 py-3 transition-colors",
+        isActive
+          ? "bg-ink-100 dark:bg-ink-800"
+          : "hover:bg-ink-50 dark:hover:bg-ink-950/50",
       )}
     >
-      <span className="w-11 h-11 rounded-full bg-ink-100 dark:bg-ink-800 flex items-center justify-center text-ink-500 flex-shrink-0">
-        <Icon icon={Car} size={18} />
+      <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-ink-200 text-ink-500 dark:bg-ink-700 dark:text-ink-300">
+        <Icon icon={Car} size={20} />
       </span>
 
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center justify-between gap-2 mb-0.5">
-          <span className="text-sm font-semibold text-ink-900 dark:text-white truncate">
+      <div className="min-w-0 flex-1">
+        {/* Name and time on one line, with the time hard right — the chat-list
+            convention, so the eye can find the most recent thread. */}
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="truncate text-sm font-semibold text-ink-900 dark:text-white">
             {draft.vehicleTitle}
           </span>
-          <span className="text-[10px] text-ink-400 flex-shrink-0">{formatWhen(draft.updatedAt)}</span>
+          <span className="flex-shrink-0 text-[11px] text-ink-400 dark:text-ink-300">
+            {formatWhen(draft.updatedAt)}
+          </span>
         </div>
 
-        <div className="flex items-center gap-2 mb-1">
+        <div className="mt-0.5 flex items-center gap-2">
+          <span className="truncate text-xs text-ink-500 dark:text-ink-400">{preview}</span>
+        </div>
+
+        <div className="mt-1 flex items-center gap-2">
           <Badge variant="status" tone={KIND_TONE[draft.kind]}>
             {KIND_LABELS[draft.kind]}
           </Badge>
-          <span className="text-[10px] text-ink-400 truncate">{draft.vehicleLocation}</span>
+          <span className="truncate text-[10px] text-ink-400 dark:text-ink-300">{draft.vehicleLocation}</span>
         </div>
-
-        <p className="text-xs text-ink-500 dark:text-ink-400 truncate">{preview}</p>
       </div>
     </Link>
   );

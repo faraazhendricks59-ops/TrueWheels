@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { SlidersHorizontal } from "lucide-react";
+import { Search, SlidersHorizontal } from "lucide-react";
 import { LayoutGrid, MainSlot, SidebarSlot, RightRailSlot } from "@/components/shell/LayoutGrid";
+import { Input } from "@/components/ui/Input";
 import { AdvancedFilterPanel } from "@/components/filters/AdvancedFilterPanel";
 import { Sheet } from "@/components/ui/Sheet";
 import { MapView } from "@/components/map/MapView";
@@ -79,10 +80,28 @@ export function MarketplaceBrowser() {
     [queryString]
   );
 
-  const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  // List is the default, as it is on the classified sites this follows: a buyer
+  // scanning for a car compares price and mileage down a column, and a list puts
+  // those in a straight line. Grid stays available for browsing by picture.
+  const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [sortBy, setSortBy] = useState<SortOption>("relevance");
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+
+  // The search box is a controlled field that mirrors the URL. It is kept in
+  // local state so typing is instant, and committed to the URL on submit (or on
+  // a pause), which is what actually filters the results.
+  const [searchDraft, setSearchDraft] = useState(query.q);
+  useEffect(() => {
+    setSearchDraft(query.q);
+  }, [query.q]);
+
+  const submitSearch = () =>
+    updateParams((params) => {
+      const next = searchDraft.trim();
+      if (next) params.set("q", next);
+      else params.delete("q");
+    });
 
   // Sorting and switching layout both reorder the same cards, so both go through
   // a View Transition: each card glides from where it was to where it now is,
@@ -295,6 +314,55 @@ export function MarketplaceBrowser() {
 
       <MainSlot>
         <div className="space-y-6">
+          {/* The search-first header. On the classified sites this follows, the
+              search box is the top of the page and the results are everything
+              below it — the box is the primary control, not a filter. */}
+          <Reveal variant="up" className="relative z-20">
+            <form
+              role="search"
+              onSubmit={(event) => {
+                event.preventDefault();
+                submitSearch();
+              }}
+              className="flex flex-col gap-3 rounded-xl border border-ink-200/70 bg-white p-3 dark:border-ink-800 dark:bg-ink-900 sm:flex-row sm:items-center"
+            >
+              <div className="flex-1">
+                <label htmlFor="marketplace-search" className="sr-only">
+                  Search vehicles
+                </label>
+                <Input
+                  id="marketplace-search"
+                  type="search"
+                  leftIcon={Search}
+                  value={searchDraft}
+                  onChange={(event) => setSearchDraft(event.target.value)}
+                  placeholder="Search by make, model or town — e.g. Golf GTI Sandton"
+                  containerClassName="!gap-0"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <SmartButton
+                  featureKey="marketplace.search_submit"
+                  type="submit"
+                  leftIcon={Search}
+                  className="!h-11 flex-1 sm:flex-none"
+                >
+                  Search
+                </SmartButton>
+                <SmartButton
+                  featureKey="filters.mobile_trigger"
+                  type="button"
+                  variant="secondary"
+                  className="!h-11 md:hidden"
+                  leftIcon={SlidersHorizontal}
+                  onClick={() => setIsFilterSheetOpen(true)}
+                >
+                  Filters
+                </SmartButton>
+              </div>
+            </form>
+          </Reveal>
+
           {/* `relative z-20` lifts this toolbar above the result cards. Each card
               is wrapped in Reveal, which sets `will-change: transform` and so
               becomes a stacking context at `z-index: auto`; without this the
@@ -316,16 +384,6 @@ export function MarketplaceBrowser() {
                 {/* Wraps because the sort control and the layout toggle together
                     are wider than a 320px screen allows on one line. */}
                 <div className="flex flex-wrap items-center gap-3">
-                  <SmartButton
-                    featureKey="filters.mobile_trigger"
-                    variant="secondary"
-                    size="sm"
-                    className="md:hidden"
-                    leftIcon={SlidersHorizontal}
-                    onClick={() => setIsFilterSheetOpen(true)}
-                  >
-                    Filters
-                  </SmartButton>
                   <SortDropdown value={sortBy} onChange={changeSort} />
                   <ViewToggle value={viewMode} onChange={changeView} />
                 </div>

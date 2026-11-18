@@ -26,7 +26,13 @@ export interface ProfileIdentity {
 }
 
 /**
- * The profile header.
+ * The profile header, laid out as a cover-and-bio page.
+ *
+ * The shape is the profile convention: a wide cover banner across the top, the
+ * avatar sitting centred and overlapping the banner's lower edge, the name and
+ * handle beneath it, a row of counts, then the bio and the links. Centring the
+ * identity under a full-width cover is what makes a profile page read as a
+ * profile rather than a settings panel.
  *
  * The brief's version carried a trust badge, four invented counters, a green
  * "online" dot and a photograph of a stranger. None of those are here. What
@@ -60,8 +66,9 @@ export function ProfileHeader({
 
   return (
     <Reveal variant="up">
-      <div className="bg-white dark:bg-ink-900 border border-ink-100 dark:border-ink-800 rounded-2xl shadow-lift overflow-hidden">
-        <div className="relative h-40 md:h-56 w-full bg-gradient-to-br from-brand via-brand-dark to-aurora-purple">
+      <div>
+        {/* Cover banner. Taller on desktop so the avatar has room to overlap. */}
+        <div className="relative h-32 w-full bg-gradient-to-br from-brand via-brand-dark to-aurora-purple sm:h-44 md:h-52">
           <div
             className="absolute inset-0 opacity-30 mix-blend-overlay"
             style={{
@@ -70,13 +77,8 @@ export function ProfileHeader({
             }}
             aria-hidden="true"
           />
-          {/* Fade into the page background, as the brief intended. */}
-          <div
-            className="absolute inset-0 bg-gradient-to-t from-white via-white/50 to-transparent dark:from-ink-900 dark:via-ink-900/50 dark:to-transparent"
-            aria-hidden="true"
-          />
 
-          <div className="absolute top-4 right-4 flex gap-2">
+          <div className="absolute right-3 top-3 flex gap-2">
             <FeatureGate featureKey="profile.share">
               <SmartButton
                 featureKey="profile.share_trigger"
@@ -84,7 +86,7 @@ export function ProfileHeader({
                 size="icon"
                 onClick={onShare}
                 aria-label="Share this profile"
-                className="!bg-white/90 dark:!bg-ink-900/90 !backdrop-blur-md !border-0 !h-9 !w-9"
+                className="!h-9 !w-9 !border-0 !bg-white/90 !backdrop-blur-md dark:!bg-ink-900/90"
               >
                 <Icon icon={Link2} size={14} />
               </SmartButton>
@@ -96,7 +98,7 @@ export function ProfileHeader({
                 size="icon"
                 onClick={onMore}
                 aria-label="More options"
-                className="!bg-white/90 dark:!bg-ink-900/90 !backdrop-blur-md !border-0 !h-9 !w-9"
+                className="!h-9 !w-9 !border-0 !bg-white/90 !backdrop-blur-md dark:!bg-ink-900/90"
               >
                 <Icon icon={MoreHorizontal} size={14} />
               </SmartButton>
@@ -104,97 +106,96 @@ export function ProfileHeader({
           </div>
         </div>
 
-        <div className="relative px-6 pb-6 pt-0 md:px-10 md:pb-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 -mt-12 md:-mt-16 mb-6">
-            <div
-              className={clsx(
-                "w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 shadow-lift",
-                "border-white dark:border-ink-900 bg-ink-100 dark:bg-ink-800",
-                "flex items-center justify-center"
-              )}
-              role="img"
-              aria-label={`${name}, avatar shown as initials`}
-            >
-              <span className="font-display font-black text-3xl md:text-4xl text-ink-500 dark:text-ink-300">
-                {initials(name)}
-              </span>
-            </div>
-
-            <div className="flex gap-2 md:mb-2">
-              {/* Real buttons that say what they cannot do, rather than dead
-                  controls or a padlock implying an admin disabled them. Neither
-                  messaging nor following exists: there is no message store and no
-                  follow graph. */}
-              <FeatureGate featureKey="profile.message">
-                <SmartButton
-                  featureKey="profile.message_trigger"
-                  variant="secondary"
-                  className="!h-10 !px-5"
-                  onClick={onMessage}
-                >
-                  Message
-                </SmartButton>
-              </FeatureGate>
-              <Magnetic strength={0.1}>
-                <SmartButton
-                  featureKey="profile.follow"
-                  variant="secondary"
-                  className="!h-10 !px-6"
-                  onClick={onFollow}
-                >
-                  Follow
-                </SmartButton>
-              </Magnetic>
-            </div>
+        {/* The identity block. It pulls up under the banner so the avatar sits on
+            the seam between cover and body. */}
+        <div className="relative flex flex-col items-center px-6 pb-7 -mt-14 md:-mt-16">
+          <div
+            className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-ink-100 shadow-lift dark:border-ink-900 dark:bg-ink-800 md:h-32 md:w-32"
+            role="img"
+            aria-label={`${name}, avatar shown as initials`}
+          >
+            <span className="font-display text-3xl font-black text-ink-500 dark:text-ink-300 md:text-4xl">
+              {initials(name)}
+            </span>
           </div>
 
-          <div className="space-y-4">
-            <div>
-              <div className="flex items-center flex-wrap gap-2 mb-1">
-                <h1 className="text-2xl md:text-3xl font-display font-bold text-ink-900 dark:text-white">
-                  {name}
-                </h1>
-                {isExample && (
-                  <Badge variant="status" tone="ink">
-                    Example
-                  </Badge>
-                )}
-              </div>
-              <p className="text-sm text-ink-500 font-medium">@{handle}</p>
-            </div>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+            <h1 className="text-center font-display text-2xl font-bold text-ink-900 dark:text-white md:text-3xl">
+              {name}
+            </h1>
+            {isExample && (
+              <Badge variant="status" tone="ink">
+                Example
+              </Badge>
+            )}
+          </div>
 
-            <p className="text-[15px] text-ink-700 dark:text-ink-200 leading-relaxed max-w-2xl">
-              {roleLabel}
-            </p>
+          <p className="mt-0.5 text-sm font-medium text-ink-500 dark:text-ink-300">@{handle}</p>
 
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-ink-500">
-              {identity.location && (
-                <span className="flex items-center gap-1.5">
-                  <Icon icon={MapPin} size={14} /> {identity.location}
-                </span>
-              )}
-              {identity.website && (
-                <a
-                  href={identity.website}
-                  className="flex items-center gap-1.5 text-aurora-blue hover:underline"
-                  rel="nofollow noopener noreferrer"
-                  target="_blank"
-                >
-                  <Icon icon={Link2} size={14} /> {identity.website.replace("https://", "")}
-                </a>
-              )}
-              {identity.joinedDate && (
-                <span className="flex items-center gap-1.5">
-                  <Icon icon={Calendar} size={14} /> Joined {identity.joinedDate}
-                </span>
-              )}
-            </div>
+          {/* The counts sit directly under the handle, the way a profile page
+              puts its follower numbers, so the identity and its totals read as
+              one block. Both are real; the brief had four, all invented. */}
+          <dl className="mt-4 flex items-center gap-8">
+            <StatBlock label="Posts" value={identity.postCount} />
+            <span className="h-8 w-px bg-ink-200 dark:bg-ink-800" aria-hidden="true" />
+            <StatBlock label="Saved" value={identity.garageSize} highlight />
+          </dl>
 
-            {/* Two real counts. The brief had four, all invented. */}
-            <dl className="flex items-center gap-6 pt-2">
-              <StatBlock label="Posts" value={identity.postCount} />
-              <StatBlock label="Saved" value={identity.garageSize} highlight />
-            </dl>
+          {/* Bio. */}
+          <p className="mt-4 max-w-xl text-center text-[15px] leading-relaxed text-ink-700 dark:text-ink-200">
+            {roleLabel}
+          </p>
+
+          {/* Links and meta, as a centred row of chips. */}
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+            {identity.location && (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-200 px-3 py-1 text-xs font-medium text-ink-600 dark:border-ink-700 dark:text-ink-300">
+                <Icon icon={MapPin} size={13} /> {identity.location}
+              </span>
+            )}
+            {identity.website && (
+              <a
+                href={identity.website}
+                rel="nofollow noopener noreferrer"
+                target="_blank"
+                className="inline-flex items-center gap-1.5 rounded-full border border-aurora-blue/30 bg-aurora-blue/5 px-3 py-1 text-xs font-semibold text-aurora-blue-dark transition-colors hover:bg-aurora-blue/10 dark:text-aurora-blue-light"
+              >
+                <Icon icon={Link2} size={13} />
+                {identity.website.replace("https://", "")}
+              </a>
+            )}
+            {identity.joinedDate && (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-ink-200 px-3 py-1 text-xs font-medium text-ink-600 dark:border-ink-700 dark:text-ink-300">
+                <Icon icon={Calendar} size={13} /> Joined {identity.joinedDate}
+              </span>
+            )}
+          </div>
+
+          {/* Actions, centred under the bio. Real buttons that say what they
+              cannot do, rather than dead controls or a padlock implying an admin
+              disabled them. Neither messaging nor following exists: there is no
+              message store and no follow graph. */}
+          <div className="mt-5 flex gap-2">
+            <FeatureGate featureKey="profile.message">
+              <SmartButton
+                featureKey="profile.message_trigger"
+                variant="secondary"
+                className="!h-10 !px-6"
+                onClick={onMessage}
+              >
+                Message
+              </SmartButton>
+            </FeatureGate>
+            <Magnetic strength={0.1}>
+              <SmartButton
+                featureKey="profile.follow"
+                variant="primary"
+                className="!h-10 !px-8"
+                onClick={onFollow}
+              >
+                Follow
+              </SmartButton>
+            </Magnetic>
           </div>
         </div>
       </div>
@@ -212,16 +213,16 @@ function StatBlock({
   highlight?: boolean;
 }) {
   return (
-    <div className="flex items-baseline gap-1.5">
+    <div className="flex flex-col items-center">
       <dd
         className={clsx(
-          "text-lg font-display font-bold tabular-nums",
+          "font-display text-xl font-bold tabular-nums",
           highlight ? "text-ink-900 dark:text-white" : "text-ink-600 dark:text-ink-300"
         )}
       >
         {value.toLocaleString("en-ZA")}
       </dd>
-      <dt className="text-xs font-medium text-ink-400">{label}</dt>
+      <dt className="text-xs font-medium text-ink-400 dark:text-ink-300">{label}</dt>
     </div>
   );
 }

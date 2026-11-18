@@ -15,6 +15,12 @@ interface VehicleListItemProps {
 /**
  * The row layout for the listing list, for scanning many results at once.
  *
+ * The shape follows the classified-listing convention AutoTrader uses: the
+ * photograph holds the left, the title and a row of specification pills sit in
+ * the middle, and the price is the largest text in the row, right-aligned so a
+ * column of prices can be compared down the page. That is the whole point of a
+ * list view — price and mileage line up so the eye can scan them.
+ *
  * Two things were wrong here. The link pointed at
  * `/marketplace?q=<title>`, a search for the vehicle's own name, rather than its
  * page — so opening a listing dropped the buyer into a one-result search. And the
@@ -37,7 +43,7 @@ export function VehicleListItem({ vehicle }: VehicleListItemProps) {
       className="group block rounded-xl border border-ink-200/70 bg-white transition-colors hover:border-ink-300 dark:border-ink-800 dark:bg-ink-900 dark:hover:border-ink-700"
     >
       <div className="flex gap-4 p-3">
-        <div className="relative h-28 w-40 flex-shrink-0 overflow-hidden rounded-lg bg-ink-100 dark:bg-ink-800">
+        <div className="relative h-32 w-44 flex-shrink-0 overflow-hidden rounded-lg bg-ink-100 dark:bg-ink-800">
           {photo ? (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
@@ -57,29 +63,38 @@ export function VehicleListItem({ vehicle }: VehicleListItemProps) {
         <div className="flex min-w-0 flex-1 flex-col justify-between py-0.5">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
-              <h3 className="truncate text-sm font-semibold text-ink-900 group-hover:text-brand dark:text-white">
+              <h3 className="truncate text-[15px] font-bold text-ink-900 group-hover:text-brand dark:text-white">
                 {vehicle.title}
               </h3>
-              <p className="mt-0.5 text-xs text-ink-500 dark:text-ink-400">
-                {vehicleMake(vehicle)} &middot; {vehicleBodyType(vehicle)}
+              <p className="mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[11px] text-ink-500 dark:text-ink-300">
+                <span className="rounded-full bg-ink-100 px-2 py-0.5 font-medium dark:bg-ink-800">
+                  {vehicle.year}
+                </span>
+                <span className="rounded-full bg-ink-100 px-2 py-0.5 font-medium tabular-nums dark:bg-ink-800">
+                  {mileage}
+                </span>
+                <span className="rounded-full bg-ink-100 px-2 py-0.5 font-medium dark:bg-ink-800">
+                  {vehicleBodyType(vehicle)}
+                </span>
               </p>
             </div>
-            <p className="flex-shrink-0 text-base font-bold tabular-nums text-ink-900 dark:text-white">
-              {price}
-            </p>
+            <div className="flex-shrink-0 text-right">
+              <p className="font-display text-xl font-bold tabular-nums leading-none text-ink-900 dark:text-white">
+                {price}
+              </p>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-500 dark:text-ink-400">
-            <span className="tabular-nums">{vehicle.year}</span>
-            <span className="tabular-nums">{mileage}</span>
+          <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-500 dark:text-ink-300">
             <span className="flex items-center gap-1">
               <Icon icon={MapPin} size={12} />
               {vehicle.location}
             </span>
+            <span>{vehicleMake(vehicle)}</span>
           </div>
 
           {photo && (
-            <p className="text-[10px] leading-tight text-ink-400 dark:text-ink-500">
+            <p className="mt-1 text-[10px] leading-tight text-ink-400 dark:text-ink-300">
               Photo: {photo.attribution}, {photo.licence}. Representative {photo.subject}.
             </p>
           )}

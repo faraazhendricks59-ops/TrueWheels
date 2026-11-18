@@ -85,16 +85,16 @@ export function PostComposer() {
 
   return (
     <FeatureGate featureKey="community.post_composer">
-      <div className="bg-white dark:bg-ink-900 border border-ink-100 dark:border-ink-800 rounded-2xl p-4">
+      <div className="border-b border-ink-100 bg-white px-4 py-3 dark:border-ink-800 dark:bg-ink-900">
         <div className="flex gap-3">
           <div
-            className="w-10 h-10 rounded-full bg-ink-100 dark:bg-ink-800 flex-shrink-0 flex items-center justify-center text-xs font-bold text-ink-500 dark:text-ink-300"
+            className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-ink-100 text-xs font-bold text-ink-500 dark:bg-ink-800 dark:text-ink-300"
             aria-hidden="true"
           >
             You
           </div>
 
-          <div className="flex-1 min-w-0">
+          <div className="min-w-0 flex-1">
             <label htmlFor="community-composer" className="sr-only">
               Write a post
             </label>
@@ -107,9 +107,9 @@ export function PostComposer() {
                 setText(event.target.value);
                 autoGrow();
               }}
-              placeholder="Write an example post about the car scene"
+              placeholder="What is happening in the car scene?"
               rows={2}
-              className="w-full bg-transparent text-[15px] text-ink-900 dark:text-white placeholder:text-ink-400 focus:outline-none resize-none py-2"
+              className="w-full resize-none bg-transparent py-2.5 text-lg text-ink-900 placeholder:text-ink-400 focus:outline-none dark:text-white"
             />
 
             {linkedVehicle && (

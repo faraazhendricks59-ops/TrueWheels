@@ -39,14 +39,25 @@ function luminance({ r, g, b }: Rgba): number {
   return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
 }
 
-/** Composite a possibly-translucent colour over an opaque one. */
+/**
+ * Composite a possibly-translucent colour over another.
+ *
+ * This is the Porter-Duff "over" operator, and the background's own alpha matters:
+ * an earlier version forced the result to `a: 1`, which is only correct when the
+ * layer underneath is already opaque. Because the walk composites two *translucent*
+ * layers together (a 5% badge tint over a 5% cell tint), that version collapsed
+ * them to the fully saturated colour and reported dark-green-on-green as 3.88:1
+ * when the real pairing is near-black on a 90%-white wash. The result keeps its
+ * own alpha so it can be composited again on the next opaque ancestor.
+ */
 function flatten(fg: Rgba, bg: Rgba): Rgba {
-  if (fg.a >= 1) return fg;
+  const a = fg.a + bg.a * (1 - fg.a);
+  if (a === 0) return { r: 0, g: 0, b: 0, a: 0 };
   return {
-    r: Math.round(fg.r * fg.a + bg.r * (1 - fg.a)),
-    g: Math.round(fg.g * fg.a + bg.g * (1 - fg.a)),
-    b: Math.round(fg.b * fg.a + bg.b * (1 - fg.a)),
-    a: 1,
+    r: Math.round((fg.r * fg.a + bg.r * bg.a * (1 - fg.a)) / a),
+    g: Math.round((fg.g * fg.a + bg.g * bg.a * (1 - fg.a)) / a),
+    b: Math.round((fg.b * fg.a + bg.b * bg.a * (1 - fg.a)) / a),
+    a,
   };
 }
 

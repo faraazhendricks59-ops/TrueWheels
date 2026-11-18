@@ -25,6 +25,14 @@ const config: Config = {
         aurora: {
           blue: "#2563EB", cyan: "#0891B2", purple: "#475569",
           pink: "#BE185D", lime: "#15803D",
+          // Badge text sits on a 5% tint of its own colour, and sometimes on a
+          // second tinted cell beneath that, which lifts the backdrop enough that
+          // the base blue lands at 3.9:1. This darker step clears AA on the
+          // stacked tint. Icons keep the base blue.
+          "blue-dark": "#1D4ED8",
+          // The base blue is 3.8:1 on the dark page background. Link and tag text
+          // in dark mode uses this lighter step instead.
+          "blue-light": "#60A5FA",
         },
         surface: {
           paper: "#F7F8FA", white: "#FFFFFF",
@@ -34,7 +42,28 @@ const config: Config = {
         // #FFB020) read as a game HUD rather than a marketplace: the green failed
         // contrast on white for any text use, and the trio together was the single
         // loudest "this is a demo" signal in the palette. These clear 4.5:1 on white.
-        semantic: { success: "#15803D", warning: "#B45309", error: "#DC2626" },
+        semantic: {
+          success: "#15803D",
+          warning: "#B45309",
+          error: "#DC2626",
+          // Badge text on a 5% tint of its own colour, over a second tinted cell,
+          // reaches only 4.41:1. This darker step clears AA on the stacked tint.
+          // Icons and larger text keep `success`.
+          "success-dark": "#166534",
+        },
+        // Chat surfaces. The messaging screens use the outgoing/incoming pair a
+        // chat app is recognised by, plus the two wallpaper tints the thread sits
+        // on. Kept separate from `brand` (a red) because an outgoing bubble is
+        // green in every chat product a reader has used, and red would read as an
+        // error rather than a message they wrote.
+        chat: {
+          outgoing: "#D9FDD3",
+          "outgoing-dark": "#005C4B",
+          incoming: "#FFFFFF",
+          "incoming-dark": "#202C33",
+          wallpaper: "#EFEAE2",
+          "wallpaper-dark": "#0B141A",
+        },
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],

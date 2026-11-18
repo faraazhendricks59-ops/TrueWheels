@@ -8,6 +8,7 @@ import { MessageBubble } from "./MessageBubble";
 import { MessageComposer } from "./MessageComposer";
 import { useMessages } from "@/components/providers/MessagesProvider";
 import { NO_COUNTERPARTY, NO_REPLIES, type MessageDraft } from "@/lib/messages";
+import { localeTag } from "@/lib/i18n/locale";
 
 /**
  * A message thread.
@@ -36,16 +37,34 @@ export function ChatView({ draft }: { draft: MessageDraft }) {
     <div className="bg-white dark:bg-ink-900 border border-ink-100 dark:border-ink-800 rounded-2xl shadow-sm overflow-hidden flex flex-col lg:h-[calc(100vh-140px)]">
       <ConversationHeader draft={draft} onDelete={handleDelete} />
 
-      <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-ink-50/30 dark:bg-ink-950/30">
-        <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-aurora-blue/5 border border-aurora-blue/20">
-          <Icon icon={Info} size={14} className="text-aurora-blue flex-shrink-0 mt-0.5" />
-          <div className="space-y-1.5">
-            <p className="text-[11px] text-ink-600 dark:text-ink-300 leading-relaxed">{NO_REPLIES}</p>
-            <p className="text-[11px] text-ink-500 dark:text-ink-400 leading-relaxed">{NO_COUNTERPARTY}</p>
+      <div className="flex-1 overflow-y-auto bg-chat-wallpaper px-3 py-4 dark:bg-chat-wallpaper-dark">
+        <div className="space-y-4">
+          {/* A date chip, the way a chat client separates days. It is a real date
+              from the draft, not a fabricated "today". */}
+          <div className="flex justify-center">
+            <span className="rounded-lg bg-white/90 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-ink-500 shadow-sm dark:bg-ink-800/90 dark:text-ink-300">
+              {new Intl.DateTimeFormat(localeTag("en"), {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              }).format(new Date(draft.updatedAt))}
+            </span>
           </div>
-        </div>
 
-        <MessageBubble body={draft.body} timestamp={draft.updatedAt} />
+          <div className="mx-auto flex max-w-md items-start gap-2.5 rounded-xl bg-white/95 p-3.5 shadow-sm dark:bg-ink-900/95">
+            <Icon icon={Info} size={14} className="mt-0.5 flex-shrink-0 text-aurora-blue dark:text-aurora-blue-light" />
+            <div className="space-y-1.5">
+              <p className="text-[11px] leading-relaxed text-ink-600 dark:text-ink-300">
+                {NO_REPLIES}
+              </p>
+              <p className="text-[11px] leading-relaxed text-ink-500 dark:text-ink-300">
+                {NO_COUNTERPARTY}
+              </p>
+            </div>
+          </div>
+
+          <MessageBubble body={draft.body} timestamp={draft.updatedAt} />
+        </div>
       </div>
 
       <MessageComposer draftId={draft.id} initialBody={draft.body} />
