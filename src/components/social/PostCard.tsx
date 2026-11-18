@@ -1,8 +1,10 @@
 "use client";
 
-import { Flag } from "lucide-react";
-import { Icon } from "@/components/ui/Icon";
+import { useState } from "react";
 import { VehicleEmbed } from "./VehicleEmbed";
+import { ActionBar } from "./ActionBar";
+import { PostComments } from "./PostComments";
+import { PostShareSheet } from "./PostShareSheet";
 import { initialsFor, vehicleForPost, type CommunityPost } from "@/lib/social";
 import { localeTag } from "@/lib/i18n/locale";
 
@@ -26,6 +28,8 @@ import { localeTag } from "@/lib/i18n/locale";
  * mistake the example feed for a room full of members.
  */
 export function PostCard({ post }: { post: CommunityPost }) {
+  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
   const vehicle = vehicleForPost(post);
   // An absolute date, not "2h ago": a relative label is computed from the
   // current time, so the server and the browser would disagree and React would
@@ -78,17 +82,18 @@ export function PostCard({ post }: { post: CommunityPost }) {
 
           {vehicle && <VehicleEmbed vehicle={vehicle} />}
 
-          <div className="flex items-center gap-4 mt-3 pt-3 border-t border-ink-100 dark:border-ink-800">
-            <p className="text-[11px] text-ink-400 leading-relaxed">
-              Replies, boosts and revs are not recorded, so none are shown.
-            </p>
-            <span className="ml-auto inline-flex items-center gap-1 text-[11px] text-ink-400 flex-shrink-0">
-              <Icon icon={Flag} size={11} />
-              Reporting is not available yet
-            </span>
-          </div>
+          <ActionBar
+            postId={post.id}
+            isCommentsOpen={isCommentsOpen}
+            onOpenComments={() => setIsCommentsOpen((open) => !open)}
+            onOpenShare={() => setIsShareOpen(true)}
+          />
+
+          {isCommentsOpen && <PostComments postId={post.id} />}
         </div>
       </div>
+
+      <PostShareSheet isOpen={isShareOpen} onClose={() => setIsShareOpen(false)} post={post} />
     </article>
   );
 }
