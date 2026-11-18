@@ -11,6 +11,8 @@ import { VDPLayout } from "./VDPLayout";
 import { StickyActionPanel } from "./StickyActionPanel";
 import { TrustHeader, VehicleTitle } from "./TrustHeader";
 import { SpecGrid } from "./SpecGrid";
+import { VehicleGallery } from "./VehicleGallery";
+import { mediaFor } from "@/lib/gallery-media";
 import { SimilarCarsWidget } from "@/components/personalization/SimilarCarsWidget";
 import { usePersonalization } from "@/components/providers/PersonalizationProvider";
 import { vehicleBodyType } from "@/lib/vehicle-facets";
@@ -19,6 +21,7 @@ import type { DemoVehicle } from "@/lib/demo/vehicles";
 export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
   const { trackView, toggleSave, savedVehicles } = usePersonalization();
   const isSaved = savedVehicles.includes(vehicle.id);
+  const media = mediaFor(vehicle);
 
   useEffect(() => {
     trackView(vehicle.id);
@@ -31,12 +34,7 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
     >
       <Reveal variant="up" delay={100}>
         <FeatureGate featureKey="vdp.gallery">
-          {/* Phase 32 replaces this with the real gallery. */}
-          <div className="aspect-[16/10] rounded-2xl bg-gradient-to-br from-ink-100 to-ink-200 dark:from-ink-800 dark:to-ink-700 flex items-center justify-center">
-            <span className="font-display font-bold text-ink-400 dark:text-ink-500 text-5xl">
-              {vehicle.year}
-            </span>
-          </div>
+          <VehicleGallery vehicle={vehicle} media={media} />
         </FeatureGate>
       </Reveal>
 
