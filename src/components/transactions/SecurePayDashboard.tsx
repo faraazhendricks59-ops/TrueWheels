@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShieldAlert, ExternalLink, ArrowLeft } from "lucide-react";
+import { ShieldAlert, ExternalLink, ArrowLeft, Scale } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/motion/Reveal";
 import { VehicleThumb } from "@/components/vehicles/VehicleThumb";
@@ -158,6 +158,27 @@ export function SecurePayDashboard({ vehicle }: { vehicle: DemoVehicle }) {
             TrueWheels is not affiliated with any of these services and does not
             receive anything if you use them.
           </p>
+        </div>
+      </Reveal>
+
+      {/* Escalation, honestly framed: TrueWheels cannot resolve a dispute. */}
+      <Reveal variant="up" delay={350}>
+        <div className="bg-white dark:bg-ink-900 border border-ink-100 dark:border-ink-800 rounded-2xl p-6">
+          <h3 className="text-sm font-bold text-ink-900 dark:text-white mb-1">
+            Something wrong with the vehicle?
+          </h3>
+          <p className="text-[11px] text-ink-500 dark:text-ink-400 leading-relaxed mb-4">
+            TrueWheels does not decide disputes and holds no money. The page below
+            shows the steps that resolve one, the bodies that can decide it, and a way
+            to fingerprint your own evidence.
+          </p>
+          <Link
+            href={`/disputes/${vehicle.id}`}
+            className="inline-flex items-center gap-2 min-h-[44px] rounded-lg border border-ink-200 dark:border-ink-700 px-4 text-sm font-semibold text-ink-700 dark:text-ink-200 hover:border-semantic-error/40 hover:text-semantic-error transition-colors"
+          >
+            <Icon icon={Scale} size={15} />
+            A problem with this vehicle
+          </Link>
         </div>
       </Reveal>
     </div>
