@@ -600,3 +600,28 @@
     .rev-particle { display: none; }
   }
 }
+
+/* ===== DARK-MODE ACCENT TEXT =====
+   `brand`, `semantic-success` and `aurora-purple` are dual-role: they are fills
+   (`bg-brand` under white text, 82 uses) as well as text. So they cannot simply
+   flip with the theme the way the muted greys do — lightening the token would
+   lighten every solid fill with it. Instead only the *text* utilities are
+   retargeted, to the lighter step each token already defines. Declared outside
+   @layer so these win over the utilities layer without !important, which would
+   otherwise also defeat the high-contrast overrides above. */
+.dark .text-brand,
+.dark .hover\:text-brand:hover,
+.dark .group:hover .group-hover\:text-brand,
+.dark .group:focus-within .group-focus-within\:text-brand {
+  color: theme("colors.brand.400");
+}
+
+.dark .text-semantic-success,
+.dark .hover\:text-semantic-success:hover {
+  color: theme("colors.semantic.success-light");
+}
+
+.dark .text-aurora-purple,
+.dark .hover\:text-aurora-purple:hover {
+  color: theme("colors.aurora.purple-light");
+}

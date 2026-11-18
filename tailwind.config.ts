@@ -42,6 +42,10 @@ const config: Config = {
           // The base blue is 3.8:1 on the dark page background. Link and tag text
           // in dark mode uses this lighter step instead.
           "blue-light": "#60A5FA",
+          // `purple` is a slate used for AI chrome, and at 2.50:1 on the dark
+          // page it is the worst offender in the palette. This lighter step is
+          // for text in dark mode; the base stays for fills and borders.
+          "purple-light": "#94A3B8",
         },
         surface: {
           paper: "#F7F8FA", white: "#FFFFFF",
@@ -59,6 +63,9 @@ const config: Config = {
           // reaches only 4.41:1. This darker step clears AA on the stacked tint.
           // Icons and larger text keep `success`.
           "success-dark": "#166534",
+          // On the dark palette the base green reaches only 3.45:1 on its own
+          // tint. This lighter step is for text in dark mode; fills keep the base.
+          "success-light": "#22C55E",
         },
         // Chat surfaces. The messaging screens use the outgoing/incoming pair a
         // chat app is recognised by, plus the two wallpaper tints the thread sits
