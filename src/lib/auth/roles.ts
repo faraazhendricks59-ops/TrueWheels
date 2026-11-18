@@ -6,7 +6,11 @@ export const ROLE_LABELS: Record<UserRole, string> = {
   guest: "Guest",
   buyer: "Buyer",
   seller: "Private seller",
-  dealer: "Verified dealer",
+  // "Verified dealer" asserted a check that has never been performed. This label
+  // is shown in the role switcher, the login panel and the unauthorized panel, so
+  // the claim reached users from three places. A role is a permission level, not a
+  // verification.
+  dealer: "Dealer account",
   admin: "Platform admin",
 };
 
