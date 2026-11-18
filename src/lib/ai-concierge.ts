@@ -3,6 +3,7 @@ import { EMPTY_QUERY, filterVehicles, type MarketplaceQuery } from "@/lib/market
 import { resolveSearch } from "@/lib/search-relevance";
 import { ALL_MAKES, BODY_TYPES, vehicleMake } from "@/lib/vehicle-facets";
 import { localeTag } from "@/lib/i18n/locale";
+import { instalmentFor } from "@/lib/finance";
 
 export type ToolType = "search" | "finance" | "valuation";
 
@@ -146,19 +147,14 @@ function financeIntent(text: string): ConciergeReply {
   // digit regex read "1.5m" as 1.
   const parsed = parseBudget(text);
   const price = parsed && parsed >= 20_000 ? parsed : 450_000;
-  const deposit = Math.round(price * 0.1);
-  const term = /72|six year/i.test(text) ? 72 : /48|four year/i.test(text) ? 48 : 60;
-  const rate = 0.115;
-  const financed = price - deposit;
-  const monthlyRate = rate / 12;
-  const monthly =
-    (financed * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -term));
+  const termMonths = /72|six year/i.test(text) ? 72 : /48|four year/i.test(text) ? 48 : 60;
+  const { monthly, deposit, termMonths: term, annualRate } = instalmentFor(price, { termMonths });
 
-  const query = `R ${rand(price)} over ${term} months, 10% deposit, 11.5% interest`;
+  const query = `R ${rand(price)} over ${term} months, 10% deposit, ${(annualRate * 100).toFixed(1)}% interest`;
   const matches = filterVehicles({ ...EMPTY_QUERY, max: price }).slice(0, 3);
 
   return {
-    content: `On R ${rand(price)} with a 10% deposit (R ${rand(deposit)}) over ${term} months at 11.5%, the instalment works out to about R ${rand(Math.round(monthly))} a month before insurance. That is an estimate, not a credit offer.`,
+    content: `On R ${rand(price)} with a 10% deposit (R ${rand(deposit)}) over ${term} months at ${(annualRate * 100).toFixed(1)}%, the instalment works out to about R ${rand(monthly)} a month before insurance. That is an estimate, not a credit offer.`,
     toolCall: { type: "finance", label: "Calculated the instalment", query, resultCount: matches.length },
     citations: matches.map((vehicle, index) => citationFor(vehicle, index + 1)),
   };
