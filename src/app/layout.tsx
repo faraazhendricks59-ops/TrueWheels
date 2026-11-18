@@ -49,7 +49,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "TrueWheels | The Automotive Operating System",
+  title: "TrueWheels | South Africa’s vehicle marketplace",
   description: "Search, buy, sell, bid and connect — South Africa's automotive ecosystem.",
 };
 

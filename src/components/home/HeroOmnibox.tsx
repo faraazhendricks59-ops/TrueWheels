@@ -19,10 +19,7 @@ export function HeroOmnibox() {
 
   return (
     <div className="w-full max-w-4xl mx-auto text-center">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-ink-900 dark:text-white mb-4 tracking-tight">
-        The automotive <span className="aurora-text">operating system</span>
-      </h1>
-      <p className="text-base sm:text-lg text-ink-500 dark:text-ink-300 mb-8 max-w-2xl mx-auto">
+      <p className="text-base sm:text-lg text-white/90 mb-8 max-w-2xl mx-auto">
         Search, buy, sell, bid and connect. South Africa&apos;s vehicle ecosystem, powered by AI.
       </p>
 
@@ -35,7 +32,7 @@ export function HeroOmnibox() {
             featureKey="home.quick_chip"
             variant="secondary"
             size="sm"
-            className="!rounded-full !h-9 !px-4 !text-xs"
+            className="!rounded-full !h-9 !px-4 !text-xs !bg-white/10 !text-white !border-white/25 backdrop-blur-sm hover:!bg-white/20"
             onClick={() => router.push(chip.href)}
           >
             {chip.label}

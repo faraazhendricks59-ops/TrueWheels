@@ -31,7 +31,7 @@ export function AuthModal({ onComplete }: AuthModalProps) {
             Welcome to TrueWheels
           </h2>
           <p className="text-sm text-ink-500 dark:text-ink-300">
-            Sign in to access the Automotive Operating System.
+            Sign in to save vehicles, message sellers and follow your searches.
           </p>
         </div>
 

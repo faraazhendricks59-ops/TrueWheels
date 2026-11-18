@@ -1,5 +1,7 @@
 "use client";
 
+import { clsx } from "clsx";
+
 import { useRef, useState } from "react";
 import { Bell } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
@@ -8,7 +10,7 @@ import { FeatureGate } from "@/components/feature/FeatureGate";
 import { useNotifications } from "@/components/providers/NotificationProvider";
 import { NotificationCenter } from "./NotificationCenter";
 
-export function NotificationBell() {
+export function NotificationBell({ onDark }: { onDark?: boolean } = {}) {
   const [isOpen, setIsOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const { unreadCount } = useNotifications();
@@ -24,7 +26,12 @@ export function NotificationBell() {
             aria-haspopup="dialog"
             aria-expanded={isOpen}
             aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ""}`}
-            className="relative p-2.5 text-ink-500 hover:text-ink-900 dark:hover:text-white hover:bg-ink-50 dark:hover:bg-ink-900 rounded-xl transition-colors"
+            className={clsx(
+              "relative p-2.5 rounded-xl transition-colors",
+              onDark
+                ? "text-white hover:bg-white/10"
+                : "text-ink-500 hover:text-ink-900 dark:hover:text-white hover:bg-ink-50 dark:hover:bg-ink-900",
+            )}
           >
             <Icon icon={Bell} size={18} />
 

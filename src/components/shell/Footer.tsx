@@ -69,8 +69,8 @@ export function Footer() {
           <div className="col-span-2 lg:col-span-1">
             <Logo size="sm" className="mb-4 [&_.tw-t]:text-white" />
             <p className="text-sm text-ink-400 leading-relaxed mb-6 max-w-xs">
-              The Automotive Operating System. Search, buy, sell, bid and connect in South
-              Africa&apos;s most trusted vehicle ecosystem.
+              Search, buy, sell, bid and connect. South Africa&apos;s vehicle marketplace,
+              powered by AI.
             </p>
 
             <div className="flex flex-wrap items-center gap-3">

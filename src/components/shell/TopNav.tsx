@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { clsx } from "clsx";
 import { Heart, Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useScrollFrost } from "@/hooks/useScrollFrost";
 import { Logo } from "@/components/brand/Logo";
 import { Icon } from "@/components/ui/Icon";
@@ -28,6 +29,10 @@ const DESKTOP_LINKS: { href: string; key: TranslationKey }[] = [
 
 export function TopNav() {
   const isScrolled = useScrollFrost(20);
+  const pathname = usePathname();
+  // The home page puts a dark video behind the header. Until the reader scrolls,
+  // the chrome must be light, or the wordmark and the icons vanish into it.
+  const onHeroVideo = pathname === "/" && !isScrolled;
   const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [garageOpen, setGarageOpen] = useState(false);
@@ -46,14 +51,17 @@ export function TopNav() {
     >
       <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between gap-4 lg:gap-6">
         <div className="flex items-center gap-8 flex-shrink-0">
-          <Logo size="sm" />
+          <Logo size="sm" onDark={onHeroVideo} />
 
           <nav className="hidden lg:flex items-center gap-6" aria-label="Main">
             {DESKTOP_LINKS.map((link) => (
               <FeatureGate key={link.href} featureKey={link.key as "nav.marketplace"}>
                 <a
                   href={link.href}
-                  className="inline-flex items-center py-2 text-sm font-medium text-ink-600 dark:text-ink-300 hover:text-brand transition-colors"
+                  className={clsx(
+                    "inline-flex items-center py-2 text-sm font-medium hover:text-brand transition-colors",
+                    onHeroVideo ? "text-white" : "text-ink-600 dark:text-ink-300",
+                  )}
                 >
                   {t(link.key)}
                 </a>
@@ -83,6 +91,7 @@ export function TopNav() {
               size="icon"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
+              className={onHeroVideo ? "!text-white hover:!bg-white/10" : undefined}
             >
               <Icon icon={Menu} size={18} />
             </SmartButton>
@@ -93,7 +102,12 @@ export function TopNav() {
               type="button"
               onClick={() => setGarageOpen(true)}
               aria-label="Open your garage"
-              className="relative inline-flex items-center justify-center w-11 h-11 rounded-xl text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white hover:bg-ink-50 dark:hover:bg-ink-900 transition-colors"
+              className={clsx(
+                "relative inline-flex items-center justify-center w-11 h-11 rounded-xl transition-colors",
+                onHeroVideo
+                  ? "text-white hover:bg-white/10"
+                  : "text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white hover:bg-ink-50 dark:hover:bg-ink-900",
+              )}
             >
               <Icon icon={Heart} size={18} />
               {/* The count is shown only once the stored list has loaded, so the
@@ -107,8 +121,8 @@ export function TopNav() {
           </FeatureGate>
 
           <FeatureGate featureKey="ui.profile_menu">
-            <NotificationBell />
-            <ProfileMenu />
+            <NotificationBell onDark={onHeroVideo} />
+            <ProfileMenu onDark={onHeroVideo} />
           </FeatureGate>
         </div>
       </div>
