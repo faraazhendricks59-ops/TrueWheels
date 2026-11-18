@@ -22,6 +22,12 @@ interface LogoProps {
   animated?: boolean;
   className?: string;
   /**
+   * Applied to the wordmark only. `className` lands on both parts, so this is
+   * how a caller hides just the text — the header does that on narrow screens,
+   * where the wordmark and the action icons cannot both fit.
+   */
+  wordClassName?: string;
+  /**
    * For a dark surface that does not flip with the theme, such as the home hero
    * over video. The wordmark is otherwise `text-ink-900`, which is near-black in
    * light mode and would disappear against the video.
@@ -29,7 +35,7 @@ interface LogoProps {
   onDark?: boolean;
 }
 
-export function Logo({ variant = "full", size = "md", animated, className, onDark }: LogoProps) {
+export function Logo({ variant = "full", size = "md", animated, className, wordClassName, onDark }: LogoProps) {
   const mark = (
     <span className={clsx("tw-mark", MARK_SIZES[size], animated && "tw-animated", className)}>
       <i className="tw-slash tw-slash--thin" />
@@ -44,7 +50,8 @@ export function Logo({ variant = "full", size = "md", animated, className, onDar
         "font-display italic font-black tracking-tight",
         onDark ? "text-white" : "text-ink-900",
         WORD_SIZES[size],
-        className
+        className,
+        wordClassName
       )}
     >
       True<span className="text-brand">Wheels</span>

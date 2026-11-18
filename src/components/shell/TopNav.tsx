@@ -56,7 +56,10 @@ export function TopNav() {
     >
       <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between gap-4 lg:gap-6">
         <div className="flex items-center gap-4 lg:gap-6 min-w-0">
-          <Logo size="sm" onDark={onHeroVideo} />
+          {/* Below `sm` the wordmark and the action icons cannot both fit, so the
+              header keeps the mark and the icons. The full name returns at `sm`,
+              where there is room for it again. */}
+          <Logo size="sm" onDark={onHeroVideo} wordClassName="hidden sm:inline" />
 
           <nav className="hidden xl:flex items-center gap-3 2xl:gap-6 min-w-0 overflow-x-auto hide-scrollbar" aria-label="Main">
             {DESKTOP_LINKS.map((link) => (
@@ -108,7 +111,10 @@ export function TopNav() {
               onClick={() => setGarageOpen(true)}
               aria-label="Open your garage"
               className={clsx(
-                "relative inline-flex items-center justify-center w-11 h-11 rounded-xl transition-colors",
+                // The quick-access drawer is a desktop convenience; below `sm`
+                // the bottom nav already carries the Garage destination, and the
+                // header needs the room for the AI and account controls.
+                "relative hidden sm:inline-flex items-center justify-center w-11 h-11 rounded-xl transition-colors",
                 onHeroVideo
                   ? "text-white hover:bg-white/10"
                   : "text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white hover:bg-ink-50 dark:hover:bg-ink-900",
