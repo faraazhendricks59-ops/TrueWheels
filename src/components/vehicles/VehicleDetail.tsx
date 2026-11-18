@@ -18,6 +18,9 @@ import { LenderComparison } from "@/components/finance/LenderComparison";
 import { InsuranceEstimator } from "@/components/insurance/InsuranceEstimator";
 import { InsuranceComparison } from "@/components/insurance/InsuranceComparison";
 import { InsuranceActions } from "@/components/insurance/InsuranceActions";
+import { SellerCard } from "./SellerCard";
+import { ReviewsSection } from "./ReviewsSection";
+import { sellerFor } from "@/lib/seller";
 import { mediaFor } from "@/lib/gallery-media";
 import { SimilarCarsWidget } from "@/components/personalization/SimilarCarsWidget";
 import { usePersonalization } from "@/components/providers/PersonalizationProvider";
@@ -28,6 +31,7 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
   const { trackView, toggleSave, savedVehicles } = usePersonalization();
   const isSaved = savedVehicles.includes(vehicle.id);
   const media = mediaFor(vehicle);
+  const seller = sellerFor(vehicle);
 
   useEffect(() => {
     trackView(vehicle.id);
@@ -40,6 +44,9 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
           <StickyActionPanel vehicle={vehicle} />
           <FeatureGate featureKey="vdp.finance_calculator">
             <FinanceCalculator vehiclePrice={vehicle.price} />
+          </FeatureGate>
+          <FeatureGate featureKey="vdp.seller_card">
+            <SellerCard seller={seller} />
           </FeatureGate>
         </div>
       }
@@ -140,6 +147,20 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
 
       <FeatureGate featureKey="vdp.insurance_comparison">
         <InsuranceComparison />
+      </FeatureGate>
+
+      {/* The sidebar holding the seller card is hidden below lg, so the seller
+          identity is repeated here on small screens: whether the seller is a
+          trade or a private seller changes the buyer's legal protection, which
+          matters most when someone is reading on a phone. */}
+      <FeatureGate featureKey="vdp.seller_card">
+        <div className="lg:hidden">
+          <SellerCard seller={seller} />
+        </div>
+      </FeatureGate>
+
+      <FeatureGate featureKey="vdp.reviews">
+        <ReviewsSection vehicle={vehicle} seller={seller} />
       </FeatureGate>
 
       <FeatureGate featureKey="vdp.similar_cars">

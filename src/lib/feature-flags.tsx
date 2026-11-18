@@ -110,6 +110,12 @@ export const FEATURE_KEYS = {
   "vdp.insurance_estimator": true,
   "vdp.insurance_comparison": true,
   "insurance.get_quote": true,
+
+  // Seller and reviews
+  "vdp.seller_card": true,
+  "vdp.reviews": true,
+  "seller.contact": true,
+  "reviews.write": true,
   "vdp.tab_service": true,
   "vdp.tab_ownership": true,
   "vdp.tab_features": true,
