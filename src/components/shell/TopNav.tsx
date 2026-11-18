@@ -25,6 +25,7 @@ const DESKTOP_LINKS: { href: string; key: TranslationKey }[] = [
   { href: "/#auctions", key: "nav.auctions" },
   { href: "/community", key: "nav.community" },
   { href: "/network", key: "nav.network" },
+  { href: "/groups", key: "nav.groups" },
   { href: "/garage", key: "nav.garage" },
   { href: "/#parts", key: "nav.parts" },
 ];

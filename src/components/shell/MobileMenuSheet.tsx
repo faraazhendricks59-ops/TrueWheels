@@ -11,6 +11,7 @@ const LINKS: { href: string; key: TranslationKey }[] = [
   { href: "/#list", key: "nav.list_vehicle" },
   { href: "/#auctions", key: "nav.auctions" },
   { href: "/community", key: "nav.community" },
+  { href: "/groups", key: "nav.groups" },
   { href: "/#parts", key: "nav.parts" },
 ];
 

@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Camera, LogOut, Smartphone } from "lucide-react";
+import { Camera } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { Input } from "@/components/ui/Input";
 import { SmartButton } from "@/components/ui/SmartButton";
 import { Switch } from "@/components/ui/Toggles";
-import { TrustBadge } from "@/components/ui/Badge";
 import { Reveal } from "@/components/motion/Reveal";
 
 export function ProfileSettings() {
@@ -61,13 +60,19 @@ export function ProfileSettings() {
   );
 }
 
-const SESSIONS = [
-  { id: "cur", device: "Chrome on macOS", location: "Cape Town, ZA", time: "Active now", current: true },
-  { id: "iph", device: "Safari on iPhone 15", location: "Cape Town, ZA", time: "2 hours ago", current: false },
-];
+/**
+ * The device list used to read "Chrome on macOS · Cape Town, ZA · Active now" and
+ * "Safari on iPhone 15 · Cape Town, ZA · 2 hours ago". Nothing records a device, a
+ * location or a sign-in time: there is no session table, and the only session this
+ * project can issue is the demo cookie on this browser. A device the reader does not
+ * recognise is exactly the signal that prompts a password change, so inventing one
+ * manufactures alarm. The list now names only the browser in front of them.
+ */
+const NO_SESSION_TRACKING =
+  "TrueWheels does not track sessions, so it cannot list the devices signed in to this account. If you have signed in elsewhere and want to end those sessions, do it in the account settings of the service you signed in with.";
 
 export function SecuritySettings() {
-  const [twoFactor, setTwoFactor] = useState(true);
+  const [twoFactor, setTwoFactor] = useState(false);
 
   return (
     <Reveal variant="up" delay={100}>
@@ -95,11 +100,12 @@ export function SecuritySettings() {
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-1">
                 <h3 className="text-sm font-semibold text-ink-900 dark:text-white">Two-factor authentication</h3>
-                {twoFactor && (
-                  <TrustBadge label="Active" source="Authenticator app (TOTP) verified." tone="green" />
-                )}
               </div>
-              <p className="text-xs text-ink-500">Add an extra layer of security to your account.</p>
+              <p className="text-xs text-ink-500">
+                {twoFactor
+                  ? "Recorded as on, in this browser only. No authenticator is enrolled, because there is no authentication service to enrol one with."
+                  : "There is no authentication service here, so no second factor can be enrolled. The switch records a preference on this device and nothing more."}
+              </p>
             </div>
             <Switch
               label={<span className="sr-only">Two-factor authentication</span>}
@@ -112,43 +118,7 @@ export function SecuritySettings() {
 
           <div>
             <h3 className="text-sm font-semibold text-ink-900 dark:text-white mb-4">Active sessions</h3>
-            <ul className="space-y-3">
-              {SESSIONS.map((session) => (
-                <li
-                  key={session.id}
-                  className="flex items-center justify-between gap-3 p-4 bg-ink-50 dark:bg-ink-950 rounded-xl border border-ink-100 dark:border-ink-800"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="w-10 h-10 rounded-lg bg-white dark:bg-ink-900 flex items-center justify-center text-ink-500 flex-shrink-0">
-                      <Icon icon={Smartphone} size={18} />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold text-ink-900 dark:text-white flex flex-wrap items-center gap-2">
-                        {session.device}
-                        {session.current && (
-                          <span className="text-[10px] font-bold text-semantic-success bg-semantic-success/10 px-2 py-0.5 rounded-full">
-                            Current
-                          </span>
-                        )}
-                      </p>
-                      <p className="text-xs text-ink-500">
-                        {session.location} &middot; {session.time}
-                      </p>
-                    </div>
-                  </div>
-                  {!session.current && (
-                    <SmartButton
-                      featureKey="settings.sign_out_session"
-                      variant="ghost"
-                      size="sm"
-                      className="!text-semantic-error"
-                    >
-                      <Icon icon={LogOut} size={14} /> Sign out
-                    </SmartButton>
-                  )}
-                </li>
-              ))}
-            </ul>
+            <p className="text-xs text-ink-500 leading-relaxed">{NO_SESSION_TRACKING}</p>
           </div>
         </div>
       </section>

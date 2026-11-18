@@ -32,6 +32,7 @@ export type TranslationKey =
   | "nav.profile"
   | "nav.garage"
   | "nav.network"
+  | "nav.groups"
   | "action.search"
   | "action.save"
   | "action.share"
@@ -77,6 +78,7 @@ const en: Record<TranslationKey, string> = {
   "nav.profile": "Profile",
   "nav.garage": "Garage",
   "nav.network": "Network",
+  "nav.groups": "Groups",
   "action.search": "Search",
   "action.save": "Save",
   "action.share": "Share",
@@ -124,6 +126,7 @@ const af: Record<TranslationKey, string> = {
   "nav.profile": "Profiel",
   "nav.garage": "Motorhuis",
   "nav.network": "Netwerk",
+  "nav.groups": "Groepe",
   "action.search": "Soek",
   "action.save": "Stoor",
   "action.share": "Deel",
@@ -171,6 +174,7 @@ const zu: Record<TranslationKey, string> = {
   "nav.profile": "Iphrofayela",
   "nav.garage": "Igalaji",
   "nav.network": "Inethiwekhi",
+  "nav.groups": "Amaqembu",
   "action.search": "Sesha",
   "action.save": "Gcina",
   "action.share": "Yabelana",

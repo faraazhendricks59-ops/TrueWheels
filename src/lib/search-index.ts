@@ -40,6 +40,7 @@ const PAGES: SearchItem[] = [
   { id: "page-messages", type: "page", title: "Messages", subtitle: "Your conversations", href: "/messages", icon: MessageSquare },
   { id: "page-garage", type: "page", title: "Digital garage", subtitle: "Your vehicles, journals and service logs", href: "/garage", icon: Car },
   { id: "page-network", type: "page", title: "Your network", subtitle: "Your activity and suggested listings", href: "/network", icon: Users },
+  { id: "page-groups", type: "page", title: "Groups", subtitle: "Groups you keep on this device", href: "/groups", icon: Users },
   { id: "page-profile", type: "page", title: "Profile", subtitle: "Account and verification", href: "/profile", icon: User },
   { id: "page-saved-searches", type: "page", title: "Saved searches", subtitle: "Your alerts and matches", href: "/saved-searches", icon: Bell },
   { id: "page-compare", type: "page", title: "Compare vehicles", subtitle: "Side-by-side specs", href: "/compare", icon: Scale },
