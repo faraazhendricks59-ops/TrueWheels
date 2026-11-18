@@ -83,6 +83,16 @@ const config: Config = {
         snap: "cubic-bezier(0.2, 0, 0, 1)",
         glide: "cubic-bezier(0.4, 0, 0.2, 1)",
       },
+      // Motion scale. Four steps so durations stop being ad-hoc `0.3s`/`0.6s`
+      // literals scattered across components. `fast` is for a control answering a
+      // pointer (hover, press); `base` for a small state change; `slow` for
+      // something entering the viewport; `hero` for a one-off, page-level moment.
+      transitionDuration: {
+        fast: "150ms",
+        base: "250ms",
+        slow: "400ms",
+        hero: "600ms",
+      },
       keyframes: {
         aurora: { "0%,100%": { backgroundPosition: "0% 50%" }, "50%": { backgroundPosition: "100% 50%" } },
         shimmer: { "0%": { backgroundPosition: "-400px 0" }, "100%": { backgroundPosition: "400px 0" } },

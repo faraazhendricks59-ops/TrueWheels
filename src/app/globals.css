@@ -274,6 +274,49 @@
   }
   .low-data .sheen-host::after { display: none; }
 
+  /* ===== ANIMATED ICONS =====
+     Four small glyph motions for the few icons that carry an event (a new
+     notification, a save that was just toggled on). Declared here, like the
+     sheen, because they are keyframes rather than Tailwind utilities. All are
+     transform-only so they never trigger layout, and all are suppressed for
+     reduced motion and low-data — a shaking bell is exactly the kind of
+     decorative movement those settings exist to remove. */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes icon-bell {
+      0%, 100% { transform: rotate(0deg); }
+      15% { transform: rotate(12deg); }
+      30% { transform: rotate(-10deg); }
+      45% { transform: rotate(6deg); }
+      60% { transform: rotate(-4deg); }
+      75% { transform: rotate(2deg); }
+    }
+    @keyframes icon-pop {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.28); }
+      100% { transform: scale(1); }
+    }
+    @keyframes icon-wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-8deg); }
+      75% { transform: rotate(8deg); }
+    }
+    @keyframes icon-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .icon-bell { animation: icon-bell 0.6s cubic-bezier(0.22, 1, 0.36, 1); transform-origin: top center; }
+    .icon-pop { animation: icon-pop 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+    .icon-wiggle { animation: icon-wiggle 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+    .icon-spin { animation: icon-spin 1s linear infinite; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .icon-bell, .icon-pop, .icon-wiggle, .icon-spin { animation: none; }
+  }
+  .low-data .icon-bell,
+  .low-data .icon-pop,
+  .low-data .icon-wiggle,
+  .low-data .icon-spin { animation: none; }
+
   /* ===== REVEAL SAFETY =====
      A reveal starts hidden and is switched on by an IntersectionObserver. For a
      reader who has asked for reduced motion (or is in low-data mode) that switch

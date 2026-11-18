@@ -1,6 +1,6 @@
 "use client";
 
-import { Accessibility, Check, Contrast } from "lucide-react";
+import { Accessibility, Check, Contrast, Gauge } from "lucide-react";
 import { clsx } from "clsx";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { Dropdown, DropdownItem } from "@/components/ui/Floating";
@@ -13,8 +13,60 @@ const SCALES: { value: FontScale; label: string }[] = [
   { value: "x-large", label: "Extra large text" },
 ];
 
+/** A labelled switch row, shared by the two toggles below the text sizes. */
+function ToggleRow({
+  label,
+  hint,
+  icon,
+  checked,
+  onToggle,
+}: {
+  label: string;
+  hint: string;
+  icon: typeof Contrast;
+  checked: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="menuitemcheckbox"
+      aria-checked={checked}
+      onClick={onToggle}
+      className={clsx(
+        "w-full text-left px-3 py-2 text-sm rounded-lg transition-colors flex items-start gap-2",
+        "text-ink-700 dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800",
+        "focus:outline-none focus:bg-ink-50 dark:focus:bg-ink-800"
+      )}
+    >
+      <span className="mt-0.5 flex-shrink-0">
+        <Icon icon={icon} size={14} />
+      </span>
+      <span className="flex-1">
+        {label}
+        <span className="block text-[11px] font-normal text-ink-500 dark:text-ink-400">{hint}</span>
+      </span>
+      <span
+        className={clsx(
+          "mt-0.5 w-8 h-4 rounded-full transition-colors relative flex-shrink-0",
+          checked ? "bg-brand" : "bg-ink-200 dark:bg-ink-700"
+        )}
+        aria-hidden="true"
+      >
+        <span
+          className={clsx(
+            "absolute top-0.5 w-3 h-3 rounded-full bg-white transition-all",
+            checked ? "left-4" : "left-0.5"
+          )}
+        />
+      </span>
+    </button>
+  );
+}
+
 export function AccessibilityMenu() {
-  const { fontScale, highContrast, setFontScale, toggleHighContrast } = useAccessibility();
+  const { fontScale, highContrast, lowData, setFontScale, toggleHighContrast, toggleLowData } =
+    useAccessibility();
 
   return (
     <Magnetic strength={0.15}>
@@ -41,34 +93,20 @@ export function AccessibilityMenu() {
         ))}
 
         <div className="my-1 border-t border-ink-100 dark:border-ink-800" />
-        <button
-          type="button"
-          role="menuitemcheckbox"
-          aria-checked={highContrast}
-          onClick={toggleHighContrast}
-          className={clsx(
-            "w-full text-left px-3 py-2 text-sm rounded-lg transition-colors flex items-center gap-2",
-            "text-ink-700 dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800",
-            "focus:outline-none focus:bg-ink-50 dark:focus:bg-ink-800"
-          )}
-        >
-          <Icon icon={Contrast} size={14} />
-          <span className="flex-1">High contrast</span>
-          <span
-            className={clsx(
-              "w-8 h-4 rounded-full transition-colors relative",
-              highContrast ? "bg-brand" : "bg-ink-200 dark:bg-ink-700"
-            )}
-            aria-hidden="true"
-          >
-            <span
-              className={clsx(
-                "absolute top-0.5 w-3 h-3 rounded-full bg-white transition-all",
-                highContrast ? "left-4" : "left-0.5"
-              )}
-            />
-          </span>
-        </button>
+        <ToggleRow
+          label="High contrast"
+          hint="Stronger borders and text contrast."
+          icon={Contrast}
+          checked={highContrast}
+          onToggle={toggleHighContrast}
+        />
+        <ToggleRow
+          label="Data saver"
+          hint="Turns off animation, blur and video."
+          icon={Gauge}
+          checked={lowData}
+          onToggle={toggleLowData}
+        />
       </Dropdown>
     </Magnetic>
   );
