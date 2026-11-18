@@ -74,6 +74,20 @@
     border-radius: 4px;
   }
 
+  /* WCAG 2.3.3 — the infinite attention animations (pulse, ping, bounce) loop
+     forever, which is exactly what a reduced-motion request is asking to stop.
+     This is deliberately narrower than a blanket `animation-duration: 0.01ms`:
+     that would also break one-shot animations mid-frame and freeze the
+     `both`-fill reveals at their start state, hiding content. */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-pulse,
+    .animate-ping,
+    .animate-bounce,
+    .animate-aurora {
+      animation: none !important;
+    }
+  }
+
   /* Bypass block for keyboard users. Held off-screen with a transform so it
      never depends on the element's own height. */
   .skip-link {
@@ -232,6 +246,17 @@
   .hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
   .hide-scrollbar::-webkit-scrollbar { display: none; }
   .tabular-nums { font-variant-numeric: tabular-nums; }
+
+  /* A scrollbar that stays visible and keyboard-reachable, for the panels in the
+     dev audit harness where knowing there is more content matters. */
+  .custom-scrollbar { scrollbar-width: thin; scrollbar-color: rgb(138 145 156 / 0.5) transparent; }
+  .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgb(138 145 156 / 0.4);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgb(138 145 156 / 0.7); }
 }
 
 @layer components {

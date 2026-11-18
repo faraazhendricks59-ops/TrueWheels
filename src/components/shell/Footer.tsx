@@ -69,8 +69,8 @@ export function Footer() {
       <div className="max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-16">
           <div className="col-span-2 lg:col-span-1">
-            <Logo size="sm" className="mb-4 [&_.tw-t]:text-white" />
-            <p className="text-sm text-ink-400 leading-relaxed mb-6 max-w-xs">
+            <Logo size="sm" onDark className="mb-4" />
+            <p className="text-sm text-ink-300 leading-relaxed mb-6 max-w-xs">
               Search, buy, sell, bid and connect. South Africa&apos;s vehicle marketplace,
               powered by AI.
             </p>
@@ -80,19 +80,19 @@ export function Footer() {
                 not conferred by a green dot, and no AI in this project verifies
                 anything. The privacy statement and POPIA statement are still
                 linked below, which is the honest form of the same offer. */}
-            <p className="text-[11px] text-ink-500 leading-relaxed max-w-xs mb-1">
+            <p className="text-[11px] text-ink-300 leading-relaxed max-w-xs mb-1">
               How personal information is handled is set out in our legal documents.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/legal/privacy"
-                className="inline-flex min-h-[44px] items-center text-[11px] text-ink-400 underline hover:text-white"
+                className="inline-flex min-h-[44px] items-center text-[11px] text-ink-300 underline hover:text-white"
               >
                 Privacy policy
               </Link>
               <Link
                 href="/legal/popia"
-                className="inline-flex min-h-[44px] items-center text-[11px] text-ink-400 underline hover:text-white"
+                className="inline-flex min-h-[44px] items-center text-[11px] text-ink-300 underline hover:text-white"
               >
                 POPIA statement
               </Link>
@@ -110,12 +110,12 @@ export function Footer() {
                       // clears 24px; a bare text link is only ~17px tall.
                       <a
                         href={link.href}
-                        className="inline-block py-1.5 text-sm text-ink-400 hover:text-brand transition-colors"
+                        className="inline-block py-1.5 text-sm text-ink-300 hover:text-brand transition-colors"
                       >
                         {link.key ? t(link.key) : link.label}
                       </a>
                     ) : (
-                      <span className="text-sm text-ink-600" title="Coming soon">
+                      <span className="text-sm text-ink-300" title="Coming soon">
                         {link.label}
                       </span>
                     )}
@@ -127,7 +127,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-ink-800 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-xs text-ink-500">
+          <p className="text-xs text-ink-300">
             © {new Date().getFullYear()} TrueWheels (Pty) Ltd. All rights reserved.
           </p>
 
@@ -137,7 +137,7 @@ export function Footer() {
                 <Icon
                   icon={Mail}
                   size={14}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-500 pointer-events-none"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400 pointer-events-none"
                 />
                 <label htmlFor="footer-newsletter" className="sr-only">
                   Email address for market alerts
@@ -149,7 +149,7 @@ export function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Get market alerts"
-                  className="w-full h-9 pl-9 pr-3 rounded-lg bg-ink-900 border border-ink-800 text-sm text-white placeholder:text-ink-500 focus:outline-none focus:border-brand transition-colors"
+                  className="w-full h-9 pl-9 pr-3 rounded-lg bg-ink-900 border border-ink-800 text-sm text-white placeholder:text-ink-300 focus:outline-none focus:border-brand transition-colors"
                 />
               </div>
               <SmartButton featureKey="marketing.newsletter_submit" size="sm" type="submit">

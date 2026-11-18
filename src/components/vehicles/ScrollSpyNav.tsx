@@ -96,7 +96,7 @@ export function ScrollSpyNav({ className }: { className?: string }) {
               className={clsx(
                 "min-h-[36px] px-3.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors",
                 isActive
-                  ? "text-brand bg-brand/10"
+                  ? "text-brand-700 dark:text-brand-400 bg-brand/10"
                   : "text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white hover:bg-ink-50 dark:hover:bg-ink-800",
               )}
             >

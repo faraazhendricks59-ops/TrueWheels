@@ -4,6 +4,7 @@ import "./globals.css";
 import { FeatureProvider } from "@/lib/feature-flags";
 import { OnboardingController } from "@/components/onboarding/OnboardingController";
 import { ServiceWorkerRegistrar } from "@/components/pwa/ServiceWorkerRegistrar";
+import { A11yAuditRegistrar } from "@/components/a11y/A11yAuditRegistrar";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { ToastProvider } from "@/components/ui/Toast";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
@@ -131,6 +132,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         {/* Registers /sw.js after load, so offline caching is set up
                             without competing with the first page for bandwidth. */}
                         <ServiceWorkerRegistrar />
+                        {/* Dev-only: logs WCAG findings to the console as the page
+                            changes. A no-op in production. */}
+                        <A11yAuditRegistrar />
                           </MessagesProvider>
                           </EventsProvider>
                           </GroupsProvider>

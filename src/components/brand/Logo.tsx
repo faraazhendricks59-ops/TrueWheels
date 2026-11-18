@@ -46,6 +46,10 @@ export function Logo({ variant = "full", size = "md", animated, className, wordC
   );
   const word = (
     <span
+      // WCAG 1.4.3 exempts logotypes from the contrast minimum, so the audit
+      // checker skips anything marked here. The brand-red "Wheels" is a brand
+      // name, not body text.
+      data-logotype
       className={clsx(
         "font-display italic font-black tracking-tight",
         onDark ? "text-white" : "text-ink-900",

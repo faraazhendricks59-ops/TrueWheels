@@ -31,6 +31,12 @@ Tokens live in `tailwind.config.ts` (ink / brand / aurora / surface / semantic s
 itself when its `featureKey` is off. Phase 1 ships local defaults; a later phase wires
 the Firestore `feature_flags` listener.
 
+## Accessibility
+
+TrueWheels targets WCAG 2.1 AA. The dev-only audit harness lives at `/dev/a11y`
+(404 in production), and the keyboard matrix, screen reader log, contrast checker and
+focus order debugger are documented in [`docs/accessibility.md`](docs/accessibility.md).
+
 ## Environment
 
 Copy `.env.example` to `.env.local` and fill in the keys. `.env.local` is gitignored.

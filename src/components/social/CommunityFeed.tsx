@@ -20,7 +20,9 @@ import { DEMO_POSTS, FEED_DISCLOSURE } from "@/lib/social";
 export function CommunityFeed() {
   return (
     <div className="max-w-[1300px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 py-6">
-      <main className="lg:col-span-8 xl:col-span-8 space-y-4">
+      {/* A div, not <main>: the root layout already provides the single main
+          landmark, and a second one makes the landmark structure ambiguous. */}
+      <div className="lg:col-span-8 xl:col-span-8 space-y-4">
         <FeatureGate featureKey="community.feed">
         <Reveal variant="up">
           <div className="flex gap-2.5 rounded-2xl border border-aurora-blue/20 bg-aurora-blue/5 px-4 py-3">
@@ -43,7 +45,7 @@ export function CommunityFeed() {
           ))}
         </div>
         </FeatureGate>
-      </main>
+      </div>
 
       <aside className="lg:col-span-4 xl:col-span-4">
         <Reveal variant="up" delay={120}>

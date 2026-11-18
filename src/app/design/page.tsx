@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AppShell } from "@/components/shell/AppShell";
 import { AuthGuard } from "@/components/auth/AuthGuard";
 import { DesignSystem } from "@/components/design/DesignSystem";
 
@@ -20,11 +19,9 @@ export const metadata: Metadata = {
 export default function DesignPage() {
   return (
     <AuthGuard allowedRoles={["admin"]}>
-      <AppShell>
-        <div className="mx-auto max-w-5xl py-10">
-          <DesignSystem />
-        </div>
-      </AppShell>
+      <div className="mx-auto max-w-5xl py-10">
+        <DesignSystem />
+      </div>
     </AuthGuard>
   );
 }

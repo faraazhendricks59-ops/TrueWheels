@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { Calculator, Info } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { CountUp } from "@/components/motion/CountUp";
@@ -164,7 +164,9 @@ function Slider({
   display: string;
   onChange: (value: number) => void;
 }) {
-  const id = `finance-${label.replace(/\s+/g, "-").toLowerCase()}`;
+  // useId, not a slug of the label: VehicleDetail renders this calculator twice,
+  // and label-derived ids collide, duplicating every input id on the page.
+  const id = `${useId()}-${label.replace(/\s+/g, "-").toLowerCase()}`;
   return (
     <div>
       <div className="flex items-center justify-between mb-1.5">

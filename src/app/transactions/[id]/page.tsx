@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AppShell } from "@/components/shell/AppShell";
 import { SecurePayDashboard } from "@/components/transactions/SecurePayDashboard";
 import { DEMO_VEHICLES } from "@/lib/demo/vehicles";
 
@@ -40,10 +39,8 @@ export default function TransactionPage({ params }: { params: { id: string } }) 
   const vehicle = DEMO_VEHICLES.find((row) => row.id === params.id);
   if (!vehicle) notFound();
   return (
-    <AppShell>
-      <div className="py-8">
-        <SecurePayDashboard vehicle={vehicle} />
-      </div>
-    </AppShell>
+    <div className="py-8">
+      <SecurePayDashboard vehicle={vehicle} />
+    </div>
   );
 }

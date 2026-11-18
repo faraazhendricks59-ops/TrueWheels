@@ -44,7 +44,7 @@ export function AuctionRoom({ vehicle }: { vehicle: DemoVehicle }) {
   const state = index % 3 === 0 ? "recently_added" : index % 2 === 0 ? "offers_invited" : "at_asking_price";
 
   return (
-    <div className="max-w-[1600px] mx-auto px-4 md:px-6 lg:px-8 py-8">
+    <div className="max-w-[1600px] mx-auto py-8">
       <Link
         href={`/vehicles/${vehicle.id}`}
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-ink-500 dark:text-ink-400 hover:text-brand transition-colors mb-6"

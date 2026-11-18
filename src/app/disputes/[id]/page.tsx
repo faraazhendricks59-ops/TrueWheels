@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AppShell } from "@/components/shell/AppShell";
 import { DisputeTimeline } from "@/components/disputes/DisputeTimeline";
 import { EvidenceVault } from "@/components/disputes/EvidenceVault";
 import { MediationChat } from "@/components/disputes/MediationChat";
@@ -46,41 +45,39 @@ export default function DisputePage({ params }: { params: { id: string } }) {
   if (!vehicle) notFound();
 
   return (
-    <AppShell>
-      <div className="max-w-[1400px] mx-auto py-8 space-y-6">
-        <Reveal variant="up">
-          <div>
-            <h1 className="text-3xl font-display font-bold text-ink-900 dark:text-white">
-              If something is wrong with the vehicle
-            </h1>
-            <p className="text-ink-500 dark:text-ink-300 mt-1 max-w-3xl">
-              TrueWheels does not decide disputes and does not hold your money. This
-              page shows the steps that actually resolve a vehicle dispute, the bodies
-              that can decide one, and a way to fingerprint your own evidence.
-            </p>
-          </div>
-        </Reveal>
+    <div className="max-w-[1400px] mx-auto py-8 space-y-6">
+      <Reveal variant="up">
+        <div>
+          <h1 className="text-3xl font-display font-bold text-ink-900 dark:text-white">
+            If something is wrong with the vehicle
+          </h1>
+          <p className="text-ink-500 dark:text-ink-300 mt-1 max-w-3xl">
+            TrueWheels does not decide disputes and does not hold your money. This
+            page shows the steps that actually resolve a vehicle dispute, the bodies
+            that can decide one, and a way to fingerprint your own evidence.
+          </p>
+        </div>
+      </Reveal>
 
-        <Reveal variant="up" delay={100}>
-          <DisputeTimeline vehicle={vehicle} />
-        </Reveal>
+      <Reveal variant="up" delay={100}>
+        <DisputeTimeline vehicle={vehicle} />
+      </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-7 space-y-6">
-            <Reveal variant="up" delay={200}>
-              <EvidenceVault vehicleId={vehicle.id} />
-            </Reveal>
-            <Reveal variant="up" delay={250}>
-              <AdminResolutionPanel />
-            </Reveal>
-          </div>
-          <div className="lg:col-span-5">
-            <Reveal variant="up" delay={300}>
-              <MediationChat />
-            </Reveal>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-7 space-y-6">
+          <Reveal variant="up" delay={200}>
+            <EvidenceVault vehicleId={vehicle.id} />
+          </Reveal>
+          <Reveal variant="up" delay={250}>
+            <AdminResolutionPanel />
+          </Reveal>
+        </div>
+        <div className="lg:col-span-5">
+          <Reveal variant="up" delay={300}>
+            <MediationChat />
+          </Reveal>
         </div>
       </div>
-    </AppShell>
+    </div>
   );
 }

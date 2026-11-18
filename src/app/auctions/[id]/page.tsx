@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AppShell } from "@/components/shell/AppShell";
 import { AuctionRoom } from "@/components/auctions/AuctionRoom";
 import { DEMO_VEHICLES } from "@/lib/demo/vehicles";
 
@@ -42,8 +41,6 @@ export default function AuctionRoomPage({ params }: { params: { id: string } }) 
   const vehicle = DEMO_VEHICLES.find((row) => row.id === params.id);
   if (!vehicle) notFound();
   return (
-    <AppShell disablePadding hideFooter>
-      <AuctionRoom vehicle={vehicle} />
-    </AppShell>
+    <AuctionRoom vehicle={vehicle} />
   );
 }

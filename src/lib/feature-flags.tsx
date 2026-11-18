@@ -301,6 +301,12 @@ export const FEATURE_KEYS = {
   "pwa.offline_page": true,
   "pwa.push_info": true,
   "pwa.retry_connection": true,
+  // Accessibility tooling (Phase 57). These gate the dev-only audit harness; the
+  // route itself is also hard-gated server-side so it cannot ship to production.
+  "a11y.audit_panel": true,
+  "a11y.scan_focus": true,
+  "a11y.run_audit": true,
+  "a11y.clear_log": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;
