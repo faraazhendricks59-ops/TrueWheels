@@ -9,7 +9,7 @@ import type { TranslationKey } from "@/lib/i18n/dictionaries";
 const LINKS: { href: string; key: TranslationKey }[] = [
   { href: "/marketplace", key: "nav.marketplace" },
   { href: "/#list", key: "nav.list_vehicle" },
-  { href: "/#auctions", key: "nav.auctions" },
+  { href: "/auctions", key: "nav.auctions" },
   { href: "/community", key: "nav.community" },
   { href: "/network", key: "nav.network" },
   { href: "/groups", key: "nav.groups" },
