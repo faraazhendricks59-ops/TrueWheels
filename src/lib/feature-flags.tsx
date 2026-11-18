@@ -132,6 +132,12 @@ export const FEATURE_KEYS = {
   "vdp.scroll_spy": true,
   "vdp.activity_disclosure": true,
   "vdp.structured_data": true,
+
+  // Community feed
+  "community.feed": true,
+  "community.post_composer": true,
+  "community.submit_post": true,
+  "community.discard_draft": true,
   "vdp.tab_service": true,
   "vdp.tab_ownership": true,
   "vdp.tab_features": true,
