@@ -12,6 +12,7 @@ import { StickyActionPanel } from "./StickyActionPanel";
 import { TrustHeader, VehicleTitle } from "./TrustHeader";
 import { SpecGrid } from "./SpecGrid";
 import { VehicleGallery } from "./VehicleGallery";
+import { SpecTabs } from "./SpecTabs";
 import { mediaFor } from "@/lib/gallery-media";
 import { SimilarCarsWidget } from "@/components/personalization/SimilarCarsWidget";
 import { usePersonalization } from "@/components/providers/PersonalizationProvider";
@@ -59,6 +60,10 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
             </p>
           </section>
         </FeatureGate>
+      </Reveal>
+
+      <Reveal variant="up" delay={300}>
+        <SpecTabs vehicle={vehicle} />
       </Reveal>
 
       <div className="flex flex-wrap items-center gap-4">
