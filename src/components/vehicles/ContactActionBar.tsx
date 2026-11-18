@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { MessageSquare, Tag, Calendar } from "lucide-react";
 import { SmartButton } from "@/components/ui/SmartButton";
-import { useToast } from "@/components/ui/Toast";
 import { FeatureGate } from "@/components/feature/FeatureGate";
+import { useMessages } from "@/components/providers/MessagesProvider";
+import { enquiryMessage } from "@/lib/contact";
 import { MakeOfferSheet } from "./MakeOfferSheet";
 import { TestDriveSheet } from "./TestDriveSheet";
 import { WhatsAppDeepLink } from "./WhatsAppDeepLink";
@@ -38,7 +40,21 @@ export function ContactActionBar({
 }) {
   const [isOfferOpen, setIsOfferOpen] = useState(false);
   const [isTestDriveOpen, setIsTestDriveOpen] = useState(false);
-  const { toast } = useToast();
+  const { saveDraft } = useMessages();
+  const router = useRouter();
+
+  /**
+   * Writes the enquiry into the reader's own messages and opens it.
+   *
+   * The button used to raise a toast saying messaging was not connected, which was
+   * true but unhelpful. The enquiry text already exists in src/lib/contact.ts, so
+   * saving it as a message the reader can edit and send themselves is the useful
+   * version of "message in app" while there is no service behind it.
+   */
+  const startMessage = () => {
+    const id = saveDraft({ vehicle, kind: "enquiry", body: enquiryMessage(vehicle) });
+    router.push(`/messages/${id}`);
+  };
 
   if (compact) {
     return (
@@ -112,14 +128,7 @@ export function ContactActionBar({
           variant="secondary"
           className="w-full min-h-[44px] !text-xs"
           leftIcon={MessageSquare}
-          onClick={() =>
-            toast({
-              variant: "info",
-              title: "Messaging is not connected",
-              description:
-                "There is no message service behind this button, so nothing was sent. Use the copyable enquiry above.",
-            })
-          }
+          onClick={startMessage}
         >
           Message in app
         </SmartButton>

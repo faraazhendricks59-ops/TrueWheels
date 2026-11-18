@@ -38,7 +38,7 @@ const marketplaceQuery = (q: string) => `/marketplace?q=${encodeURIComponent(q)}
 const PAGES: SearchItem[] = [
   { id: "page-marketplace", type: "page", title: "Marketplace", subtitle: "Browse all listings", href: "/marketplace", icon: Car },
   { id: "page-sell", type: "page", title: "List a vehicle", subtitle: "Sell your car", href: "/#list", icon: FileText },
-  { id: "page-messages", type: "page", title: "Messages", subtitle: "Your conversations", href: "/messages", icon: MessageSquare },
+  { id: "page-messages", type: "page", title: "Messages", subtitle: "Messages you wrote to sellers", href: "/messages", icon: MessageSquare },
   { id: "page-garage", type: "page", title: "Digital garage", subtitle: "Your vehicles, journals and service logs", href: "/garage", icon: Car },
   { id: "page-network", type: "page", title: "Your network", subtitle: "Your activity and suggested listings", href: "/network", icon: Users },
   { id: "page-groups", type: "page", title: "Groups", subtitle: "Groups you keep on this device", href: "/groups", icon: Users },
