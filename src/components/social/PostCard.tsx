@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { VehicleEmbed } from "./VehicleEmbed";
 import { ActionBar } from "./ActionBar";
-import { PostComments } from "./PostComments";
+import { CommentThread } from "./CommentThread";
 import { PostShareSheet } from "./PostShareSheet";
 import { initialsFor, vehicleForPost, type CommunityPost } from "@/lib/social";
 import { localeTag } from "@/lib/i18n/locale";
@@ -89,7 +89,11 @@ export function PostCard({ post }: { post: CommunityPost }) {
             onOpenShare={() => setIsShareOpen(true)}
           />
 
-          {isCommentsOpen && <PostComments postId={post.id} />}
+          <CommentThread
+            isOpen={isCommentsOpen}
+            onClose={() => setIsCommentsOpen(false)}
+            postId={post.id}
+          />
         </div>
       </div>
 
