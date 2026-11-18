@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Calculator, Gavel, MessageSquare, Scale } from "lucide-react";
+import { Calculator, Scale } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { SmartButton } from "@/components/ui/SmartButton";
-import { useToast } from "@/components/ui/Toast";
 import { instalmentFor } from "@/lib/finance";
 import type { DemoVehicle } from "@/lib/demo/vehicles";
 import { localeTag } from "@/lib/i18n/locale";
+import { sellerFor } from "@/lib/seller";
+import { ContactActionBar } from "./ContactActionBar";
 
 export function StickyActionPanel({
   vehicle,
@@ -16,8 +17,8 @@ export function StickyActionPanel({
   vehicle: DemoVehicle;
   compact?: boolean;
 }) {
-  const { toast } = useToast();
   const { monthly, deposit, termMonths, annualRate } = instalmentFor(vehicle.price);
+  const seller = sellerFor(vehicle);
   const price = `R ${vehicle.price.toLocaleString(localeTag("en"))}`;
 
   return (
@@ -46,46 +47,22 @@ export function StickyActionPanel({
         )}
       </div>
 
-      <div className={compact ? "flex items-center gap-2 mt-3" : "space-y-3"}>
-        <SmartButton
-          featureKey="vdp.contact_seller"
-          className="flex-1 !h-11"
-          leftIcon={MessageSquare}
-          onClick={() =>
-            toast({
-              variant: "info",
-              title: "Messaging is not connected yet",
-              description: "There is no message service behind this button, so nothing was sent.",
-            })
-          }
-        >
-          Contact seller
-        </SmartButton>
-        <SmartButton
-          featureKey="vdp.make_offer"
-          variant="secondary"
-          className="flex-1 !h-11"
-          leftIcon={Gavel}
-          onClick={() =>
-            toast({
-              variant: "info",
-              title: "Offers are not connected yet",
-              description: "There is no offer service behind this button, so nothing was submitted.",
-            })
-          }
-        >
-          Make an offer
-        </SmartButton>
-        {!compact && (
+      {compact ? (
+        <div className="flex items-center gap-2 mt-3">
+          <ContactActionBar vehicle={vehicle} seller={seller} />
+        </div>
+      ) : (
+        <div className="space-y-3">
+          <ContactActionBar vehicle={vehicle} seller={seller} />
           <Link
             href={`/compare?v=${vehicle.id}`}
-            className="flex items-center justify-center gap-2 w-full h-11 rounded-xl border border-ink-100 dark:border-ink-800 text-sm font-semibold text-ink-600 dark:text-ink-300 hover:border-brand/40 hover:text-brand transition-colors"
+            className="flex items-center justify-center gap-2 w-full min-h-[44px] rounded-xl border border-ink-100 dark:border-ink-800 text-sm font-semibold text-ink-600 dark:text-ink-300 hover:border-brand/40 hover:text-brand transition-colors"
           >
             <Icon icon={Scale} size={14} />
             Add to comparison
           </Link>
-        )}
-      </div>
+        </div>
+      )}
 
       {!compact && (
         <p className="text-[11px] text-ink-500 dark:text-ink-400 leading-relaxed mt-5 pt-5 border-t border-ink-100 dark:border-ink-800">

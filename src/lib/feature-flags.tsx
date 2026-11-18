@@ -116,6 +116,12 @@ export const FEATURE_KEYS = {
   "vdp.reviews": true,
   "seller.contact": true,
   "reviews.write": true,
+
+  // Contact flows
+  "contact.whatsapp": true,
+  "contact.make_offer": true,
+  "contact.test_drive": true,
+  "contact.message": true,
   "vdp.tab_service": true,
   "vdp.tab_ownership": true,
   "vdp.tab_features": true,
