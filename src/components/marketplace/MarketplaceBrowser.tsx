@@ -22,6 +22,7 @@ import { SearchFeedback } from "@/components/search/SearchFeedback";
 import { SaveSearchModal } from "@/components/filters/SaveSearchModal";
 import { explainTopMatch, resolveSearch, scoreVehicle } from "@/lib/search-relevance";
 import { Reveal } from "@/components/motion/Reveal";
+import { useViewTransition } from "@/components/motion/useViewTransition";
 import { DEMO_VEHICLES, type DemoVehicle } from "@/lib/demo/vehicles";
 import { localeTag } from "@/lib/i18n/locale";
 import {
@@ -82,6 +83,14 @@ export function MarketplaceBrowser() {
   const [sortBy, setSortBy] = useState<SortOption>("relevance");
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+
+  // Sorting and switching layout both reorder the same cards, so both go through
+  // a View Transition: each card glides from where it was to where it now is,
+  // which shows the reorder rather than hiding it behind a repaint. No-ops where
+  // the API is missing or the reader has asked for reduced motion / data saver.
+  const withViewTransition = useViewTransition();
+  const changeSort = (next: SortOption) => withViewTransition(() => setSortBy(next));
+  const changeView = (next: ViewMode) => withViewTransition(() => setViewMode(next));
 
   // Radius lives in the URL alongside the other filters, so a map search is
   // shareable and the chip bar can remove it like anything else.
@@ -286,7 +295,12 @@ export function MarketplaceBrowser() {
 
       <MainSlot>
         <div className="space-y-6">
-          <Reveal variant="up">
+          {/* `relative z-20` lifts this toolbar above the result cards. Each card
+              is wrapped in Reveal, which sets `will-change: transform` and so
+              becomes a stacking context at `z-index: auto`; without this the
+              cards come later in the DOM and paint over the sort menu, trapping
+              it under the listing images. Still below the z-40 header. */}
+          <Reveal variant="up" className="relative z-20">
             <div className="rounded-xl border border-ink-200/70 bg-white p-4 dark:border-ink-800 dark:bg-ink-900">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
@@ -312,8 +326,8 @@ export function MarketplaceBrowser() {
                   >
                     Filters
                   </SmartButton>
-                  <SortDropdown value={sortBy} onChange={setSortBy} />
-                  <ViewToggle value={viewMode} onChange={setViewMode} />
+                  <SortDropdown value={sortBy} onChange={changeSort} />
+                  <ViewToggle value={viewMode} onChange={changeView} />
                 </div>
               </div>
 
@@ -370,7 +384,13 @@ export function MarketplaceBrowser() {
             <div className="card-grid">
               {visible.map((vehicle, index) => (
                 <Reveal key={vehicle.id} variant="focus" delay={Math.min(index, 8) * 45}>
-                  <div className="relative">
+                  {/* The view-transition-name lets a View Transition follow this
+                      specific card across a reorder, so it glides rather than the
+                      grid cross-fading. */}
+                  <div
+                    className="relative"
+                    style={{ viewTransitionName: `vehicle-${vehicle.id}` }}
+                  >
                     {index === 0 && topReasons.length > 0 && (
                       <div className="absolute top-3 right-3 z-10">
                         <RelevanceBadge reasons={topReasons} />
@@ -385,7 +405,10 @@ export function MarketplaceBrowser() {
             <div className="space-y-4">
               {visible.map((vehicle, index) => (
                 <Reveal key={vehicle.id} variant="focus" delay={Math.min(index, 8) * 45}>
-                  <div className="relative">
+                  <div
+                    className="relative"
+                    style={{ viewTransitionName: `vehicle-${vehicle.id}` }}
+                  >
                     {index === 0 && topReasons.length > 0 && (
                       <div className="absolute top-4 right-4 z-10">
                         <RelevanceBadge reasons={topReasons} />

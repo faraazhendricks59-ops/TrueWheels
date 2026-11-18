@@ -317,6 +317,31 @@
   .low-data .icon-wiggle,
   .low-data .icon-spin { animation: none; }
 
+  /* ===== VIEW TRANSITIONS =====
+     Used by the marketplace grid: sorting or changing layout reorders the cards,
+     and a named view-transition per card lets the browser glide each one from its
+     old position to its new one. The duration matches the `slow` step of the
+     motion scale. Suppressed for reduced motion and data saver, where the state
+     update runs directly instead (see useViewTransition). */
+  @media (prefers-reduced-motion: no-preference) {
+    ::view-transition-group(*) {
+      animation-duration: 400ms;
+      animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+  }
+  .low-data ::view-transition-group(*),
+  .low-data ::view-transition-old(*),
+  .low-data ::view-transition-new(*) {
+    animation: none !important;
+  }
+
   /* ===== REVEAL SAFETY =====
      A reveal starts hidden and is switched on by an IntersectionObserver. For a
      reader who has asked for reduced motion (or is in low-data mode) that switch

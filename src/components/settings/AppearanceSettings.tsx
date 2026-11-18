@@ -1,6 +1,6 @@
 "use client";
 
-import { Contrast, Globe, Monitor, Moon, Sun, Type } from "lucide-react";
+import { Contrast, Gauge, Globe, Monitor, Moon, Sun, Type } from "lucide-react";
 import { clsx } from "clsx";
 import { Icon } from "@/components/ui/Icon";
 import { Switch } from "@/components/ui/Toggles";
@@ -25,7 +25,8 @@ const FONT_SCALES = [
 export function AppearanceSettings() {
   const { theme, setTheme } = useTheme();
   const { locale, setLocale } = useTranslation();
-  const { fontScale, highContrast, setFontScale, toggleHighContrast } = useAccessibility();
+  const { fontScale, highContrast, lowData, setFontScale, toggleHighContrast, toggleLowData } =
+    useAccessibility();
 
   return (
     <Reveal variant="up" delay={300}>
@@ -138,6 +139,25 @@ export function AppearanceSettings() {
                   label={<span className="sr-only">High contrast</span>}
                   checked={highContrast}
                   onChange={toggleHighContrast}
+                />
+              </div>
+
+              <div className="flex items-center justify-between gap-3 p-4 bg-ink-50 dark:bg-ink-950 rounded-xl border border-ink-100 dark:border-ink-800">
+                <div className="flex items-center gap-3">
+                  <span className="w-8 h-8 rounded-lg bg-ink-100 dark:bg-ink-800 flex items-center justify-center text-ink-500">
+                    <Icon icon={Gauge} size={16} />
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-ink-900 dark:text-white">Data saver</p>
+                    <p className="text-xs text-ink-500">
+                      Turn off animation, blur and video. Useful on a slow or metered connection.
+                    </p>
+                  </div>
+                </div>
+                <Switch
+                  label={<span className="sr-only">Data saver</span>}
+                  checked={lowData}
+                  onChange={toggleLowData}
                 />
               </div>
             </div>
