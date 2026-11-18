@@ -1,6 +1,6 @@
 import { Gauge, MapPin } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
-import { Badge } from "@/components/ui/Badge";
+
 import { CountUp } from "@/components/motion/CountUp";
 import { photoForVehicle } from "@/lib/vehicle-photos";
 import type { DemoVehicle } from "@/lib/demo/vehicles";
@@ -53,9 +53,12 @@ export function VehicleCard({ vehicle }: { vehicle: DemoVehicle }) {
           <Icon icon={MapPin} size={12} />
           {vehicle.location}
         </span>
-        <Badge variant="live" tone="red" dot pulse>
-          Live
-        </Badge>
+        {/* A pulsing red "Live" badge sat here, on every card. It read as an
+            auction closing now, which is the most powerful urgency signal on the
+            page. There is no auction system, no deadline and no bid, which
+            src/lib/listing-activity.ts already records. A badge that appears on
+            every listing carries no information anyway, so it was decoration
+            borrowing the appearance of a countdown. */}
       </div>
     </article>
   );

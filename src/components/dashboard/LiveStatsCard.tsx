@@ -60,11 +60,15 @@ export function LiveStatsCard() {
           <div className="text-xs font-semibold text-ink-500 uppercase tracking-wide mb-4">
             Seller Status
           </div>
-          <TrustBadge
-            label="Verified Dealer"
-            source="CIPC reg + FICA documents verified by TrueWheels admin."
-            verifiedAt="12 Nov 2026"
-          />
+          {/* This badge read "Verified Dealer — CIPC reg + FICA documents verified
+              by TrueWheels admin". No company registration or FICA check is
+              performed anywhere in this project. The card is not currently
+              rendered, so the claim was dormant, but leaving it would have put a
+              false verification back on screen the moment the card was wired up. */}
+          <p className="text-sm text-ink-500 dark:text-ink-400">
+            No seller verification is performed. Nothing here has been checked against CIPC or
+            FICA, so no badge is shown.
+          </p>
         </div>
         <div className="mt-6">
           <p className="text-sm text-ink-600 dark:text-ink-300">

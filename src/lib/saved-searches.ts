@@ -100,7 +100,6 @@ const LABELS: Record<string, string> = {
 const FEATURE_LABELS: Record<string, string> = {
   sunroof: "Sunroof",
   leather: "Leather seats",
-  verified: "Verified dealers",
 };
 
 /** Builds a readable default name such as "BMW, SUV under R 500 000". */

@@ -160,7 +160,13 @@ export function NotificationCenter({ isOpen, onClose, anchorRef }: NotificationC
 
             <ul className="flex-1 overflow-y-auto divide-y divide-ink-100 dark:divide-ink-800">
               {filtered.length === 0 ? (
-                <li className="p-12 text-center text-sm text-ink-400">Nothing here right now.</li>
+                <li className="p-12 text-center">
+                  <p className="text-sm text-ink-500 dark:text-ink-400">No notifications yet.</p>
+                  <p className="text-xs text-ink-400 mt-1 max-w-xs mx-auto">
+                    This centre is not connected to a notification service, so nothing is
+                    generated for you yet.
+                  </p>
+                </li>
               ) : (
                 filtered.map((n) => {
                   const config = NOTIFICATION_CONFIG[n.type];

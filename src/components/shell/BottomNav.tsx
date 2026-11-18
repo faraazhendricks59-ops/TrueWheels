@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Search, MessageSquare, User } from "lucide-react";
+import { Car, Home, MessageSquare, Search, User } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { clsx } from "clsx";
 import { Icon } from "@/components/ui/Icon";
@@ -19,6 +19,7 @@ const NAV_ITEMS: {
 }[] = [
   { href: "/", labelKey: "nav.home", icon: Home, featureKey: "nav.mobile_home" },
   { href: "/marketplace", labelKey: "nav.marketplace", icon: Search, featureKey: "nav.mobile_search" },
+  { href: "/garage", labelKey: "nav.garage", icon: Car, featureKey: "nav.mobile_garage" },
   { href: "/messages", labelKey: "nav.messages", icon: MessageSquare, featureKey: "nav.mobile_messages" },
   { href: "/profile", labelKey: "nav.profile", icon: User, featureKey: "nav.mobile_profile" },
 ];

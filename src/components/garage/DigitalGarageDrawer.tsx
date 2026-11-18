@@ -143,12 +143,19 @@ export function DigitalGarageDrawer({
 
         <div className="pt-4 border-t border-ink-100 dark:border-ink-800 space-y-2">
           <Link
-            href="/marketplace"
+            href="/garage"
             onClick={onClose}
             className="flex items-center justify-center gap-2 w-full min-h-[44px] rounded-xl border border-ink-100 dark:border-ink-800 text-sm font-semibold text-ink-600 dark:text-ink-300 hover:border-brand/40 hover:text-brand transition-colors"
           >
-            Browse the marketplace
+            Open your digital garage
             <Icon icon={ArrowRight} size={14} />
+          </Link>
+          <Link
+            href="/marketplace"
+            onClick={onClose}
+            className="flex items-center justify-center gap-2 w-full min-h-[44px] rounded-xl text-sm font-semibold text-ink-500 dark:text-ink-400 hover:text-brand transition-colors"
+          >
+            Browse the marketplace
           </Link>
           <Link
             href="/compare"

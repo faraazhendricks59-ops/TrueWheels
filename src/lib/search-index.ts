@@ -39,6 +39,7 @@ const PAGES: SearchItem[] = [
   { id: "page-marketplace", type: "page", title: "Marketplace", subtitle: "Browse all listings", href: "/marketplace", icon: Car },
   { id: "page-sell", type: "page", title: "List a vehicle", subtitle: "Sell your car", href: "/#list", icon: FileText },
   { id: "page-messages", type: "page", title: "Messages", subtitle: "Your conversations", href: "/messages", icon: MessageSquare },
+  { id: "page-garage", type: "page", title: "Digital garage", subtitle: "Your vehicles, journals and service logs", href: "/garage", icon: Car },
   { id: "page-profile", type: "page", title: "Profile", subtitle: "Account and verification", href: "/profile", icon: User },
   { id: "page-saved-searches", type: "page", title: "Saved searches", subtitle: "Your alerts and matches", href: "/saved-searches", icon: Bell },
   { id: "page-compare", type: "page", title: "Compare vehicles", subtitle: "Side-by-side specs", href: "/compare", icon: Scale },
@@ -60,9 +61,10 @@ const PARTS: SearchItem[] = [
   { id: "part-brembo", type: "part", title: "Brembo Brake Set — Hilux 2.8", subtitle: "BrakeTech SA", href: marketplaceQuery("Brembo Hilux brakes"), icon: Wrench, meta: "R 3 250" },
 ];
 
-const DEALERS: SearchItem[] = [
-  { id: "dealer-prestige", type: "dealer", title: "Prestige Motors SA", subtitle: "Verified dealer · Sandton", href: marketplaceQuery("Prestige Motors"), icon: Store },
-];
+// "Prestige Motors SA — Verified dealer · Sandton" was here. No such dealer
+// exists and no dealership has been verified, so searching for one returned a
+// fabricated company presented as a vetted trading partner.
+const DEALERS: SearchItem[] = [];
 
 const PEOPLE: SearchItem[] = [
   { id: "person-marcus", type: "person", title: "Marcus Drifts", subtitle: "@marcusdrifts · Cape Town", href: marketplaceQuery("Marcus Drifts"), icon: Users },

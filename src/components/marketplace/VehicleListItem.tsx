@@ -4,17 +4,16 @@ import Link from "next/link";
 import { Calendar, Fuel, Gauge, MapPin } from "lucide-react";
 import { clsx } from "clsx";
 import { Icon } from "@/components/ui/Icon";
-import { Badge, TrustBadge } from "@/components/ui/Badge";
+import { Badge } from "@/components/ui/Badge";
 import type { DemoVehicle } from "@/lib/demo/vehicles";
 import { localeTag } from "@/lib/i18n/locale";
 
 interface VehicleListItemProps {
   vehicle: DemoVehicle;
   isFeatured?: boolean;
-  isVerified?: boolean;
 }
 
-export function VehicleListItem({ vehicle, isFeatured, isVerified }: VehicleListItemProps) {
+export function VehicleListItem({ vehicle, isFeatured }: VehicleListItemProps) {
   const price = `R ${vehicle.price.toLocaleString(localeTag("en"))}`;
   const mileage = `${vehicle.mileage.toLocaleString(localeTag("en"))} km`;
 
@@ -61,11 +60,10 @@ export function VehicleListItem({ vehicle, isFeatured, isVerified }: VehicleList
               </span>
             </div>
 
-            {isVerified && (
-              <div className="mt-3">
-                <TrustBadge label="Verified dealer" source="CIPC and FICA verified." tone="green" />
-              </div>
-            )}
+            {/* A "Verified dealer" badge sourced to "CIPC and FICA verified" used
+                to sit here, shown on every third listing by list position. CIPC and
+                FICA are real institutions and nothing in this project queries
+                either. A badge that appears by index is decoration, not evidence. */}
           </div>
 
           <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 sm:gap-1 flex-shrink-0">

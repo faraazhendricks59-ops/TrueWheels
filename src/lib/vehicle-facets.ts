@@ -19,10 +19,16 @@ const BODY_BY_MODEL: { match: string; body: string }[] = [
 
 export const BODY_TYPES = ["Bakkie", "SUV", "Hatchback", "Sedan"];
 
+/**
+ * "Verified dealers only" used to be here, gated behind a premium flag. It was
+ * backed by `seed % 3 === 0` over the demo record id, so it filtered by nothing
+ * but list position, and no dealer in this project has been verified. A filter
+ * that promises vetted sellers and returns arbitrary ones is worse than no
+ * filter, because the buyer reads the result as a guarantee.
+ */
 export const FEATURES: { id: string; label: string; premium?: boolean }[] = [
   { id: "sunroof", label: "Sunroof / Moonroof" },
   { id: "leather", label: "Leather seats" },
-  { id: "verified", label: "Verified dealers only", premium: true },
 ];
 
 /** Title is "<year> <make> <model>", so the make is the second token. */
@@ -51,8 +57,6 @@ export function vehicleHasFeature(vehicle: DemoVehicle, featureId: string): bool
       return seed % 4 === 0;
     case "leather":
       return seed % 2 === 0;
-    case "verified":
-      return seed % 3 === 0;
     default:
       return false;
   }

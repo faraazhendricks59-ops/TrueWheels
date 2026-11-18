@@ -12,6 +12,7 @@ import { AppShell } from "@/components/shell/AppShell";
 import { CommandPaletteProvider } from "@/components/providers/CommandPaletteProvider";
 import { ConciergeProvider } from "@/components/providers/ConciergeProvider";
 import { PersonalizationProvider } from "@/components/providers/PersonalizationProvider";
+import { GarageProvider } from "@/components/providers/GarageProvider";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { TourProvider } from "@/components/providers/TourProvider";
 import { NotificationProvider } from "@/components/providers/NotificationProvider";
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       <CommandPaletteProvider>
                         <ConciergeProvider>
                           <PersonalizationProvider>
+                          <GarageProvider>
                         <SkipLink />
                         <TopNav />
                         {/* AppShell is the single source of header clearance and
@@ -93,6 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             <OnboardingController>{children}</OnboardingController>
                           </main>
                         </AppShell>
+                          </GarageProvider>
                           </PersonalizationProvider>
                         </ConciergeProvider>
                       </CommandPaletteProvider>

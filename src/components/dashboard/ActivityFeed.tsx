@@ -4,7 +4,6 @@ import { MessageSquare, Gavel, Eye, Heart } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { clsx } from "clsx";
 import { Icon } from "@/components/ui/Icon";
-import { TrustBadge } from "@/components/ui/Badge";
 
 type ActivityType = "message" | "bid" | "view" | "save";
 
@@ -17,12 +16,18 @@ interface ActivityItem {
   isVerified?: boolean;
 }
 
-const MOCK_ACTIVITIES: ActivityItem[] = [
-  { id: "1", type: "bid", title: "Bid accepted on BMW M3", subtitle: "You are now the highest bidder at R 1 450 000", time: "2m ago", isVerified: true },
-  { id: "2", type: "message", title: "New message from Sarah J.", subtitle: "Is the Golf 8 still available for a test drive?", time: "15m ago" },
-  { id: "3", type: "view", title: "Listing viewed 45 times", subtitle: "Your VW Polo listing is performing well today.", time: "1h ago" },
-  { id: "4", type: "save", title: "Saved: 2022 Toyota Hilux", subtitle: "Added to your Digital Garage.", time: "3h ago" },
-];
+/**
+ * This feed used to be four invented events, including "Bid accepted on BMW M3 —
+ * you are now the highest bidder at R 1 450 000" carrying a badge reading "Bid
+ * verified by the TrueWheels Auction Engine". There is no auction engine and no
+ * bid was placed, so the panel told a signed-in user that they had won something
+ * and that the platform had confirmed it.
+ *
+ * There is no activity store to read from, so the feed is empty and says why.
+ * A dashboard is the worst place to invent activity, because the reader assumes
+ * the events happened to them.
+ */
+const MOCK_ACTIVITIES: ActivityItem[] = [];
 
 const TYPE_CONFIG: Record<ActivityType, { icon: LucideIcon; color: string }> = {
   message: { icon: MessageSquare, color: "text-aurora-blue" },
@@ -56,13 +61,6 @@ export function ActivityFeed() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5 flex-wrap">
                   <p className="text-sm font-semibold text-ink-900 dark:text-white truncate">{item.title}</p>
-                  {item.isVerified && (
-                    <TrustBadge
-                      label="Verified"
-                      source="Bid verified by the TrueWheels Auction Engine."
-                      tone="green"
-                    />
-                  )}
                 </div>
                 <p className="text-xs text-ink-500 dark:text-ink-300 truncate">{item.subtitle}</p>
               </div>

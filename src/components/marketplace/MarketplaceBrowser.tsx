@@ -395,7 +395,6 @@ export function MarketplaceBrowser() {
                     <VehicleListItem
                       vehicle={vehicle}
                       isFeatured={index % 5 === 0}
-                      isVerified={index % 3 === 0}
                     />
                   </div>
                 </Reveal>

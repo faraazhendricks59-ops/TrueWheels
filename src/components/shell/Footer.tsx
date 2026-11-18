@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { useState } from "react";
 import { Mail } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
@@ -73,15 +75,27 @@ export function Footer() {
               powered by AI.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="px-3 py-1.5 rounded-lg bg-ink-900 border border-ink-800 text-[10px] font-semibold text-ink-300 inline-flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-semantic-success" aria-hidden="true" />
-                POPIA compliant
-              </span>
-              <span className="px-3 py-1.5 rounded-lg bg-ink-900 border border-ink-800 text-[10px] font-semibold text-ink-300 inline-flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-aurora-blue" aria-hidden="true" />
-                AI verified
-              </span>
+            {/* Two badges sat here: "POPIA compliant" and "AI verified". Neither
+                had anything behind it. POPIA compliance is a legal status that is
+                not conferred by a green dot, and no AI in this project verifies
+                anything. The privacy statement and POPIA statement are still
+                linked below, which is the honest form of the same offer. */}
+            <p className="text-[11px] text-ink-500 leading-relaxed max-w-xs mb-1">
+              How personal information is handled is set out in our legal documents.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/legal/privacy"
+                className="inline-block py-1.5 text-[11px] text-ink-400 underline hover:text-white"
+              >
+                Privacy policy
+              </Link>
+              <Link
+                href="/legal/popia"
+                className="inline-block py-1.5 text-[11px] text-ink-400 underline hover:text-white"
+              >
+                POPIA statement
+              </Link>
             </div>
           </div>
 

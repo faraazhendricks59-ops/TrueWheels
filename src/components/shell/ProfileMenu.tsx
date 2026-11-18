@@ -8,10 +8,16 @@ import { useRouter } from "next/navigation";
 import { Dropdown, DropdownItem } from "@/components/ui/Floating";
 import { TrustBadge } from "@/components/ui/Badge";
 import { useTranslation } from "@/components/providers/I18nProvider";
+import { useAuth } from "@/components/providers/AuthProvider";
+import { ROLE_LABELS } from "@/lib/auth/roles";
 
 export function ProfileMenu({ onDark }: { onDark?: boolean } = {}) {
   const router = useRouter();
   const { t } = useTranslation();
+  const { user, role } = useAuth();
+  const initials = user?.name
+    ? user.name.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase()
+    : "G";
 
   const trigger = (
     <span
@@ -36,14 +42,14 @@ export function ProfileMenu({ onDark }: { onDark?: boolean } = {}) {
 
   return (
     <Dropdown trigger={trigger} align="right" label="Account menu">
+      {/* This block used to read "John Doe" with a "Verified Buyer" badge sourced
+          to "FICA documents and 3 successful transactions". The name belonged to
+          nobody and the check has never been performed. It now shows the name the
+          session actually carries, and the role, which is a permission level
+          rather than a verification. */}
       <div className="px-3 py-3 border-b border-ink-100 dark:border-ink-800 mb-1">
-        <p className="text-sm font-semibold text-ink-900 dark:text-white mb-1.5">John Doe</p>
-        <TrustBadge
-          label="Verified Buyer"
-          source="Identity verified via FICA documents and 3 successful transactions."
-          verifiedAt="14 Nov 2026"
-          tone="blue"
-        />
+        <p className="text-sm font-semibold text-ink-900 dark:text-white">{user?.name ?? "Not signed in"}</p>
+        <p className="text-[11px] text-ink-500 dark:text-ink-400 mt-0.5">{ROLE_LABELS[role]}</p>
       </div>
 
       <DropdownItem onClick={() => router.push("/dashboard")}>
