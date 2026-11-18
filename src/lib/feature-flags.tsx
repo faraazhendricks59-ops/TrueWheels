@@ -122,6 +122,11 @@ export const FEATURE_KEYS = {
   "contact.make_offer": true,
   "contact.test_drive": true,
   "contact.message": true,
+
+  // Share and save
+  "ui.garage": true,
+  "garage.save_vehicle": true,
+  "share.sheet": true,
   "vdp.tab_service": true,
   "vdp.tab_ownership": true,
   "vdp.tab_features": true,

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { clsx } from "clsx";
-import { Menu } from "lucide-react";
+import { Heart, Menu } from "lucide-react";
 import { useScrollFrost } from "@/hooks/useScrollFrost";
 import { Logo } from "@/components/brand/Logo";
 import { Icon } from "@/components/ui/Icon";
@@ -16,6 +16,8 @@ import { ProfileMenu } from "./ProfileMenu";
 import { RoleAwareNav } from "./RoleAwareNav";
 import { NotificationBell } from "./NotificationBell";
 import { MobileMenuSheet } from "./MobileMenuSheet";
+import { DigitalGarageDrawer } from "@/components/garage/DigitalGarageDrawer";
+import { usePersonalization } from "@/components/providers/PersonalizationProvider";
 
 const DESKTOP_LINKS: { href: string; key: TranslationKey }[] = [
   { href: "/marketplace", key: "nav.marketplace" },
@@ -28,6 +30,8 @@ export function TopNav() {
   const isScrolled = useScrollFrost(20);
   const { t } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [garageOpen, setGarageOpen] = useState(false);
+  const { savedVehicles, isHydrated } = usePersonalization();
 
   return (
     <header
@@ -84,6 +88,24 @@ export function TopNav() {
             </SmartButton>
           </span>
 
+          <FeatureGate featureKey="ui.garage">
+            <button
+              type="button"
+              onClick={() => setGarageOpen(true)}
+              aria-label="Open your garage"
+              className="relative inline-flex items-center justify-center w-11 h-11 rounded-xl text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white hover:bg-ink-50 dark:hover:bg-ink-900 transition-colors"
+            >
+              <Icon icon={Heart} size={18} />
+              {/* The count is shown only once the stored list has loaded, so the
+                  badge cannot briefly claim zero saved vehicles. */}
+              {isHydrated && savedVehicles.length > 0 && (
+                <span className="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full bg-brand text-white text-[9px] font-bold flex items-center justify-center tabular-nums">
+                  {savedVehicles.length > 99 ? "99+" : savedVehicles.length}
+                </span>
+              )}
+            </button>
+          </FeatureGate>
+
           <FeatureGate featureKey="ui.profile_menu">
             <NotificationBell />
             <ProfileMenu />
@@ -92,6 +114,7 @@ export function TopNav() {
       </div>
 
       <MobileMenuSheet isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <DigitalGarageDrawer isOpen={garageOpen} onClose={() => setGarageOpen(false)} />
     </header>
   );
 }

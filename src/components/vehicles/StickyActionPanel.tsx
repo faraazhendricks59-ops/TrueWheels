@@ -9,6 +9,10 @@ import type { DemoVehicle } from "@/lib/demo/vehicles";
 import { localeTag } from "@/lib/i18n/locale";
 import { sellerFor } from "@/lib/seller";
 import { ContactActionBar } from "./ContactActionBar";
+import { DigitalGarageButton } from "./DigitalGarageButton";
+import { ShareSheet } from "./ShareSheet";
+import { useState } from "react";
+import { Share2 } from "lucide-react";
 
 export function StickyActionPanel({
   vehicle,
@@ -19,6 +23,7 @@ export function StickyActionPanel({
 }) {
   const { monthly, deposit, termMonths, annualRate } = instalmentFor(vehicle.price);
   const seller = sellerFor(vehicle);
+  const [shareOpen, setShareOpen] = useState(false);
   const price = `R ${vehicle.price.toLocaleString(localeTag("en"))}`;
 
   return (
@@ -54,6 +59,19 @@ export function StickyActionPanel({
       ) : (
         <div className="space-y-3">
           <ContactActionBar vehicle={vehicle} seller={seller} />
+
+          <div className="grid grid-cols-2 gap-2">
+            <DigitalGarageButton vehicleId={vehicle.id} variant="full" />
+            <button
+              type="button"
+              onClick={() => setShareOpen(true)}
+              className="inline-flex items-center justify-center gap-2 w-full min-h-[44px] px-4 rounded-xl border border-ink-100 dark:border-ink-800 text-sm font-semibold text-ink-600 dark:text-ink-300 hover:border-brand/40 hover:text-brand transition-colors"
+            >
+              <Icon icon={Share2} size={15} />
+              Share
+            </button>
+          </div>
+
           <Link
             href={`/compare?v=${vehicle.id}`}
             className="flex items-center justify-center gap-2 w-full min-h-[44px] rounded-xl border border-ink-100 dark:border-ink-800 text-sm font-semibold text-ink-600 dark:text-ink-300 hover:border-brand/40 hover:text-brand transition-colors"
@@ -70,6 +88,8 @@ export function StickyActionPanel({
           confirm ownership before paying anyone.
         </p>
       )}
+
+      <ShareSheet isOpen={shareOpen} onClose={() => setShareOpen(false)} vehicle={vehicle} />
     </div>
   );
 }
