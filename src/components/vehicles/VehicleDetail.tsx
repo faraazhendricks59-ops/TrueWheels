@@ -15,6 +15,9 @@ import { VehicleGallery } from "./VehicleGallery";
 import { SpecTabs } from "./SpecTabs";
 import { FinanceCalculator } from "@/components/finance/FinanceCalculator";
 import { LenderComparison } from "@/components/finance/LenderComparison";
+import { InsuranceEstimator } from "@/components/insurance/InsuranceEstimator";
+import { InsuranceComparison } from "@/components/insurance/InsuranceComparison";
+import { InsuranceActions } from "@/components/insurance/InsuranceActions";
 import { mediaFor } from "@/lib/gallery-media";
 import { SimilarCarsWidget } from "@/components/personalization/SimilarCarsWidget";
 import { usePersonalization } from "@/components/providers/PersonalizationProvider";
@@ -111,6 +114,32 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
 
       <FeatureGate featureKey="vdp.lender_comparison">
         <LenderComparison />
+      </FeatureGate>
+
+      {/* Insurance sits under the same "Ownership Costs" heading as finance,
+          because the two together are what the car costs to run. */}
+      <FeatureGate featureKey="vdp.insurance_estimator">
+        <section aria-labelledby="ownership-costs-heading" className="space-y-6">
+          <div className="flex items-center gap-3">
+            <span className="h-px flex-1 bg-ink-100 dark:bg-ink-800" aria-hidden="true" />
+            <h2
+              id="ownership-costs-heading"
+              className="text-xl font-display font-bold text-ink-900 dark:text-white"
+            >
+              Ownership Costs
+            </h2>
+            <span className="h-px flex-1 bg-ink-100 dark:bg-ink-800" aria-hidden="true" />
+          </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <InsuranceEstimator vehicleValue={vehicle.price} />
+            <InsuranceActions vehicleTitle={vehicle.title} />
+          </div>
+        </section>
+      </FeatureGate>
+
+      <FeatureGate featureKey="vdp.insurance_comparison">
+        <InsuranceComparison />
       </FeatureGate>
 
       <FeatureGate featureKey="vdp.similar_cars">

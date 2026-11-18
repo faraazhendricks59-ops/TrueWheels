@@ -105,6 +105,11 @@ export const FEATURE_KEYS = {
   "vdp.finance_calculator": true,
   "vdp.lender_comparison": true,
   "finance.apply": true,
+
+  // Insurance
+  "vdp.insurance_estimator": true,
+  "vdp.insurance_comparison": true,
+  "insurance.get_quote": true,
   "vdp.tab_service": true,
   "vdp.tab_ownership": true,
   "vdp.tab_features": true,
