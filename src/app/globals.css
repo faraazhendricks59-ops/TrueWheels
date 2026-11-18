@@ -6,6 +6,12 @@
   :root {
     --color-brand: #E10600;
     --color-ink: #14161A;
+    /* The two muted text steps of the `ink` scale. Kept as raw channels so the
+       Tailwind opacity modifier still works. They swap under `.dark` because a
+       grey dark enough for AA on white (#3A3F47 / #5A616B) is illegible on the
+       near-black page, and the reverse also holds. */
+    --ink-500: 58 63 71;
+    --ink-400: 90 97 107;
     --aurora-gradient: linear-gradient(120deg, #4285F4, #00C8E5, #A142F4, #F439A0, #4285F4);
     /* Parked off-screen so the cursor glow is invisible until the pointer moves. */
     --mouse-x: -1000px;
@@ -170,6 +176,13 @@
     @apply bg-surface-glass backdrop-blur-xl border border-white/40 shadow-glass;
   }
   .dark .glass { @apply bg-ink-900/70 border-ink-700/40; }
+
+  /* Muted text on the dark palette: lift the two grey steps so they clear AA on
+     both the near-black page and the raised card surface. */
+  .dark {
+    --ink-500: 138 145 156;
+    --ink-400: 154 161 172;
+  }
 
   .aurora-bg {
     background: var(--aurora-gradient);

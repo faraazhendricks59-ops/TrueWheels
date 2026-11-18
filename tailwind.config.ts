@@ -8,7 +8,16 @@ const config: Config = {
       colors: {
         ink: {
           950: "#07080A", 900: "#0B0D10", 800: "#14161A", 700: "#1C1F24",
-          600: "#262A31", 500: "#3A3F47", 400: "#5A616B", 300: "#8A919C",
+          600: "#262A31",
+          // 500 and 400 are the muted text steps, and they flip with the theme.
+          // They cannot be a fixed value: a grey dark enough to pass AA on white
+          // (#5A616B, 6.3:1) is illegible on the dark page (3.1:1), and the
+          // lighter grey that reads on the dark page fails on white. Declared as
+          // raw channels so the opacity modifier (`text-ink-400/50`) still works;
+          // the two sets of values live in globals.css and swap under `.dark`.
+          500: "rgb(var(--ink-500) / <alpha-value>)",
+          400: "rgb(var(--ink-400) / <alpha-value>)",
+          300: "#8A919C",
           200: "#C3C8D0", 100: "#E4E7EB", 50: "#F2F4F6",
         },
         brand: {
