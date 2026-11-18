@@ -13,6 +13,8 @@ import { TrustHeader, VehicleTitle } from "./TrustHeader";
 import { SpecGrid } from "./SpecGrid";
 import { VehicleGallery } from "./VehicleGallery";
 import { SpecTabs } from "./SpecTabs";
+import { FinanceCalculator } from "@/components/finance/FinanceCalculator";
+import { LenderComparison } from "@/components/finance/LenderComparison";
 import { mediaFor } from "@/lib/gallery-media";
 import { SimilarCarsWidget } from "@/components/personalization/SimilarCarsWidget";
 import { usePersonalization } from "@/components/providers/PersonalizationProvider";
@@ -30,7 +32,14 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
 
   return (
     <VDPLayout
-      actionPanel={<StickyActionPanel vehicle={vehicle} />}
+      actionPanel={
+        <div className="space-y-5">
+          <StickyActionPanel vehicle={vehicle} />
+          <FeatureGate featureKey="vdp.finance_calculator">
+            <FinanceCalculator vehiclePrice={vehicle.price} />
+          </FeatureGate>
+        </div>
+      }
       compactActionPanel={<StickyActionPanel vehicle={vehicle} compact />}
     >
       <Reveal variant="up" delay={100}>
@@ -90,6 +99,10 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
           <Icon icon={Clock} size={12} />
           Listing reference {vehicle.id}. Report anything that looks wrong to the TrueWheels team.
         </p>
+      </FeatureGate>
+
+      <FeatureGate featureKey="vdp.lender_comparison">
+        <LenderComparison />
       </FeatureGate>
 
       <FeatureGate featureKey="vdp.similar_cars">
