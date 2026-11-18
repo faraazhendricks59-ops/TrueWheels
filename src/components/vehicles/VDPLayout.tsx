@@ -2,6 +2,9 @@
 
 import type { ReactNode } from "react";
 import { FeatureGate } from "@/components/feature/FeatureGate";
+import { MobileActionBar } from "./MobileActionBar";
+import { VehicleMobileActions } from "./VehicleMobileActions";
+import type { DemoVehicle } from "@/lib/demo/vehicles";
 
 /**
  * 12-column detail layout: content on the left, the conversion panel pinned to
@@ -11,11 +14,17 @@ export function VDPLayout({
   children,
   actionPanel,
   compactActionPanel,
+  mobilePrice,
+  vehicle,
 }: {
   children: ReactNode;
   actionPanel: ReactNode;
   /** Shorter version for the bottom bar, which has less room. */
   compactActionPanel?: ReactNode;
+  /** Formatted asking price, shown above the actions on small screens. */
+  mobilePrice: string;
+  /** The vehicle the mobile bar acts on. */
+  vehicle: DemoVehicle;
 }) {
   return (
     <div className="w-full max-w-[1600px] mx-auto py-6">
@@ -28,13 +37,12 @@ export function VDPLayout({
           </div>
         </aside>
 
-        {/* Bottom bar on small screens. Padding clears the home indicator. */}
-        <div
-          className="lg:hidden fixed bottom-0 left-0 right-0 z-40 px-4 pt-3 bg-white/95 dark:bg-ink-950/95 backdrop-blur-xl border-t border-ink-100 dark:border-ink-800"
-          style={{ paddingBottom: "calc(0.75rem + var(--sab))" }}
-        >
-          <FeatureGate featureKey="vdp.action_panel">{compactActionPanel ?? actionPanel}</FeatureGate>
-        </div>
+        {/* Bottom bar on small screens. There is only one, rendered here. */}
+        <MobileActionBar price={mobilePrice}>
+          <FeatureGate featureKey="vdp.action_panel">
+            {compactActionPanel ?? <VehicleMobileActions vehicle={vehicle} />}
+          </FeatureGate>
+        </MobileActionBar>
       </div>
 
       {/* Space so the bottom bar never covers the end of the page. */}

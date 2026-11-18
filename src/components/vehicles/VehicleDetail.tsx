@@ -21,6 +21,10 @@ import { InsuranceActions } from "@/components/insurance/InsuranceActions";
 import { SellerCard } from "./SellerCard";
 import { ReviewsSection } from "./ReviewsSection";
 import { sellerFor } from "@/lib/seller";
+import { ScrollSpyNav } from "./ScrollSpyNav";
+import { ActivityDisclosure } from "./ActivityDisclosure";
+import { VDPJsonLd } from "@/components/seo/VDPJsonLd";
+import { localeTag } from "@/lib/i18n/locale";
 import { mediaFor } from "@/lib/gallery-media";
 import { SimilarCarsWidget } from "@/components/personalization/SimilarCarsWidget";
 import { usePersonalization } from "@/components/providers/PersonalizationProvider";
@@ -32,6 +36,7 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
   const isSaved = savedVehicles.includes(vehicle.id);
   const media = mediaFor(vehicle);
   const seller = sellerFor(vehicle);
+  const price = `R ${vehicle.price.toLocaleString(localeTag("en"))}`;
 
   useEffect(() => {
     trackView(vehicle.id);
@@ -39,6 +44,8 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
 
   return (
     <VDPLayout
+      mobilePrice={price}
+      vehicle={vehicle}
       actionPanel={
         <div className="space-y-5">
           <StickyActionPanel vehicle={vehicle} />
@@ -50,19 +57,35 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
           </FeatureGate>
         </div>
       }
-      compactActionPanel={<StickyActionPanel vehicle={vehicle} compact />}
     >
-      <Reveal variant="up" delay={100}>
-        <FeatureGate featureKey="vdp.gallery">
-          <VehicleGallery vehicle={vehicle} media={media} />
+      {/* Structured data first, so a crawler that stops early still reads it. */}
+      <FeatureGate featureKey="vdp.structured_data">
+        <VDPJsonLd vehicle={vehicle} />
+      </FeatureGate>
+
+      <section id="gallery" className="scroll-mt-24">
+        <Reveal variant="up" delay={100}>
+          <FeatureGate featureKey="vdp.gallery">
+            <VehicleGallery vehicle={vehicle} media={media} />
+          </FeatureGate>
+        </Reveal>
+      </section>
+
+      {/* The rail sits under the title, in the flow, so it scrolls away rather
+          than competing with the fixed header for the top of the viewport. */}
+      <ScrollSpyNav />
+
+      <section id="overview" className="scroll-mt-24 space-y-6">
+        <VehicleTitle vehicle={vehicle} />
+
+        <FeatureGate featureKey="vdp.activity_disclosure">
+          <ActivityDisclosure />
         </FeatureGate>
-      </Reveal>
 
-      <VehicleTitle vehicle={vehicle} />
+        <TrustHeader vehicle={vehicle} />
 
-      <TrustHeader vehicle={vehicle} />
-
-      <SpecGrid vehicle={vehicle} />
+        <SpecGrid vehicle={vehicle} />
+      </section>
 
       <Reveal variant="up" delay={200}>
         <FeatureGate featureKey="vdp.description">
@@ -81,9 +104,11 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
         </FeatureGate>
       </Reveal>
 
-      <Reveal variant="up" delay={300}>
-        <SpecTabs vehicle={vehicle} />
-      </Reveal>
+      <section id="specs" className="scroll-mt-24">
+        <Reveal variant="up" delay={300}>
+          <SpecTabs vehicle={vehicle} />
+        </Reveal>
+      </section>
 
       <div className="flex flex-wrap items-center gap-4">
         <FeatureGate featureKey="personalization.save_vehicle">
@@ -113,15 +138,17 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
 
       {/* The sidebar that holds the calculator is hidden below lg, so it is
           rendered here too rather than being unreachable on a phone. */}
-      <FeatureGate featureKey="vdp.finance_calculator">
-        <div className="lg:hidden">
-          <FinanceCalculator vehiclePrice={vehicle.price} />
-        </div>
-      </FeatureGate>
+      <section id="finance" className="scroll-mt-24 space-y-8">
+        <FeatureGate featureKey="vdp.finance_calculator">
+          <div className="lg:hidden">
+            <FinanceCalculator vehiclePrice={vehicle.price} />
+          </div>
+        </FeatureGate>
 
-      <FeatureGate featureKey="vdp.lender_comparison">
-        <LenderComparison />
-      </FeatureGate>
+        <FeatureGate featureKey="vdp.lender_comparison">
+          <LenderComparison />
+        </FeatureGate>
+      </section>
 
       {/* Insurance sits under the same "Ownership Costs" heading as finance,
           because the two together are what the car costs to run. */}
@@ -153,15 +180,17 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
           identity is repeated here on small screens: whether the seller is a
           trade or a private seller changes the buyer's legal protection, which
           matters most when someone is reading on a phone. */}
-      <FeatureGate featureKey="vdp.seller_card">
-        <div className="lg:hidden">
-          <SellerCard seller={seller} />
-        </div>
-      </FeatureGate>
+      <section id="seller" className="scroll-mt-24 space-y-8">
+        <FeatureGate featureKey="vdp.seller_card">
+          <div className="lg:hidden">
+            <SellerCard seller={seller} />
+          </div>
+        </FeatureGate>
 
-      <FeatureGate featureKey="vdp.reviews">
-        <ReviewsSection vehicle={vehicle} seller={seller} />
-      </FeatureGate>
+        <FeatureGate featureKey="vdp.reviews">
+          <ReviewsSection vehicle={vehicle} seller={seller} />
+        </FeatureGate>
+      </section>
 
       <FeatureGate featureKey="vdp.similar_cars">
         <SimilarCarsWidget vehicle={vehicle} />

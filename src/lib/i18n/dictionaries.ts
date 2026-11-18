@@ -56,7 +56,13 @@ export type TranslationKey =
   | "a11y.theme_toggle"
   | "theme.light"
   | "theme.dark"
-  | "theme.system";
+  | "theme.system"
+  | "vdp.sections_nav"
+  | "vdp.section_gallery"
+  | "vdp.section_overview"
+  | "vdp.section_specs"
+  | "vdp.section_finance"
+  | "vdp.section_seller";
 
 const en: Record<TranslationKey, string> = {
   "nav.marketplace": "Marketplace",
@@ -95,6 +101,12 @@ const en: Record<TranslationKey, string> = {
   "theme.light": "Light",
   "theme.dark": "Dark",
   "theme.system": "System",
+  "vdp.sections_nav": "Sections of this listing",
+  "vdp.section_gallery": "Gallery",
+  "vdp.section_overview": "Overview",
+  "vdp.section_specs": "Specs & history",
+  "vdp.section_finance": "Costs",
+  "vdp.section_seller": "Seller",
 };
 
 const af: Record<TranslationKey, string> = {
@@ -134,6 +146,12 @@ const af: Record<TranslationKey, string> = {
   "theme.light": "Lig",
   "theme.dark": "Donker",
   "theme.system": "Stelsel",
+  "vdp.sections_nav": "Afdelings van hierdie advertensie",
+  "vdp.section_gallery": "Galery",
+  "vdp.section_overview": "Oorsig",
+  "vdp.section_specs": "Spesifikasies en geskiedenis",
+  "vdp.section_finance": "Koste",
+  "vdp.section_seller": "Verkoper",
 };
 
 const zu: Record<TranslationKey, string> = {
@@ -173,6 +191,12 @@ const zu: Record<TranslationKey, string> = {
   "theme.light": "Ukukhanya",
   "theme.dark": "Ubumnyama",
   "theme.system": "Uhlelo",
+  "vdp.sections_nav": "Izigaba zalesi saziso",
+  "vdp.section_gallery": "Igalari",
+  "vdp.section_overview": "Uhlolojikelele",
+  "vdp.section_specs": "Izicaciso nomlando",
+  "vdp.section_finance": "Izindleko",
+  "vdp.section_seller": "Umdayisi",
 };
 
 export const dictionaries: Record<Locale, Record<TranslationKey, string>> = { en, af, zu };

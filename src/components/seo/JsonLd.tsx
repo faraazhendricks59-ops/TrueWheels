@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/site";
 type JsonLdValue = Record<string, unknown>;
 
 interface JsonLdProps {
-  type: "Organization" | "WebSite" | "BreadcrumbList" | "Vehicle";
+  type: "Organization" | "WebSite" | "BreadcrumbList" | "Vehicle" | "Product";
   data: JsonLdValue;
 }
 

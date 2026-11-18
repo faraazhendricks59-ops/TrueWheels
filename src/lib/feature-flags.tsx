@@ -127,6 +127,11 @@ export const FEATURE_KEYS = {
   "ui.garage": true,
   "garage.save_vehicle": true,
   "share.sheet": true,
+
+  // VDP polish
+  "vdp.scroll_spy": true,
+  "vdp.activity_disclosure": true,
+  "vdp.structured_data": true,
   "vdp.tab_service": true,
   "vdp.tab_ownership": true,
   "vdp.tab_features": true,

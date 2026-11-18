@@ -9,6 +9,7 @@ import { CookieBanner } from "@/components/compliance/CookieBanner";
 import { FeatureGate } from "@/components/feature/FeatureGate";
 import { AIConciergeSheet } from "@/components/ai/AIConciergeSheet";
 import { useConcierge } from "@/components/providers/ConciergeProvider";
+import { usePathname } from "next/navigation";
 
 interface AppShellProps {
   children: ReactNode;
@@ -20,6 +21,13 @@ interface AppShellProps {
   disablePadding?: boolean;
   /** Full-bleed surfaces (map, auction room) opt out of the mobile chrome. */
   hideMobileNav?: boolean;
+  /**
+   * Hide the fixed bottom nav but keep clearance for it, for pages that render
+   * their own fixed bar in the same place. The vehicle page needs this: its
+   * action bar is the primary action, and the tab bar would otherwise sit on top
+   * of it.
+   */
+  hideBottomNav?: boolean;
   hideFooter?: boolean;
 }
 
@@ -28,9 +36,17 @@ export function AppShell({
   className,
   disablePadding = false,
   hideMobileNav = false,
+  hideBottomNav = false,
   hideFooter = false,
 }: AppShellProps) {
   const { isOpen: isConciergeOpen, close: closeConcierge } = useConcierge();
+  const pathname = usePathname();
+
+  // A vehicle page renders its own action bar in the bottom slot, so the tab bar
+  // and the floating button would both sit on top of it. The action bar is the
+  // primary action there, so the chrome gives way rather than stacking three
+  // fixed elements into the same 80 pixels.
+  const isVehicleDetail = /^\/vehicles\/[^/]+$/.test(pathname);
 
   return (
     <div
@@ -54,8 +70,8 @@ export function AppShell({
 
       {!hideMobileNav && (
         <>
-          <BottomNav />
-          <FloatingActionButton />
+          {!hideBottomNav && !isVehicleDetail && <BottomNav />}
+          {!isVehicleDetail && <FloatingActionButton />}
         </>
       )}
 

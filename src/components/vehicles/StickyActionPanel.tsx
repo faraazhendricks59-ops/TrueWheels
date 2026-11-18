@@ -53,8 +53,8 @@ export function StickyActionPanel({
       </div>
 
       {compact ? (
-        <div className="flex items-center gap-2 mt-3">
-          <ContactActionBar vehicle={vehicle} seller={seller} />
+        <div className="mt-3">
+          <ContactActionBar vehicle={vehicle} seller={seller} compact />
         </div>
       ) : (
         <div className="space-y-3">
