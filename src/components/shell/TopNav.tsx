@@ -55,10 +55,10 @@ export function TopNav() {
       style={{ paddingTop: "var(--sat)" }}
     >
       <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between gap-4 lg:gap-6">
-        <div className="flex items-center gap-6 lg:gap-7 flex-shrink-0">
+        <div className="flex items-center gap-4 lg:gap-6 min-w-0">
           <Logo size="sm" onDark={onHeroVideo} />
 
-          <nav className="hidden xl:flex items-center gap-3 2xl:gap-6" aria-label="Main">
+          <nav className="hidden xl:flex items-center gap-3 2xl:gap-6 min-w-0 overflow-x-auto hide-scrollbar" aria-label="Main">
             {DESKTOP_LINKS.map((link) => (
               <FeatureGate key={link.href} featureKey={link.key as "nav.marketplace"}>
                 <a
@@ -78,7 +78,7 @@ export function TopNav() {
           </nav>
         </div>
 
-        <div className="flex-1 min-w-0 max-w-md hidden md:block">
+        <div className="flex-1 min-w-[6rem] max-w-md hidden md:block">
           <FeatureGate featureKey="ui.omnibox">
             <NavOmnibox />
           </FeatureGate>
