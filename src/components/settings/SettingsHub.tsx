@@ -11,6 +11,7 @@ import { NotificationPreferencesV2 } from "@/components/notifications/Notificati
 import { DigestSettings } from "@/components/notifications/DigestSettings";
 import { DoNotDisturb } from "@/components/notifications/DoNotDisturb";
 import { NotificationCategories } from "@/components/notifications/NotificationCategories";
+import { DeviceNotificationInfo } from "@/components/pwa/DeviceNotificationInfo";
 
 export function SettingsHub() {
   const [activeSection, setActiveSection] = useState<SettingsSection>("profile");
@@ -28,6 +29,7 @@ export function SettingsHub() {
       case "notifications":
         return (
           <div className="space-y-6">
+            <DeviceNotificationInfo />
             <NotificationCategories />
             <NotificationPreferencesV2 />
             <DigestSettings />

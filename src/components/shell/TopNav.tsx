@@ -16,6 +16,7 @@ import { AIPill } from "./AIPill";
 import { ProfileMenu } from "./ProfileMenu";
 import { RoleAwareNav } from "./RoleAwareNav";
 import { NotificationBell } from "./NotificationBell";
+import { NetworkStatusIndicator } from "@/components/pwa/NetworkStatusIndicator";
 import { MobileMenuSheet } from "./MobileMenuSheet";
 import { DigitalGarageDrawer } from "@/components/garage/DigitalGarageDrawer";
 import { usePersonalization } from "@/components/providers/PersonalizationProvider";
@@ -132,6 +133,7 @@ export function TopNav() {
           </FeatureGate>
 
           <FeatureGate featureKey="ui.profile_menu">
+            <NetworkStatusIndicator />
             <NotificationBell onDark={onHeroVideo} />
             <ProfileMenu onDark={onHeroVideo} />
           </FeatureGate>

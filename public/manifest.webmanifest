@@ -1,0 +1,51 @@
+{
+  "name": "TrueWheels — South African vehicle marketplace",
+  "short_name": "TrueWheels",
+  "description": "Search and compare vehicles for sale in South Africa. TrueWheels holds no money and takes no payment.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#07080A",
+  "theme_color": "#E10600",
+  "lang": "en-ZA",
+  "dir": "ltr",
+  "categories": ["shopping", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Search vehicles",
+      "short_name": "Search",
+      "url": "/marketplace?source=pwa"
+    },
+    {
+      "name": "My garage",
+      "short_name": "Garage",
+      "url": "/garage?source=pwa"
+    },
+    {
+      "name": "Saved searches",
+      "short_name": "Saved",
+      "url": "/saved-searches?source=pwa"
+    }
+  ]
+}

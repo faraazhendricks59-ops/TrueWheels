@@ -8,6 +8,7 @@ import { Footer } from "./Footer";
 import { CookieBanner } from "@/components/compliance/CookieBanner";
 import { FeatureGate } from "@/components/feature/FeatureGate";
 import { AIConciergeSheet } from "@/components/ai/AIConciergeSheet";
+import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { useConcierge } from "@/components/providers/ConciergeProvider";
 import { usePathname } from "next/navigation";
 
@@ -82,6 +83,9 @@ export function AppShell({
       )}
       <CookieBanner />
       <AIConciergeSheet isOpen={isConciergeOpen} onClose={closeConcierge} />
+      {/* Offers install only when the browser has one to offer, and only after the
+          reader has spent time on the page. Renders nothing otherwise. */}
+      <InstallPrompt />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { FeatureProvider } from "@/lib/feature-flags";
 import { OnboardingController } from "@/components/onboarding/OnboardingController";
+import { ServiceWorkerRegistrar } from "@/components/pwa/ServiceWorkerRegistrar";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { ToastProvider } from "@/components/ui/Toast";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
@@ -65,6 +66,22 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "TrueWheels | South Africa’s vehicle marketplace",
   description: "Search, buy, sell, bid and connect — South Africa's automotive ecosystem.",
+  // Points the browser at the web app manifest, so "Add to home screen" uses the real
+  // name, icons and theme colour. The apple-* tags are separate because iOS Safari does
+  // not read the manifest's display mode or icons.
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "TrueWheels",
+    statusBarStyle: "black-translucent",
+  },
+  icons: {
+    icon: [
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -111,6 +128,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             <OnboardingController>{children}</OnboardingController>
                           </main>
                         </AppShell>
+                        {/* Registers /sw.js after load, so offline caching is set up
+                            without competing with the first page for bandwidth. */}
+                        <ServiceWorkerRegistrar />
                           </MessagesProvider>
                           </EventsProvider>
                           </GroupsProvider>

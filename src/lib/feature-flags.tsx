@@ -293,6 +293,14 @@ export const FEATURE_KEYS = {
   "compliance.cookie_banner": true,
   "compliance.cookie_accept": true,
   "compliance.cookie_reject": true,
+  // Progressive Web App (Phase 56). These gate real UI, so they belong here rather
+  // than being referenced from components as strings that do not resolve.
+  "pwa.install_prompt": true,
+  "pwa.install_cta": true,
+  "pwa.install_dismiss": true,
+  "pwa.offline_page": true,
+  "pwa.push_info": true,
+  "pwa.retry_connection": true,
 } as const;
 
 export type FeatureKey = keyof typeof FEATURE_KEYS;
