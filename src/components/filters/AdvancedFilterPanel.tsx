@@ -146,7 +146,7 @@ export function AdvancedFilterPanel({ onApplied }: { onApplied?: () => void }) {
           type="button"
           onClick={reset}
           disabled={activeCount === 0}
-          className="text-xs font-semibold text-brand hover:underline flex items-center gap-1 disabled:opacity-40 disabled:no-underline"
+          className="inline-flex items-center gap-1 py-1.5 text-xs font-semibold text-brand hover:underline disabled:opacity-40 disabled:no-underline"
         >
           <Icon icon={RotateCcw} size={12} /> Reset
         </button>

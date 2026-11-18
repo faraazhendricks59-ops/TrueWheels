@@ -49,7 +49,7 @@ export function TopNav() {
               <FeatureGate key={link.href} featureKey={link.key as "nav.marketplace"}>
                 <a
                   href={link.href}
-                  className="text-sm font-medium text-ink-600 dark:text-ink-300 hover:text-brand transition-colors"
+                  className="inline-flex items-center py-2 text-sm font-medium text-ink-600 dark:text-ink-300 hover:text-brand transition-colors"
                 >
                   {t(link.key)}
                 </a>

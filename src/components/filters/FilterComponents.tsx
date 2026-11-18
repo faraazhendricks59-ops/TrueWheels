@@ -29,7 +29,7 @@ export function FilterFacet({ title, options, selected, onChange, defaultOpen = 
         onClick={() => setIsOpen((open) => !open)}
         aria-expanded={isOpen}
         aria-controls={panelId}
-        className="w-full flex items-center justify-between text-sm font-semibold text-ink-900 dark:text-white"
+        className="w-full flex items-center justify-between py-2 text-sm font-semibold text-ink-900 dark:text-white"
       >
         <span className="flex items-center gap-2">
           {title}

@@ -181,7 +181,8 @@ function Slider({
         step={step}
         value={value}
         onChange={(event) => onChange(Number(event.target.value))}
-        className="w-full h-1.5 bg-ink-100 dark:bg-ink-800 rounded-full appearance-none cursor-pointer accent-brand"
+        // h-11 gives the control a 44px touch area; the visible track stays thin.
+        className="w-full h-11 bg-transparent appearance-none cursor-pointer accent-brand"
       />
     </div>
   );

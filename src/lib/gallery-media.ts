@@ -1,4 +1,5 @@
 import type { DemoVehicle } from "@/lib/demo/vehicles";
+import { photoForVehicle } from "@/lib/vehicle-photos";
 
 export type MediaType = "photo" | "spin" | "video";
 
@@ -35,14 +36,32 @@ export function spinFrameUrl(vehicleId: string, frame: number): string {
 }
 
 /**
- * The media for a listing. No photographs and no walkthrough video were
- * supplied with these demo listings, so the gallery says so: the panels are
- * placeholders and the 360 view is an illustration. Both are labelled, because
- * presenting a drawing as a photograph of the car would mislead a buyer about
- * its condition.
+ * The media for a listing.
+ *
+ * The first item is a real photograph of this model, licensed from Wikimedia
+ * Commons, so the gallery opens on an actual car of the right kind. It is not a
+ * photograph of this particular vehicle, and it carries its credit so a viewer
+ * can see where it came from. The remaining angles were never supplied, so they
+ * stay labelled placeholders, and the 360 view stays labelled an illustration;
+ * presenting either as a photograph of the car would mislead a buyer about its
+ * condition.
  */
 export function mediaFor(vehicle: DemoVehicle): GalleryMedia[] {
+  const photo = photoForVehicle(vehicle);
+
   return [
+    ...(photo
+      ? [
+          {
+            id: "hero",
+            type: "photo" as const,
+            src: photo.url,
+            label: "Photograph",
+            kind: "supplied" as const,
+            note: `Photograph of a ${photo.subject} from Wikimedia Commons by ${photo.attribution}, ${photo.licence}. Not this specific vehicle.`,
+          },
+        ]
+      : []),
     {
       id: "spin",
       type: "spin",
@@ -68,4 +87,9 @@ export function mediaBadgeLabel(media: GalleryMedia): string {
     : media.kind === "placeholder"
       ? "Placeholder"
       : "Photo";
+}
+
+/** True when the gallery has a real photograph to open on. */
+export function hasRealPhoto(vehicle: DemoVehicle): boolean {
+  return Boolean(photoForVehicle(vehicle));
 }

@@ -33,7 +33,7 @@ export function TrustHeader({ vehicle }: { vehicle: DemoVehicle }) {
             type="button"
             onClick={() => setIsOpen((value) => !value)}
             aria-expanded={isOpen}
-            className="text-[11px] font-bold text-brand hover:underline"
+            className="inline-block py-2 text-[11px] font-bold text-brand hover:underline"
           >
             {isOpen ? "Hide the checks" : "See what was checked"}
           </button>

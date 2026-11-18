@@ -92,7 +92,12 @@ export function Footer() {
                 {group.links.map((link) => (
                   <li key={link.label}>
                     {link.href ? (
-                      <a href={link.href} className="text-sm text-ink-400 hover:text-brand transition-colors">
+                      // inline-block with vertical padding so the touch target
+                      // clears 24px; a bare text link is only ~17px tall.
+                      <a
+                        href={link.href}
+                        className="inline-block py-1.5 text-sm text-ink-400 hover:text-brand transition-colors"
+                      >
                         {link.key ? t(link.key) : link.label}
                       </a>
                     ) : (

@@ -88,7 +88,7 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
         </FeatureGate>
         <Link
           href="/marketplace"
-          className="inline-flex items-center gap-2 text-sm text-ink-500 hover:text-brand transition-colors"
+          className="inline-flex items-center gap-2 py-1.5 text-sm text-ink-500 hover:text-brand transition-colors"
         >
           <Icon icon={ArrowLeft} size={14} /> Back to the marketplace
         </Link>
@@ -99,6 +99,14 @@ export function VehicleDetail({ vehicle }: { vehicle: DemoVehicle }) {
           <Icon icon={Clock} size={12} />
           Listing reference {vehicle.id}. Report anything that looks wrong to the TrueWheels team.
         </p>
+      </FeatureGate>
+
+      {/* The sidebar that holds the calculator is hidden below lg, so it is
+          rendered here too rather than being unreachable on a phone. */}
+      <FeatureGate featureKey="vdp.finance_calculator">
+        <div className="lg:hidden">
+          <FinanceCalculator vehiclePrice={vehicle.price} />
+        </div>
       </FeatureGate>
 
       <FeatureGate featureKey="vdp.lender_comparison">

@@ -30,9 +30,21 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", displ
 
 // viewport-fit=cover is required for env(safe-area-inset-*) to return anything
 // other than 0; without it the safe-area utilities are inert on iOS.
+//
+// Pinch zoom is disabled as requested: maximumScale 1 with userScalable false
+// stops the page being scaled on a touch device. Two things worth knowing.
+// Desktop browser zoom (Ctrl +/-) is unaffected, because that scales the
+// viewport rather than the page, so text can still be enlarged on a computer.
+// On mobile there is now no way to magnify anything, which WCAG 1.4.4 asks for,
+// so a low-vision user on a phone cannot enlarge the text; the type scale and
+// the touch targets are sized to be legible without magnification to offset
+// that. iOS Safari also ignores userScalable in some versions, so this is not
+// a guarantee on every handset.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
   viewportFit: "cover",
 };
 

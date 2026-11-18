@@ -243,7 +243,11 @@
     appearance: none;
     background: transparent;
     pointer-events: none;
+    /* The visible track is thin, but the element is tall so it can be touched. */
+    min-height: 2.75rem;
   }
+  .range-thumb::-webkit-slider-thumb { touch-action: none; }
+  .range-thumb::-moz-range-thumb { touch-action: none; }
   .range-thumb:focus-visible { outline: none; }
   .range-thumb::-webkit-slider-runnable-track {
     -webkit-appearance: none;

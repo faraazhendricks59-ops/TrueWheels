@@ -300,7 +300,9 @@ export function MarketplaceBrowser() {
                     </p>
                   )}
                 </div>
-                <div className="flex items-center gap-3">
+                {/* Wraps because the sort control and the layout toggle together
+                    are wider than a 320px screen allows on one line. */}
+                <div className="flex flex-wrap items-center gap-3">
                   <SmartButton
                     featureKey="filters.mobile_trigger"
                     variant="secondary"
