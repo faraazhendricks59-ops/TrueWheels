@@ -10,14 +10,12 @@ import { RecentlyViewedRail } from "@/components/personalization/RecentlyViewedR
 import { PersonalizedRail, RailCard } from "@/components/home/PersonalizedRail";
 import { AIConciergeDock } from "@/components/home/AIConciergeDock";
 import { LiveActivityRail } from "@/components/marketplace/LiveActivityRail";
-import { Badge } from "@/components/ui/Badge";
 import { FeatureGate } from "@/components/feature/FeatureGate";
 import { DEMO_VEHICLES } from "@/lib/demo/vehicles";
 import { localeTag } from "@/lib/i18n/dictionaries";
 
 /** Deterministic picks from the shared demo set, so home and marketplace agree. */
 const CONTINUE_SEARCH = DEMO_VEHICLES.slice(12, 20);
-const ENDING_SOON = DEMO_VEHICLES.slice(40, 46);
 
 /** Matches the marketplace card format so prices read identically everywhere. */
 const zar = (value: number) => `R ${value.toLocaleString(localeTag("en"))}`;
@@ -62,8 +60,8 @@ export function HomeCockpit() {
 
             <FeatureGate featureKey="home.personalized_rails">
               <PersonalizedRail
-                title="Continuing your search"
-                subtitle="Based on your recent activity"
+                title="More from the catalogue"
+                subtitle="Sample listings, picked to show the layout"
                 delay={100}
                 action={
                   <Link href="/marketplace" className="inline-block py-1.5 text-sm font-semibold text-brand hover:underline whitespace-nowrap">
@@ -82,44 +80,11 @@ export function HomeCockpit() {
                       <p className="text-xs text-ink-500 dark:text-ink-300">
                         {vehicle.mileage.toLocaleString("en-ZA")} km &middot; {vehicle.location}
                       </p>
-                      <div className="mt-3">
-                        <Badge variant="trust" tone="green">Verified</Badge>
-                      </div>
                     </div>
                   </RailCard>
                 ))}
               </PersonalizedRail>
 
-              <PersonalizedRail
-                title="Live auctions ending soon"
-                subtitle="Bid before the clock runs out"
-                delay={200}
-                action={
-                  <Link href="/marketplace" className="inline-block py-1.5 text-sm font-semibold text-brand hover:underline whitespace-nowrap">
-                    See all
-                  </Link>
-                }
-              >
-                {ENDING_SOON.map((vehicle) => (
-                  <RailCard key={vehicle.id}>
-                    <div className="relative">
-                      <VehicleMedia year={vehicle.year} />
-                      <span className="absolute top-3 left-3">
-                        <Badge variant="live" tone="red" dot pulse>Live</Badge>
-                      </span>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-bold text-ink-900 dark:text-white truncate mb-1">{vehicle.title}</h3>
-                      <p className="text-lg font-display font-bold text-brand mb-2 tabular-nums">
-                        {zar(vehicle.price)}
-                      </p>
-                      <p className="text-xs text-ink-500 dark:text-ink-300">
-                        {vehicle.mileage.toLocaleString("en-ZA")} km &middot; {vehicle.location}
-                      </p>
-                    </div>
-                  </RailCard>
-                ))}
-              </PersonalizedRail>
             </FeatureGate>
           </div>
         </MainSlot>

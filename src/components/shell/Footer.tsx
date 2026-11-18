@@ -26,7 +26,7 @@ const FOOTER_GROUPS: {
     links: [
       { label: "Browse listings", href: "/marketplace" },
       { label: "Sell a car", key: "nav.list_vehicle" },
-      { label: "Live auctions" },
+      { label: "Your network", href: "/network" },
       { label: "Parts & spares" },
     ],
   },

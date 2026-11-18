@@ -1,17 +1,34 @@
 "use client";
 
-import { Gavel, Plus, TrendingUp, type LucideIcon } from "lucide-react";
+import { Car, MapPin, Tag, type LucideIcon } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { FeatureGate } from "@/components/feature/FeatureGate";
 import { useMotion } from "@/components/motion/MotionProvider";
+import { DEMO_VEHICLES } from "@/lib/demo/vehicles";
+import { ALL_MAKES, ALL_PROVINCES } from "@/lib/vehicle-facets";
+import { localeTag } from "@/lib/i18n/locale";
 
+/**
+ * The strip used to scroll six invented events: "Golf 8 GTI sold R649 000",
+ * "M3 bid R1 450 000", "+38 new listings today", "+12 new auctions started".
+ *
+ * There is no sales ledger, no auction and no listing feed in this project, so
+ * every one of those was fabricated, and the sales and bids were the worst of
+ * them because a completed sale at a named price is the strongest evidence a
+ * marketplace can show. The "new listings today" count implied a live inventory
+ * that changes; the catalogue is a fixed sample.
+ *
+ * What remains are counts that can be recomputed from the sample set, stated as
+ * sample facts rather than as activity.
+ */
 const TICKER_ITEMS: { icon: LucideIcon; text: string; color: string }[] = [
-  { icon: TrendingUp, text: "Golf 8 GTI sold R649 000", color: "text-semantic-success" },
-  { icon: Gavel, text: "M3 bid R1 450 000", color: "text-brand" },
-  { icon: Plus, text: "+38 new listings today", color: "text-aurora-blue" },
-  { icon: TrendingUp, text: "Hilux 2.8 GD-6 sold R950 000", color: "text-semantic-success" },
-  { icon: Gavel, text: "RS6 bid R3 400 000", color: "text-brand" },
-  { icon: Plus, text: "+12 new auctions started", color: "text-aurora-blue" },
+  {
+    icon: Car,
+    text: `${DEMO_VEHICLES.length.toLocaleString(localeTag("en"))} sample listings`,
+    color: "text-aurora-blue",
+  },
+  { icon: Tag, text: `${ALL_MAKES.length} makes represented`, color: "text-semantic-success" },
+  { icon: MapPin, text: `${ALL_PROVINCES.length} provinces represented`, color: "text-brand" },
 ];
 
 export function LiveTicker() {

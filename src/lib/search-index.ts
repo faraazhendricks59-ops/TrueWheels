@@ -5,7 +5,6 @@ import {
   Wrench,
   Store,
   Users,
-  Calendar,
   FileText,
   MessageSquare,
   User,
@@ -40,6 +39,7 @@ const PAGES: SearchItem[] = [
   { id: "page-sell", type: "page", title: "List a vehicle", subtitle: "Sell your car", href: "/#list", icon: FileText },
   { id: "page-messages", type: "page", title: "Messages", subtitle: "Your conversations", href: "/messages", icon: MessageSquare },
   { id: "page-garage", type: "page", title: "Digital garage", subtitle: "Your vehicles, journals and service logs", href: "/garage", icon: Car },
+  { id: "page-network", type: "page", title: "Your network", subtitle: "Your activity and suggested listings", href: "/network", icon: Users },
   { id: "page-profile", type: "page", title: "Profile", subtitle: "Account and verification", href: "/profile", icon: User },
   { id: "page-saved-searches", type: "page", title: "Saved searches", subtitle: "Your alerts and matches", href: "/saved-searches", icon: Bell },
   { id: "page-compare", type: "page", title: "Compare vehicles", subtitle: "Side-by-side specs", href: "/compare", icon: Scale },
@@ -66,13 +66,16 @@ const PARTS: SearchItem[] = [
 // fabricated company presented as a vetted trading partner.
 const DEALERS: SearchItem[] = [];
 
-const PEOPLE: SearchItem[] = [
-  { id: "person-marcus", type: "person", title: "Marcus Drifts", subtitle: "@marcusdrifts · Cape Town", href: marketplaceQuery("Marcus Drifts"), icon: Users },
-];
+// "Marcus Drifts — @marcusdrifts · Cape Town" was here. It is a fabricated
+// member: this project has no accounts (see src/lib/profile.ts, NO_FOLLOW_GRAPH),
+// so searching for a person returned a name that belongs to nobody.
+const PEOPLE: SearchItem[] = [];
 
-const EVENTS: SearchItem[] = [
-  { id: "event-kyalami", type: "event", title: "Kyalami Track Day — November", subtitle: "21 Nov · Midrand", href: marketplaceQuery("Kyalami track day"), icon: Calendar, meta: "R 1 250" },
-];
+// "Kyalami Track Day — November, R 1 250" was here. There is no events diary and
+// no ticket seller, so it advertised a dated, priced event that is not happening
+// and cannot be booked. The community sidebar (src/lib/social.ts) removed the same
+// claim for the same reason.
+const EVENTS: SearchItem[] = [];
 
 export const SEARCH_INDEX: SearchItem[] = [
   ...PAGES,
