@@ -2,16 +2,23 @@
 
 import type { ReactNode } from "react";
 import { clsx } from "clsx";
-import { User, Lock, Shield, Smartphone, Palette, type LucideIcon } from "lucide-react";
+import { User, Lock, Shield, Smartphone, Palette, Bell, type LucideIcon } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { FeatureGate } from "@/components/feature/FeatureGate";
 
-export type SettingsSection = "profile" | "security" | "privacy" | "devices" | "appearance";
+export type SettingsSection =
+  | "profile"
+  | "security"
+  | "privacy"
+  | "notifications"
+  | "devices"
+  | "appearance";
 
 const SECTIONS: { id: SettingsSection; label: string; icon: LucideIcon; featureKey?: string }[] = [
   { id: "profile", label: "Profile", icon: User },
   { id: "security", label: "Security", icon: Lock },
   { id: "privacy", label: "Privacy & POPIA", icon: Shield },
+  { id: "notifications", label: "Notifications", icon: Bell },
   { id: "devices", label: "Devices", icon: Smartphone, featureKey: "settings.devices" },
   { id: "appearance", label: "Appearance", icon: Palette },
 ];

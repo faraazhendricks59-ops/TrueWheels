@@ -7,6 +7,10 @@ import { ProfileSettings, SecuritySettings } from "@/components/settings/Profile
 import { PrivacySettings } from "@/components/settings/PrivacySettings";
 import { AppearanceSettings } from "@/components/settings/AppearanceSettings";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { NotificationPreferencesV2 } from "@/components/notifications/NotificationPreferencesV2";
+import { DigestSettings } from "@/components/notifications/DigestSettings";
+import { DoNotDisturb } from "@/components/notifications/DoNotDisturb";
+import { NotificationCategories } from "@/components/notifications/NotificationCategories";
 
 export function SettingsHub() {
   const [activeSection, setActiveSection] = useState<SettingsSection>("profile");
@@ -21,6 +25,15 @@ export function SettingsHub() {
         return <PrivacySettings />;
       case "appearance":
         return <AppearanceSettings />;
+      case "notifications":
+        return (
+          <div className="space-y-6">
+            <NotificationCategories />
+            <NotificationPreferencesV2 />
+            <DigestSettings />
+            <DoNotDisturb />
+          </div>
+        );
       case "devices":
         return (
           <EmptyState
