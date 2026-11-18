@@ -100,6 +100,8 @@ export const FEATURE_KEYS = {
   "vdp.similar_cars": true,
   "vdp.report_listing": true,
   "vdp.tab_specs": true,
+  "vdp.tab_history": true,
+  "history.unlock_report": true,
   "vdp.tab_service": true,
   "vdp.tab_ownership": true,
   "vdp.tab_features": true,

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
-import { Gauge, ListChecks, ShieldQuestion, Users } from "lucide-react";
+import { FileSearch, Gauge, ListChecks, ShieldQuestion, Users } from "lucide-react";
 import { clsx } from "clsx";
 import { Icon } from "@/components/ui/Icon";
 import { FeatureGate } from "@/components/feature/FeatureGate";
@@ -11,12 +11,14 @@ import { SpecTable } from "./SpecTable";
 import { ServiceLog } from "./ServiceLog";
 import { OwnershipTimeline } from "./OwnershipTimeline";
 import { FeaturesList } from "./FeaturesList";
+import { HistoryTab } from "./HistoryTab";
 import type { DemoVehicle } from "@/lib/demo/vehicles";
 
-type TabId = "specs" | "service" | "ownership" | "features";
+type TabId = "specs" | "history" | "service" | "ownership" | "features";
 
 const TABS: { id: TabId; label: string; icon: LucideIcon; featureKey: FeatureKey }[] = [
   { id: "specs", label: "Specifications", icon: Gauge, featureKey: "vdp.tab_specs" },
+  { id: "history", label: "History report", icon: FileSearch, featureKey: "vdp.tab_history" },
   { id: "service", label: "Service history", icon: ListChecks, featureKey: "vdp.tab_service" },
   { id: "ownership", label: "Ownership", icon: Users, featureKey: "vdp.tab_ownership" },
   { id: "features", label: "Features", icon: ShieldQuestion, featureKey: "vdp.tab_features" },
@@ -91,6 +93,7 @@ export function SpecTabs({ vehicle }: { vehicle: DemoVehicle }) {
             {activeTab === tab.id && (
               <>
                 {tab.id === "specs" && <SpecTable vehicle={vehicle} />}
+                {tab.id === "history" && <HistoryTab vehicle={vehicle} />}
                 {tab.id === "service" && <ServiceLog vehicle={vehicle} />}
                 {tab.id === "ownership" && <OwnershipTimeline vehicle={vehicle} />}
                 {tab.id === "features" && <FeaturesList />}
