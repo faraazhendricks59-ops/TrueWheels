@@ -1,5 +1,6 @@
 import {
   Bell,
+  Calendar,
   Car,
   Scale,
   Wrench,
@@ -41,6 +42,7 @@ const PAGES: SearchItem[] = [
   { id: "page-garage", type: "page", title: "Digital garage", subtitle: "Your vehicles, journals and service logs", href: "/garage", icon: Car },
   { id: "page-network", type: "page", title: "Your network", subtitle: "Your activity and suggested listings", href: "/network", icon: Users },
   { id: "page-groups", type: "page", title: "Groups", subtitle: "Groups you keep on this device", href: "/groups", icon: Users },
+  { id: "page-events", type: "page", title: "Events", subtitle: "Events you keep on this device", href: "/events", icon: Calendar },
   { id: "page-profile", type: "page", title: "Profile", subtitle: "Account and verification", href: "/profile", icon: User },
   { id: "page-saved-searches", type: "page", title: "Saved searches", subtitle: "Your alerts and matches", href: "/saved-searches", icon: Bell },
   { id: "page-compare", type: "page", title: "Compare vehicles", subtitle: "Side-by-side specs", href: "/compare", icon: Scale },

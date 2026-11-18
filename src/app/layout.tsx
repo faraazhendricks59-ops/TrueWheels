@@ -14,6 +14,7 @@ import { ConciergeProvider } from "@/components/providers/ConciergeProvider";
 import { PersonalizationProvider } from "@/components/providers/PersonalizationProvider";
 import { GarageProvider } from "@/components/providers/GarageProvider";
 import { GroupsProvider } from "@/components/providers/GroupsProvider";
+import { EventsProvider } from "@/components/providers/EventsProvider";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import { TourProvider } from "@/components/providers/TourProvider";
 import { NotificationProvider } from "@/components/providers/NotificationProvider";
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                           <PersonalizationProvider>
                           <GarageProvider>
                           <GroupsProvider>
+                          <EventsProvider>
                         <SkipLink />
                         <TopNav />
                         {/* AppShell is the single source of header clearance and
@@ -97,6 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             <OnboardingController>{children}</OnboardingController>
                           </main>
                         </AppShell>
+                          </EventsProvider>
                           </GroupsProvider>
                           </GarageProvider>
                           </PersonalizationProvider>
