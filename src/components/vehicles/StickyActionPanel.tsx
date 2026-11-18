@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Calculator, Scale } from "lucide-react";
+import { Calculator, Scale, ShieldCheck } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { SmartButton } from "@/components/ui/SmartButton";
 import { instalmentFor } from "@/lib/finance";
@@ -83,10 +83,19 @@ export function StickyActionPanel({
       )}
 
       {!compact && (
-        <p className="mt-4 border-t border-ink-200/70 pt-4 text-[11px] leading-relaxed text-ink-500 dark:border-ink-800 dark:text-ink-400">
-          TrueWheels does not hold payments or inspect vehicles. Check the vehicle in person and
-          confirm ownership before paying anyone.
-        </p>
+        <div className="mt-4 border-t border-ink-200/70 pt-4 dark:border-ink-800">
+          <p className="text-[11px] leading-relaxed text-ink-500 dark:text-ink-400">
+            TrueWheels does not hold payments or inspect vehicles. Check the vehicle in person and
+            confirm ownership before paying anyone.
+          </p>
+          <Link
+            href={`/transactions/${vehicle.id}`}
+            className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-brand hover:underline"
+          >
+            <Icon icon={ShieldCheck} size={13} />
+            How to pay safely
+          </Link>
+        </div>
       )}
 
       <ShareSheet isOpen={shareOpen} onClose={() => setShareOpen(false)} vehicle={vehicle} />
