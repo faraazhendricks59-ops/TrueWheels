@@ -235,6 +235,102 @@
 }
 
 @layer components {
+  /* ===== CTA SHEEN =====
+     One highlight crossing a control as the pointer arrives, so a primary action
+     feels like a surface catching the light. It fires once per hover and only on
+     the control itself — it is not a looping background effect. Declared here
+     rather than as a Tailwind utility because it needs the pseudo-element, and
+     the keyframes are declared inline so the rule does not depend on the
+     animation utility being emitted elsewhere. Suppressed entirely for anyone who
+     has asked for reduced motion or is in low-data mode: a decorative sweep is
+     exactly what those settings exist to remove. */
+  .sheen-host { position: relative; overflow: hidden; }
+  .sheen-host::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 38%,
+      rgba(255, 255, 255, 0.32) 50%,
+      transparent 62%
+    );
+    transform: translateX(-160%) skewX(-12deg);
+    will-change: transform;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes sheen-sweep {
+      0% { transform: translateX(-160%) skewX(-12deg); }
+      100% { transform: translateX(340%) skewX(-12deg); }
+    }
+    .sheen-host:hover::after,
+    .sheen-host:focus-visible::after {
+      animation: sheen-sweep 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sheen-host::after { display: none; }
+  }
+  .low-data .sheen-host::after { display: none; }
+
+  /* ===== REVEAL SAFETY =====
+     A reveal starts hidden and is switched on by an IntersectionObserver. For a
+     reader who has asked for reduced motion (or is in low-data mode) that switch
+     would still happen — but only after the observer fires, so the content would
+     flash invisible first, which is worse than not animating at all. These rules
+     pin the revealed state regardless of the class the observer would have set, so
+     the very first paint is already correct. */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-host {
+      opacity: 1 !important;
+      filter: none !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+  .low-data .reveal-host {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* ===== ROUTE FADER =====
+     Each navigation fades the new page in, so moving between routes reads as one
+     continuous surface rather than a hard cut. This animates opacity ONLY. A
+     transform or filter here would establish a containing block, and every
+     `position: fixed` element inside a page (the home concierge dock, the vehicle
+     action bar) would then be positioned against this wrapper instead of the
+     viewport. Opacity establishes a stacking context but no containing block, so
+     it is the one property that is safe to animate on a full-page wrapper. */
+  @keyframes route-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .route-fade { animation: route-fade 0.26s cubic-bezier(0.22, 1, 0.36, 1); }
+  @media (prefers-reduced-motion: reduce) {
+    .route-fade { animation: none; }
+  }
+  .low-data .route-fade { animation: none; }
+
+  /* ===== CARD GRID =====
+     A fixed `grid-cols-3` breaks the moment the available width changes: on the
+     marketplace the main column narrows to 6/12 at xl to make room for the right
+     rail, and three fixed columns then squeezed each vehicle card to ~181px — too
+     narrow for a photo plus a price. auto-fill derives the column count from the
+     space that actually exists, so a card is never narrower than the minimum and
+     never stretched absurdly wide; the count drops on its own when a sidebar or
+     rail appears. `min(100%, 15rem)` keeps a single column from overflowing a
+     narrow phone before the min-width would otherwise force a second track. */
+  .card-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  }
+}
+
+@layer components {
   /* Dual-thumb range slider. The visual track and thumbs are inert elements; the
      real controls are two transparent native inputs stacked on top, which is
      what supplies keyboard, screen-reader and touch support for free. */

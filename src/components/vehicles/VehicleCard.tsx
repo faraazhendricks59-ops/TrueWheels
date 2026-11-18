@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { clsx } from "clsx";
 import { MapPin } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
 import { photoForVehicle } from "@/lib/vehicle-photos";
@@ -36,7 +37,15 @@ export function VehicleCard({ vehicle }: { vehicle: DemoVehicle }) {
     <article className="group h-full">
       <Link
         href={`/vehicles/${vehicle.id}`}
-        className="flex h-full flex-col overflow-hidden rounded-xl border border-ink-200/70 bg-white transition-colors hover:border-ink-300 dark:border-ink-800 dark:bg-ink-900 dark:hover:border-ink-700"
+        className={clsx(
+          "flex h-full flex-col overflow-hidden rounded-xl border border-ink-200/70 bg-white",
+          // A single, crisp elevation step on hover — the card lifts off the page a
+          // couple of millimetres. Deliberately not a large blur: a big shadow reads
+          // as a floating sticker, a small tight one as a physical card.
+          "transition-[border-color,box-shadow,transform] duration-200 ease-swift",
+          "hover:-translate-y-0.5 hover:border-ink-300 hover:shadow-card",
+          "dark:border-ink-800 dark:bg-ink-900 dark:hover:border-ink-700",
+        )}
       >
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-ink-100 dark:bg-ink-800">
           {photo ? (

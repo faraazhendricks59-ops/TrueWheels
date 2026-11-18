@@ -93,6 +93,10 @@ export function SmartButton({
     );
   }
 
+  // Only the primary action carries the sheen. Putting it on every variant would
+  // make the page feel restless; the point is to make one control feel decisive.
+  const isPrimary = variant === "primary";
+
   return (
     <button
       type={type}
@@ -105,6 +109,7 @@ export function SmartButton({
         "inline-flex items-center justify-center rounded-lg font-semibold transition-colors ease-swift",
         "focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-ink-950",
         "disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none",
+        isPrimary && "sheen-host",
         VARIANTS[variant],
         SIZES[size],
         className

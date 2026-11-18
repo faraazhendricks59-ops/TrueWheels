@@ -367,9 +367,9 @@ export function MarketplaceBrowser() {
           ) : visible.length === 0 ? (
             <SearchZeroState query={query.q} actions={recoveryActions} onAction={handleRecovery} />
           ) : viewMode === "grid" ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="card-grid">
               {visible.map((vehicle, index) => (
-                <Reveal key={vehicle.id} variant="up" delay={Math.min(index, 8) * 40}>
+                <Reveal key={vehicle.id} variant="focus" delay={Math.min(index, 8) * 45}>
                   <div className="relative">
                     {index === 0 && topReasons.length > 0 && (
                       <div className="absolute top-3 right-3 z-10">
@@ -384,7 +384,7 @@ export function MarketplaceBrowser() {
           ) : (
             <div className="space-y-4">
               {visible.map((vehicle, index) => (
-                <Reveal key={vehicle.id} variant="up" delay={Math.min(index, 8) * 40}>
+                <Reveal key={vehicle.id} variant="focus" delay={Math.min(index, 8) * 45}>
                   <div className="relative">
                     {index === 0 && topReasons.length > 0 && (
                       <div className="absolute top-4 right-4 z-10">

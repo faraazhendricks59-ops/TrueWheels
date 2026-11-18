@@ -100,6 +100,20 @@ const config: Config = {
           "100%": { opacity: "1", transform: "scale(1)" },
         },
         "fade-in": { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
+        // A single diagonal highlight crossing a control on hover. The whole effect
+        // is one pass of a soft gradient, so it reads as a polished surface catching
+        // the light rather than as decoration.
+        sheen: {
+          "0%": { transform: "translateX(-160%) skewX(-12deg)" },
+          "100%": { transform: "translateX(340%) skewX(-12deg)" },
+        },
+        // Entrance that resolves out of a blur. This is the "high clarity" motion:
+        // the content arrives soft and snaps into focus, which draws the eye to what
+        // just appeared far better than a slide alone.
+        "focus-in": {
+          "0%": { opacity: "0", filter: "blur(10px)", transform: "translateY(8px) scale(0.99)" },
+          "100%": { opacity: "1", filter: "blur(0px)", transform: "translateY(0) scale(1)" },
+        },
         "slide-down": { "0%": { opacity: "0", transform: "translateY(-8px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
         "slide-up": {
           "0%": { transform: "translateY(100%)" },
@@ -120,6 +134,10 @@ const config: Config = {
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "scale-in": "scale-in 0.2s cubic-bezier(0.22, 1, 0.36, 1) both",
         "fade-in": "fade-in 0.3s ease-out both",
+        // Exposed as an animation as well as a keyframe so the entrance can be
+        // replayed imperatively (a tab switch) without a transition pair.
+        "focus-in": "focus-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
+        sheen: "sheen 0.7s cubic-bezier(0.22, 1, 0.36, 1)",
         "slide-down": "slide-down 0.2s cubic-bezier(0.22, 1, 0.36, 1) both",
         "slide-up": "slide-up 0.3s cubic-bezier(0.22, 1, 0.36, 1) both",
         "slide-left": "slide-left 0.3s cubic-bezier(0.22, 1, 0.36, 1) both",

@@ -36,7 +36,7 @@ export function ViewToggle({ value, onChange }: ViewToggleProps) {
               aria-label={mode.label}
               aria-pressed={isActive}
               className={clsx(
-                "flex items-center justify-center w-9 h-9 rounded-lg transition-all ease-swift",
+                "flex h-10 w-10 items-center justify-center rounded-lg transition-colors ease-swift",
                 isActive
                   ? "bg-white dark:bg-ink-800 text-ink-900 dark:text-white shadow-sm"
                   : "text-ink-400 hover:text-ink-600 dark:hover:text-ink-300"

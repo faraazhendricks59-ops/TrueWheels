@@ -86,13 +86,13 @@ export function Footer() {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/legal/privacy"
-                className="inline-block py-1.5 text-[11px] text-ink-400 underline hover:text-white"
+                className="inline-flex min-h-[44px] items-center text-[11px] text-ink-400 underline hover:text-white"
               >
                 Privacy policy
               </Link>
               <Link
                 href="/legal/popia"
-                className="inline-block py-1.5 text-[11px] text-ink-400 underline hover:text-white"
+                className="inline-flex min-h-[44px] items-center text-[11px] text-ink-400 underline hover:text-white"
               >
                 POPIA statement
               </Link>

@@ -27,7 +27,7 @@ export function NotificationBell({ onDark }: { onDark?: boolean } = {}) {
             aria-expanded={isOpen}
             aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ""}`}
             className={clsx(
-              "relative p-2.5 rounded-xl transition-colors",
+              "relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors",
               onDark
                 ? "text-white hover:bg-white/10"
                 : "text-ink-500 hover:text-ink-900 dark:hover:text-white hover:bg-ink-50 dark:hover:bg-ink-900",

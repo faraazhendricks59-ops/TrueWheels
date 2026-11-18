@@ -54,7 +54,7 @@ export function HomeCockpit() {
                 subtitle="Sample listings, picked to show the layout"
                 delay={100}
                 action={
-                  <Link href="/marketplace" className="inline-block py-1.5 text-sm font-semibold text-brand hover:underline whitespace-nowrap">
+                  <Link href="/marketplace" className="inline-flex min-h-[44px] items-center text-sm font-semibold text-brand hover:underline whitespace-nowrap">
                     See all
                   </Link>
                 }
