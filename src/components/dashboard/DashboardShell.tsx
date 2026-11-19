@@ -41,7 +41,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                       className={clsx(
                         "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ease-swift",
                         isActive
-                          ? "bg-brand/10 text-brand"
+                          ? "bg-brand/10 text-brand-700 dark:text-brand-400"
                           : "text-ink-600 dark:text-ink-300 hover:bg-ink-50 dark:hover:bg-ink-900 hover:text-ink-900 dark:hover:text-white"
                       )}
                     >

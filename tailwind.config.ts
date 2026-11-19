@@ -66,6 +66,15 @@ const config: Config = {
           // On the dark palette the base green reaches only 3.45:1 on its own
           // tint. This lighter step is for text in dark mode; fills keep the base.
           "success-light": "#22C55E",
+          // Same problem for the other two semantics: error #DC2626 is 4.03:1 and
+          // warning #B45309 is 3.87:1 on the dark card. Text in dark mode uses
+          // these lighter steps; fills keep the base.
+          "error-light": "#F87171",
+          "warning-light": "#FBBF24",
+          // Darker step for error text on its own 10% tint in LIGHT mode, where
+          // #DC2626 is 4.13:1. Pairs with `success-dark`; both are overridden
+          // back to the light steps under `.dark` in globals.css.
+          "error-dark": "#991B1B",
         },
         // Chat surfaces. The messaging screens use the outgoing/incoming pair a
         // chat app is recognised by, plus the two wallpaper tints the thread sits

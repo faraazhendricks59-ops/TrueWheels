@@ -134,6 +134,19 @@
   .high-contrast .text-ink-600 {
     color: var(--hc-fg) !important;
   }
+  /* Surfaces that are dark in BOTH themes (the footer, dark heroes) kept their
+     dark background while the rule above forced their text to `--hc-fg`, which is
+     black in light mode: black on near-black, 1.05:1. Flatten those surfaces to
+     the high-contrast background so the forced foreground stays legible. In dark
+     mode `--hc-bg` is black, so this is a no-op there. */
+  .high-contrast .bg-ink-800,
+  .high-contrast .bg-ink-900,
+  .high-contrast .bg-ink-950 {
+    background-color: var(--hc-bg) !important;
+  }
+  .high-contrast .text-white {
+    color: var(--hc-fg) !important;
+  }
   .high-contrast .glass {
     background-color: var(--hc-bg) !important;
     backdrop-filter: none !important;
@@ -617,8 +630,20 @@
 }
 
 .dark .text-semantic-success,
-.dark .hover\:text-semantic-success:hover {
+.dark .hover\:text-semantic-success:hover,
+.dark .text-semantic-success-dark {
   color: theme("colors.semantic.success-light");
+}
+
+.dark .text-semantic-error,
+.dark .hover\:text-semantic-error:hover,
+.dark .text-semantic-error-dark {
+  color: theme("colors.semantic.error-light");
+}
+
+.dark .text-semantic-warning,
+.dark .hover\:text-semantic-warning:hover {
+  color: theme("colors.semantic.warning-light");
 }
 
 .dark .text-aurora-purple,

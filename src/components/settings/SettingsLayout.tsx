@@ -45,7 +45,7 @@ export function SettingsLayout({ activeSection, onSectionChange, children }: Set
                 className={clsx(
                   "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ease-swift text-left",
                   isActive
-                    ? "bg-brand/10 text-brand shadow-sm"
+                    ? "bg-brand/10 text-brand-700 dark:text-brand-400 shadow-sm"
                     : "text-ink-600 dark:text-ink-300 hover:bg-ink-50 dark:hover:bg-ink-900"
                 )}
               >

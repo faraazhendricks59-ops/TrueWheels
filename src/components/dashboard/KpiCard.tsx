@@ -9,8 +9,8 @@ import { CountUp } from "@/components/motion/CountUp";
 type Trend = "up" | "down" | "neutral";
 
 const TREND_CONFIG: Record<Trend, { icon: LucideIcon; color: string; bg: string; label: string }> = {
-  up: { icon: TrendingUp, color: "text-semantic-success", bg: "bg-semantic-success/10", label: "increased" },
-  down: { icon: TrendingDown, color: "text-semantic-error", bg: "bg-semantic-error/10", label: "decreased" },
+  up: { icon: TrendingUp, color: "text-semantic-success-dark", bg: "bg-semantic-success/10", label: "increased" },
+  down: { icon: TrendingDown, color: "text-semantic-error-dark", bg: "bg-semantic-error/10", label: "decreased" },
   neutral: { icon: Minus, color: "text-ink-400", bg: "bg-ink-100 dark:bg-ink-800", label: "unchanged" },
 };
 
